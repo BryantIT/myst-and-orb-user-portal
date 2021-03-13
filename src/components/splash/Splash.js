@@ -1,5 +1,6 @@
 import React from 'react'
 import './style.css'
+import { NavLink } from 'react-router-dom'
 
 const Splash = () => {
   return(
@@ -11,6 +12,12 @@ const Splash = () => {
     </div>
     <canvas id="noise" className="noise"></canvas>
   <div className="vignette"></div>
+  <div className='divider'></div>
+  <div>
+    <NavLink to='/members' className="main-title" id="main-title">Members</NavLink>
+    |
+    <NavLink to='/guests' className="main-title" id="main-title">Guests</NavLink>
+  </div>
 </main>
   )
 }
