@@ -1,0 +1,18 @@
+import React from 'react'
+import './style.css'
+
+const Splash = () => {
+  return(
+    <main role="main" className="main-content" id="main-content">
+    <div className="titleCont">
+        <h1 className="main-title" id="main-title">
+            "Through the dark,<br /><span style={{ paddingLeft: 100 }}>the most haunted,</span><br /><span style={{ paddingRight:110 }}>where all fear to tread,</span><br /><span style={{ paddingLeft: -20 }}>the Myst & Orb Society."</span>
+        </h1>
+    </div>
+    <canvas id="noise" className="noise"></canvas>
+  <div className="vignette"></div>
+</main>
+  )
+}
+
+export default Splash
