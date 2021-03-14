@@ -3,7 +3,7 @@ import './style.css'
 
 const Guests = () => {
   return(
-    <div>
+    <div className='background' >
       Hello Guests
     </div>
   )

@@ -1,3 +1,24 @@
 body {
-  background-color: black;
+  color: white;
+}
+
+.background {
+  width: 100vw;
+  height: 100vw;
+  overflow: hidden;
+  background: radial-gradient(circle, rgba(55, 53, 53, 1) 0%, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%);
+}
+
+.background::after {
+  content:"";
+  position: absolute;
+  width: 200vw;
+  height: 200vh;
+  left: -50%;
+  top: -50%;
+  background: url(../../images/Grain-Texture-08.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }

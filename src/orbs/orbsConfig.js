@@ -4,7 +4,7 @@ const orbsConfig = {
       "value": 1,
       "density": {
         "enable": true,
-        "value_area": 800
+        "value_area": 2367.442924896818
       }
     },
     "color": {
@@ -37,7 +37,7 @@ const orbsConfig = {
     },
     "size": {
       "value": 5,
-      "random": true,
+      "random": false,
       "anim": {
         "enable": false,
         "speed": 40,
@@ -46,7 +46,7 @@ const orbsConfig = {
       }
     },
     "line_linked": {
-      "enable": true,
+      "enable": false,
       "distance": 150,
       "color": "#ffffff",
       "opacity": 0.4,
