@@ -1,5 +1,6 @@
 body {
-  color: white
+  color: white;
+
 }
 
 .background {
@@ -7,18 +8,12 @@ body {
   height: 100vw;
   overflow: hidden;
   background: radial-gradient(circle, rgba(55, 53, 53, 1) 0%, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%);
+  padding-top: 4px;
 }
 
-.background::after {
-  content:"";
-  position: absolute;
-  width: 100vw;
-  height: 100vw;
-  left: -50%;
-  top: -50%;
-  background: url(../../images/Grain-Texture-08.png) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+
+
+.main {
+  display: grid;
+  grid-template-rows: 350px auto
 }
