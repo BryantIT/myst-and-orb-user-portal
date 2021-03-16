@@ -1,10 +1,11 @@
 import React from 'react'
+import './style.css'
 
 const Navbar = () => {
   return (
-    <div>
+    <nav className='navbar'>
       Hello Navbar
-    </div>
+    </nav>
   )
 }
 
