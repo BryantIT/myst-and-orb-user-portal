@@ -6,7 +6,7 @@ import logo from './logo.svg'
 import './App.css'
 import { Route, Switch, withRouter  } from 'react-router-dom'
 // Database
-import db from './firebase'
+import { db } from './firebase'
 
 function App() {
   const [info, setInfo] = useState('')
