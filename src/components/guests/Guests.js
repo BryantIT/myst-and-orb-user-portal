@@ -1,10 +1,15 @@
 import React from 'react'
 import './style.css'
 
-const Guests = () => {
+const Guests = ({ info }) => {
+
+  console.log('Inside Guests', info[0])
+
   return(
     <div className='background' >
-      Hello Guests
+      {
+        info.about
+      }
     </div>
   )
 }

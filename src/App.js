@@ -26,11 +26,15 @@ function App() {
     getInfo()
   }, [])
 
+  console.log(info)
+
   return (
     <Fragment>
       <Switch>
         <Route exact path='/' component={Splash} />
-        <Route exact path='/guests' component={Guests} />
+        <Route exact path='/guests'>
+          <Guests info={info} />
+        </Route>
       </Switch>
     </Fragment>
   )
