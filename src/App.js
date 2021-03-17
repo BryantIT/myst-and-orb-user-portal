@@ -2,7 +2,7 @@ import React , { Fragment, useState, useEffect } from 'react'
 // Components
 import Guests from './components/guests/Guests'
 import Splash from './components/splash/Splash'
-import logo from './logo.svg'
+import Navbar from './components/nav/Navbar'
 import './App.css'
 import { Route, Switch, withRouter  } from 'react-router-dom'
 // Database
@@ -14,9 +14,12 @@ function App() {
     <Fragment>
       <Switch>
         <Route exact path='/' component={Splash} />
-        <Route exact path='/guests'>
-          <Guests />
-        </Route>
+        <div>
+          <Navbar />
+          <Route exact path='/guests'>
+            <Guests />
+          </Route>
+        </div>
       </Switch>
     </Fragment>
   )

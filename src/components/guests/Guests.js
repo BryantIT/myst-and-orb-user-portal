@@ -34,9 +34,7 @@ const Guests = () => {
 
   return(
     <Fragment>
-      <Navbar />
       <div className='background' >
-
         {
           aboutInfo
         }
