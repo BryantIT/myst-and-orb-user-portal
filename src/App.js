@@ -1,5 +1,6 @@
 import React , { Fragment, useEffect } from 'react'
 // Components
+import Home from './components/home/Home'
 import Guests from './components/guests/Guests'
 import Splash from './components/splash/Splash'
 import Navbar from './components/nav/Navbar'
@@ -15,8 +16,8 @@ function App() {
           <Route exact path='/' component={Splash} />
           <Fragment>
             <Navbar />
-            <Route exact path='/guests'>
-              <Guests />
+            <Route exact path='/home'>
+              <Home />
             </Route>
           </Fragment>
         </Switch>

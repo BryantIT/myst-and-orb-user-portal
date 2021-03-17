@@ -1,4 +1,6 @@
 import React, { Fragment } from 'react'
+// Styles
+import { BottomDivider, TopDivider } from './Styles'
 import './style.css'
 import { NavLink } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
@@ -14,6 +16,7 @@ const Splash = () => {
       </Helmet>
 
       <main role="main" className="main-content" id="main-content">
+        <TopDivider src='images/divider.svg' alt='Home' />
         <h1 className="main-title">Manes daemones spirituum, O mi.</h1>
       <div className="titleCont">
           <h1 className="main-title" id="main-title">
@@ -22,11 +25,9 @@ const Splash = () => {
       </div>
       <canvas id="noise" className="noise"></canvas>
     <div className="vignette"></div>
-    <div className='divider'></div>
+    <BottomDivider src='images/divider.svg' alt='Home' />
     <div>
-      <NavLink to='/members' className="main-title" id="main-title">Members</NavLink>
-      |
-      <NavLink to='/guests' className="main-title" id="main-title">Guests</NavLink>
+      <NavLink to='/home' className="main-title" id="main-title">Enter</NavLink>
     </div>
   </main>
     </Fragment>
