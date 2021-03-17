@@ -34,7 +34,6 @@ export const NavLink = styled(Link)`
 export const Bars = styled(FaBars)`
   display: none;
   color: #fff;
-  display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 2rem;
@@ -48,15 +47,7 @@ export const Bars = styled(FaBars)`
   &:focus {
     outline: none;
   }
-  div {
-    width: 2rem;
-    height: 0.25rem;
-    background: ${({ theme }) => theme.primaryLight};
-    border-radius: 10px;
-    transition: all 0.3s linear;
-    position: relative;
-    transform-origin: 1px;
-  }
+  
   @media screen and (max-width: 768px) {
     display: block;
     position: absolute;

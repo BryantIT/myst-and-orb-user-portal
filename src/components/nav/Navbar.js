@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 // Components
 import MobileMenu from './MobileMenu'
 // Style
@@ -8,7 +8,8 @@ import {
   Bars,
   NavMenu,
   NavBtn,
-  NavBtnLink
+  NavBtnLink,
+  BarsContainer
 } from './Styles'
 
 const Navbar = () => {
@@ -19,6 +20,10 @@ const Navbar = () => {
       setOpen(!open)
     )
   }
+
+  useEffect(() => {
+    setOpen(false)
+  }, [])
 
   return (
     <Fragment>
