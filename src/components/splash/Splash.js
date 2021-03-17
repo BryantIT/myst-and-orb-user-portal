@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom'
 const Splash = () => {
   return(
     <main role="main" className="main-content" id="main-content">
+      <h1 className="main-title">Manes daemones spirituum, O mi.</h1>
     <div className="titleCont">
         <h1 className="main-title" id="main-title">
             "Through the dark,<br /><span style={{ paddingLeft: 100 }}>the most haunted,</span><br /><span style={{ paddingRight:110 }}>where all fear to tread,</span><br /><span style={{ paddingLeft: -20 }}>the Myst & Orb Society."</span>
