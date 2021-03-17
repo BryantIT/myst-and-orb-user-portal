@@ -1,7 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import './style.css'
-// Components
-import Navbar from '../nav/Navbar'
 // Firebase
 import { db } from '../../firebase'
 

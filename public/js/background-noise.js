@@ -75,15 +75,6 @@ const noise = () => {
             }, 200);
         }, false);
     };
-
-
-    // Init
-    const init = (() => {
-        canvas = document.getElementById('noise');
-        ctx = canvas.getContext('2d');
-
-        setup();
-    })();
 };
 
 noise();
