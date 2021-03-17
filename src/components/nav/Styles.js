@@ -34,6 +34,29 @@ export const NavLink = styled(Link)`
 export const Bars = styled(FaBars)`
   display: none;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+
+  &:focus {
+    outline: none;
+  }
+  div {
+    width: 2rem;
+    height: 0.25rem;
+    background: ${({ theme }) => theme.primaryLight};
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+  }
   @media screen and (max-width: 768px) {
     display: block;
     position: absolute;
@@ -99,5 +122,45 @@ display: block;
     background: #fff;
     color: #1888ff;
     transition: 250ms;
+  }
+`
+
+export const MobileMenuStyle = styled.nav`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #000000;
+  height: 50vh;
+  text-align: left;
+  padding: 2rem;
+  top: 0;
+  left: 0;
+  padding-bottom: 2rem;
+  transition: transform 0.3s ease-in-out;
+
+  @media  {
+    width: 100%;
+  }
+
+  a {
+    font-size: 2rem;
+    text-transform: uppercase;
+    padding: 2rem 0;
+    font-weight: bold;
+    letter-spacing: 0.5rem;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s linear;
+
+    @media {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    &:hover {
+      transition: all 0.2s ease-in-out;
+      background: #fff;
+      color: #010606;
+    }
   }
 `

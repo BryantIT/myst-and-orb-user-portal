@@ -1,24 +1,19 @@
 import React from 'react'
-import './mobile.css'
+import { MobileMenuStyle } from './Styles'
 
 const MobileMenu = () => {
   return (
-    <label>
-  <span className='menu'>
-    <span className='hamburger'></span>
-  </span>
-  <ul>
-    <li>
-      <a href='#'>Home</a>
-    </li>
-    <li>
-      <a href='#'>About</a>
-    </li>
-    <li>
-      <a href='#'>Work</a>
-    </li>
-  </ul>
-</label>
+    <MobileMenuStyle>
+      <a href="/">
+        About us
+      </a>
+      <a href="/">
+        Pricing
+        </a>
+      <a href="/">
+        Contact
+        </a>
+    </MobileMenuStyle>
   )
 }
 

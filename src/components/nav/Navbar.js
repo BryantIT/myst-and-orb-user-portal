@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 // Components
 import MobileMenu from './MobileMenu'
 // Style
@@ -12,9 +12,11 @@ import {
 } from './Styles'
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false)
+
   const handleMobileMenu = () => {
     return (
-      <MobileMenu />
+      setOpen(!open)
     )
   }
 
@@ -25,6 +27,9 @@ const Navbar = () => {
           Home
         </NavLink>
         <Bars onClick={handleMobileMenu}/>
+        {
+          open ? <MobileMenu /> : null
+        }
         <NavMenu>
           <NavLink to='/about' activeStyle>
             About
