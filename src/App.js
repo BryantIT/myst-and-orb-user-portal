@@ -12,15 +12,17 @@ function App() {
 
   return (
     <Fragment>
-      <Switch>
-        <Route exact path='/' component={Splash} />
-        <div>
-          <Navbar />
-          <Route exact path='/guests'>
-            <Guests />
-          </Route>
-        </div>
-      </Switch>
+      <div className='App'>
+        <Switch>
+          <Route exact path='/' component={Splash} />
+          <div>
+            <Navbar />
+            <Route exact path='/guests'>
+              <Guests />
+            </Route>
+          </div>
+        </Switch>
+      </div>
     </Fragment>
   )
 }
