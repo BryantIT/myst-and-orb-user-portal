@@ -2,6 +2,13 @@ import { FaBars } from 'react-icons/fa'
 import { NavLink as Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+export const HomeLogo = styled.img`
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 50px;
+`
+
 export const Nav = styled.nav`
   background: #000;
   height: 80px;
@@ -47,7 +54,7 @@ export const Bars = styled(FaBars)`
   &:focus {
     outline: none;
   }
-  
+
   @media screen and (max-width: 768px) {
     display: block;
     position: absolute;

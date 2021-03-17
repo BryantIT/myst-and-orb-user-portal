@@ -8,7 +8,8 @@ import {
   Bars,
   NavMenu,
   NavBtn,
-  NavBtnLink
+  NavBtnLink,
+  HomeLogo
 } from './Styles'
 
 const Navbar = () => {
@@ -28,7 +29,7 @@ const Navbar = () => {
     <Fragment>
       <Nav>
         <NavLink to='/'>
-          Home
+          <HomeLogo src='images/logo.png' alt='Home' />
         </NavLink>
         <Bars onClick={handleMobileMenu}/>
         {
