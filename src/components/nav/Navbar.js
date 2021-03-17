@@ -1,31 +1,49 @@
-import React from 'react'
-import './style.css'
+import React, { Fragment } from 'react'
+// Components
+import MobileMenu from './MobileMenu'
+// Style
+import {
+  Nav,
+  NavLink,
+  Bars,
+  NavMenu,
+  NavBtn,
+  NavBtnLink
+} from './Styles'
 
 const Navbar = () => {
+  const handleMobileMenu = () => {
+    return (
+      <MobileMenu />
+    )
+  }
+
   return (
-    <nav>
-    <ul>
-      <li><a href="#0">Home</a></li>
-      <li><a href="#0">About</a></li>
-      <li>
-        <a href="#0">Clients</a>
-        <ul>
-          <li><a href="#0">Burger King</a></li>
-          <li><a href="#0">Southwest Airlines</a></li>
-          <li><a href="#0">Levi Strauss</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#0">Services</a>
-        <ul>
-          <li><a href="#0">Print Design</a></li>
-          <li><a href="#0">Web Design</a></li>
-          <li><a href="#0">Mobile App Development</a></li>
-        </ul>
-      </li>
-      <li><a href="#0">Contact</a></li>
-    </ul>
-  </nav>
+    <Fragment>
+      <Nav>
+        <NavLink to='/'>
+          Home
+        </NavLink>
+        <Bars onClick={handleMobileMenu}/>
+        <NavMenu>
+          <NavLink to='/about' activeStyle>
+            About
+          </NavLink>
+          <NavLink to='/services' activeStyle>
+            Services
+          </NavLink>
+          <NavLink to='/contact-us' activeStyle>
+            Contact Us
+          </NavLink>
+          <NavLink to='/sign-up' activeStyle>
+            Sign Up
+          </NavLink>
+        </NavMenu>
+        <NavBtn>
+          <NavBtnLink to='/signin'>Sign In</NavBtnLink>
+        </NavBtn>
+      </Nav>
+    </Fragment>
   )
 }
 
