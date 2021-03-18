@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react'
 import {
   Container,
   WelcomeContainer,
-  AboutContainer} from './Styles'
+  AboutContainer,
+  Divider} from './Styles'
 // Firebase
 import { db } from '../../firebase'
 
@@ -42,6 +43,7 @@ const About = () => {
       <WelcomeContainer>
         {welcome}
       </WelcomeContainer>
+      <Divider />
       <AboutContainer>
         {about}
       </AboutContainer>

@@ -8,8 +8,26 @@ export const Container = styled.div`
 export const WelcomeContainer = styled.div`
   text-align: center;
   padding-bottom: 10px;
+  font-size: 50px;
 `
 
 export const AboutContainer = styled.div`
 
+`
+
+export const Divider = styled.div`
+  position: relative;
+  margin-top: 5px;
+  height: 1px;
+  padding: 6px;
+  &:before {
+    content: "";
+	  position: absolute;
+	  top: 0;
+	  left: 5%;
+	  right: 5%;
+	  width: 90%;
+	  height: 10px;
+	  background-image: linear-gradient(to right, transparent, #a1a1a1, transparent);
+  }
 `
