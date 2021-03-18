@@ -1,43 +1,32 @@
 import React, { Fragment, useState, useEffect } from 'react'
+// Components
+import About from '../general/About'
+import Ads from '../ads/Ads'
+import UserProfileMini from '../users/UserProfileMini'
 // Style
-import { Main } from './Styles'
-// Firebase
-import { db } from '../../firebase'
+import {
+  Main,
+  UserSide,
+  AdSide,
+  Interior} from './Styles'
 
-const Guests = () => {
-  const [aboutInfo, setAboutInfo]= useState('')
-  const [info, setInfo] = useState('')
-
-  const getInfo = () => {
-    db.collection('information').onSnapshot((snapshot) => {
-      setInfo(snapshot.docs.map((doc) => {
-        return {
-          id: doc.id,
-          about: doc.data().about
-        }
-      }))
-    })
-  }
-
-  useEffect(() => {
-    getInfo()
-  }, [])
-
-  useEffect(() => {
-    if(info){
-      setAboutInfo(info[0].about)
-    }
-  }, [info])
+const Home = () => {
 
   return(
     <Fragment>
       <Main>
-        {
-          aboutInfo
-        }
+        <UserSide>
+          <UserProfileMini />
+        </UserSide>
+        <AdSide>
+          <Ads />
+        </AdSide>
+        <Interior>
+          <About />
+        </Interior>
       </Main>
     </Fragment>
   )
 }
 
-export default Guests
+export default Home
