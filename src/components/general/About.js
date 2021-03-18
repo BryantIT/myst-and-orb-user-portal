@@ -3,14 +3,16 @@ import React, { useState, useEffect } from 'react'
 import { db } from '../../firebase'
 
 const About = () => {
-  const [aboutInfo, setAboutInfo]= useState('')
-  const [info, setInfo] = useState('')
+  const [about, setAbout]= useState('')
+  const [welcome, setWelcome] = useState('')
+  const [info, setInfo] = useState([])
 
   const getInfo = () => {
     db.collection('information').onSnapshot((snapshot) => {
       setInfo(snapshot.docs.map((doc) => {
         return {
           id: doc.id,
+          welcome: doc.data().welcome,
           about: doc.data().about
         }
       }))
@@ -23,14 +25,17 @@ const About = () => {
 
   useEffect(() => {
     if(info){
-      setAboutInfo(info[0].about)
+      info.map(i => {
+        setAbout(i.about)
+        setWelcome(i.welcome)
+      })
     }
   }, [info])
 
   return (
     <div>
     {
-      aboutInfo
+      about
     }
     </div>
   )

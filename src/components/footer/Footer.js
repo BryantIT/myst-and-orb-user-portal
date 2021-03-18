@@ -1,8 +1,12 @@
 import React from 'react'
+// Styles
+import { Main } from './Styles'
 
 const Footer = () => {
   return (
-    <div>Hello Footer</div>
+    <Main>
+      Hello Footer
+    </Main>
   )
 }
 

@@ -1,5 +1,6 @@
 import React , { Fragment, useEffect } from 'react'
 // Components
+import Footer from './components/footer/Footer'
 import Home from './components/home/Home'
 import Splash from './components/splash/Splash'
 import Navbar from './components/nav/Navbar'
@@ -18,6 +19,7 @@ function App() {
             <Route exact path='/home'>
               <Home />
             </Route>
+            <Footer />
           </Fragment>
         </Switch>
       </div>
