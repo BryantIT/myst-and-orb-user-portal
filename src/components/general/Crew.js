@@ -5,3 +5,5 @@ const Crew = () => {
     <div>Hello Crew</div>
   )
 }
+
+export default Crew
