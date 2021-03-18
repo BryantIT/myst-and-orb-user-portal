@@ -36,6 +36,7 @@ export const Main = styled.main`
   background: linear-gradient(to right, rgba(36,31,31,1) 0%, rgba(36,31,31,1) 32%, rgba(74,71,70,1) 100%);
   color: #fff;
   text-align: center;
+  z-index: 0;
   &:after {
   animation: ${grainAnimation} 20s steps(10) infinite;
   background-image: url('images/vintage_speckles.png');
@@ -46,6 +47,7 @@ export const Main = styled.main`
   position: fixed;
   top: -100%;
   width: 300%;
+  z-index: -1;
   }
 `
 
