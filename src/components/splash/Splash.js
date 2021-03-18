@@ -23,7 +23,7 @@ const Splash = () => {
     <Vignette />
     <BottomDivider src='images/divider.svg' alt='Home' />
     <MainTitle>
-      <StyledLink to='/About' id="main-title">Enter</StyledLink>
+      <StyledLink to='/about' id="main-title">Enter</StyledLink>
     </MainTitle>
       </Main>
     </Fragment>

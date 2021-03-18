@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+// Components
+import Loading from '../loading/Loading'
 // Styles
 import {
   Container,
@@ -12,6 +14,7 @@ const About = () => {
   const [about, setAbout]= useState('')
   const [welcome, setWelcome] = useState('')
   const [info, setInfo] = useState([])
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const getInfo = () => {
     db.collection('information').onSnapshot((snapshot) => {
@@ -34,11 +37,13 @@ const About = () => {
       info.map(i => {
         setAbout(i.about)
         setWelcome(i.welcome)
+        setIsLoaded(true)
       })
     }
   }, [info])
 
   return (
+    isLoaded ?
     <Container>
       <WelcomeContainer>
         {welcome}
@@ -47,7 +52,7 @@ const About = () => {
       <AboutContainer>
         {about}
       </AboutContainer>
-    </Container>
+    </Container> : <Loading />
   )
 }
 
