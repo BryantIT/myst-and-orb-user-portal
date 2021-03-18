@@ -11,13 +11,33 @@ export const HomeLogo = styled.img`
 export const Main = styled.div`
   background: #000;
   height: 80px;
-  display: flex;
   justify-content: space-between;
   padding: 0.5rem calc((100vw - 1000px) / 2);
   z-index: 10;
   position: sticky;
   bottom: 0;
   border-top: 3px solid #a1a1a1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 80px;
+  gap: 1px 1px;
+  grid-template-areas:
+    "CopyWrite FooterInfo FooterInfo Social";
+`
+
+export const CopyWrite = styled.div`
+  grid-area: CopyWrite;
+  padding-top: 20px;
+`
+
+export const FooterInfo = styled.div`
+  grid-area: FooterInfo;
+  padding-top: 20px;
+`
+
+export const Social = styled.div`
+  grid-area: Social;
+  padding-top: 20px;
 `
 
 export const NavLink = styled(Link)`
