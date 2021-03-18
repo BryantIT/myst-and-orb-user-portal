@@ -11,6 +11,7 @@ export const HomeLogo = styled.img`
 export const Main = styled.div`
   background: #000;
   height: 80px;
+  font-size: 16px;
   justify-content: space-between;
   padding: 0.5rem calc((100vw - 1000px) / 2);
   z-index: 10;
