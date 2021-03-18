@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react'
+// Styles
+import {
+  Container,
+  WelcomeContainer,
+  AboutContainer} from './Styles'
 // Firebase
 import { db } from '../../firebase'
 
@@ -33,11 +38,14 @@ const About = () => {
   }, [info])
 
   return (
-    <div>
-    {
-      about
-    }
-    </div>
+    <Container>
+      <WelcomeContainer>
+        {welcome}
+      </WelcomeContainer>
+      <AboutContainer>
+        {about}
+      </AboutContainer>
+    </Container>
   )
 }
 

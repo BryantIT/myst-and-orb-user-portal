@@ -18,6 +18,7 @@ export const Nav = styled.nav`
   z-index: 10;
   position: sticky;
   top: 0;
+  border-bottom: 3px solid #a1a1a1;
 `
 
 export const NavLink = styled(Link)`
