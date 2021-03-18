@@ -5,7 +5,8 @@ import {
   Main,
   CopyWrite,
   FooterInfo,
-  Social} from './Styles'
+  Social,
+  VerticalLine} from './Styles'
 
 const Footer = () => {
   const [currentYear, setCurrentYear] = useState('')
