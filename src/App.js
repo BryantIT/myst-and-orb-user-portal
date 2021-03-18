@@ -15,10 +15,10 @@ import { Main, UserSide, AdSide, Interior } from "./Styles";
 function App() {
   return (
     <Fragment>
+    <Route exact path="/" component={Splash} />
       <div className="App">
         <Navbar />
         <Main>
-          <Route exact path="/" component={Splash} />
           <UserSide>
             <UserProfileMini />
           </UserSide>
@@ -27,7 +27,7 @@ function App() {
           </AdSide>
           <Switch>
             <Interior>
-              <Route exact path="/home">
+              <Route exact path="/about">
                 <About />
               </Route>
               <Route exact path="/crew">
