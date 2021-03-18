@@ -12,7 +12,8 @@ export const WelcomeContainer = styled.div`
 `
 
 export const AboutContainer = styled.div`
-
+  padding-top: 6px;
+  font-size: 20px;
 `
 
 export const Divider = styled.div`

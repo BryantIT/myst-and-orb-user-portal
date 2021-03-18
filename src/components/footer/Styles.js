@@ -16,7 +16,8 @@ export const Main = styled.div`
   padding: 0.5rem calc((100vw - 1000px) / 2);
   z-index: 10;
   position: sticky;
-  top: 0;
+  bottom: 0;
+  border-top: 3px solid #a1a1a1;
 `
 
 export const NavLink = styled(Link)`
