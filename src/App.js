@@ -5,7 +5,6 @@ import UserProfileMini from "./components/users/UserProfileMini";
 import Ads from "./components/ads/Ads";
 import About from "./components/general/About";
 import Footer from "./components/footer/Footer";
-import Home from "./components/home/Home";
 import Splash from "./components/splash/Splash";
 import Navbar from "./components/nav/Navbar";
 import "./App.css";
@@ -42,5 +41,18 @@ function App() {
     </Fragment>
   );
 }
+
+console.log(
+"%cmade with ❤️ by TheCodeNinja",
+"color:white;font-family:system-ui;font-size:1rem;-webkit-text-stroke: 1px black;font-weight:bold"
+);
+console.log(
+"%cContact: brich@codeinja.life",
+"color:white;font-family:system-ui;font-size:1rem;-webkit-text-stroke: 1px black;font-weight:bold"
+);
+console.log(
+"%cHire Me Please!",
+"color:white;font-family:system-ui;font-size:1rem;-webkit-text-stroke: 1px black;font-weight:bold"
+);
 
 export default App;
