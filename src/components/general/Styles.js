@@ -12,7 +12,7 @@ export const WelcomeContainer = styled.div`
 `
 
 export const AboutContainer = styled.div`
-  padding-top: 6px;
+  padding-top: 12px;
   font-size: 20px;
 `
 

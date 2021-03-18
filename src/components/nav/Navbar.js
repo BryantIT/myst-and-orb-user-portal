@@ -37,7 +37,7 @@ const Navbar = () => {
         }
         <NavMenu>
           <NavLink to='/about'>
-            About
+            Crew
           </NavLink>
           <NavLink to='/services'>
             Services

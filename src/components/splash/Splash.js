@@ -8,7 +8,6 @@ import {
   TitleContent,
   MainTitle,
   StyledLink } from './Styles'
-import './style.css'
 
 const Splash = () => {
   return(
