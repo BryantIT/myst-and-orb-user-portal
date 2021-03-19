@@ -21,6 +21,7 @@ import { Main,
   Interior } from "./Styles";
 
 function App() {
+
   return (
     <Fragment>
     <Route exact path="/" component={Splash} />
