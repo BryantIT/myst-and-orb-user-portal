@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 // Components
+import Signup from './components/users/Signup'
 import News from './components/news/News'
 import Crew from './components/general/Crew';
 import UserProfileMini from "./components/users/UserProfileMini";
@@ -45,6 +46,9 @@ function App() {
               </Route>
               <Route exact path="/crew">
                 <Crew />
+              </Route>
+              <Route exact path="/signup">
+                <Signup />
               </Route>
             </Interior>
           </Switch>

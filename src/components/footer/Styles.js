@@ -24,6 +24,9 @@ export const Main = styled.div`
   gap: 1px 1px;
   grid-template-areas:
     "CopyWrite FooterInfo FooterInfo Social";
+    @media screen and (max-width: 768px) {
+      padding-left: 6px;
+    }
 `
 
 export const CopyWrite = styled.div`

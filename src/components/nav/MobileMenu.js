@@ -1,18 +1,36 @@
 import React from 'react'
-import { MobileMenuStyle } from './Styles'
+import {
+  MobileMenuStyle,
+  NavLink,
+  NavMenu,
+  NavBtn,
+  NavBtnLink
+} from './Styles'
 
 const MobileMenu = () => {
   return (
     <MobileMenuStyle>
-      <a href="/">
-        About us
-      </a>
-      <a href="/">
-        Pricing
-        </a>
-      <a href="/">
-        Contact
-        </a>
+      <NavLink to='/about'>
+        About
+      </NavLink>
+      <NavLink to='/crew'>
+        Crew
+      </NavLink>
+      <NavLink to='/services'>
+        Services
+      </NavLink>
+      <NavLink to='/events'>
+        Events
+      </NavLink>
+      <NavLink to='/contact-us'>
+        Contact Us
+      </NavLink>
+      <NavLink to='/sign-up'>
+        Sign Up
+      </NavLink>
+      <NavLink to='/signin'>
+        Sign In
+      </NavLink>
     </MobileMenuStyle>
   )
 }
