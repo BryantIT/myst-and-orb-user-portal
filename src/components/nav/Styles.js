@@ -39,6 +39,10 @@ export const NavLink = styled(Link)`
   }
 `
 
+export const MobileMenuWrapper = styled.div`
+
+`
+
 export const Bars = styled(FaBars)`
   display: none;
   color: #fff;

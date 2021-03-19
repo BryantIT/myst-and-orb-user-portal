@@ -9,7 +9,8 @@ import {
   NavMenu,
   NavBtn,
   NavBtnLink,
-  HomeLogo
+  HomeLogo,
+  MobileMenuWrapper
 } from './Styles'
 
 const Navbar = () => {
@@ -32,9 +33,11 @@ const Navbar = () => {
           <HomeLogo src='images/logo.png' alt='Home' />
         </NavLink>
         <Bars onClick={handleMobileMenu}/>
-        {
-          open ? <MobileMenu /> : null
-        }
+        <MobileMenuWrapper onClick={handleMobileMenu}>
+          {
+            open ? <MobileMenu /> : null
+          }
+        </MobileMenuWrapper>
         <NavMenu>
           <NavLink to='/about'>
             About
@@ -51,7 +54,7 @@ const Navbar = () => {
           <NavLink to='/contact-us'>
             Contact Us
           </NavLink>
-          <NavLink to='/sign-up'>
+          <NavLink to='/signup'>
             Sign Up
           </NavLink>
         </NavMenu>
