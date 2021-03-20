@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import { states } from '../../helpers/States'
 // Styles
 import {
@@ -7,7 +7,14 @@ import {
   Label,
   Input,
   Select,
-  Button} from './FormStyle'
+  Button } from './FormStyle'
+  import {
+    Info,
+    Success,
+    Warning,
+    Error,
+    Validation,
+    ValidationLabel } from './MessagesStyle'
 import './messages.css'
 
 const Signup = () => {
@@ -79,9 +86,9 @@ const Signup = () => {
       </Label>
       {
         renderEmailMessage ?
-        <Label className='validation-label'>
-          <div className="validation">{emailValidationMessage}</div>
-        </Label> : null
+        <ValidationLabel className='validation-label'>
+          <Validation>{emailValidationMessage}</Validation>
+        </ValidationLabel> : null
       }
       <Label>
         <Input type="password" placeholder="Password" />
