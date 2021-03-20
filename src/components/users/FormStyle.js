@@ -19,7 +19,7 @@ export const Label = styled.label`
 
 export const Input = styled.input`
   margin-right: 8px;
-  box-shadow: -5px -5px 20px #a1a1a1;
+  box-shadow: -5px -5px 20px ${props => props.color};
   width: 50%;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
@@ -41,7 +41,7 @@ export const Input = styled.input`
 
 export const Select = styled.select`
   margin-right: 8px;
-  box-shadow: -5px -5px 20px #a1a1a1;
+  box-shadow: -5px -5px 20px ${props => props.color};
   width: 50%;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;

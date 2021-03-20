@@ -70,3 +70,15 @@ export const ValidationLabel = styled.div`
   margin-bottom: 20px;
   width: 100%;
 `
+
+export const ValidationLine = styled.div`
+  display: flex;
+  width: 50%;
+  height: 47px;
+  border-bottom: 1px solid red;
+  position: absolute;
+`
+
+export const LineWrapper = styled.div`
+
+`

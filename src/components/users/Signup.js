@@ -14,8 +14,9 @@ import {
     Warning,
     Error,
     Validation,
-    ValidationLabel } from './MessagesStyle'
-import './messages.css'
+    ValidationLabel,
+    ValidationLine,
+    LineWrapper} from './MessagesStyle'
 
 const Signup = () => {
   const [data, setData] = useState({})
@@ -28,10 +29,12 @@ const Signup = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [emailValidationMessage, setEmailValidationMessage] = useState('')
-  const [renderEmailMessage, setRenderEmailMessage] = useState(false)
-  const [isEmailValid, setIsEmailValid] = useState(true)
   const [passwordValidationMessage, setPasswordValidationMessage] = useState('')
+  const [formValidationMessage, setFormValidationMessage] = useState('')
+  const [renderEmailMessage, setRenderEmailMessage] = useState(false)
   const [renderPasswordMessage, setRenderPasswordMessage] = useState(false)
+  const [renderFormMessage, setRenderFormMessage] = useState(false)
+  const [isEmailValid, setIsEmailValid] = useState(true)
   const [isPasswordValid, setIsPasswordValid] = useState(true)
 
   const handleChange = (event) => {
@@ -88,18 +91,71 @@ const Signup = () => {
     }
   }, [password, confirmPassword])
 
+  const [firstNameLine, setFirstNameLine] = useState('#a1a1a1')
+  const [lastNameLine, setLastNameLine] = useState('#a1a1a1')
+  const [cityLine, setCityLine] = useState('#a1a1a1')
+  const [stateLine, setStateLine] = useState('#a1a1a1')
+  const [emailLine, setEmailLine] = useState('#a1a1a1')
+  const [confirmEmailLine, setConfirmEmailLine] = useState('#a1a1a1')
+  const [passwordLine, setPasswordLine] = useState('#a1a1a1')
+  const [confirmPasswordLine, setConfirmPasswordLine] = useState('#a1a1a1')
+
+  const isUndefined = () => {
+    if(!data.firstName) {
+      setFirstNameLine('red')
+      console.log('Name', firstNameLine)
+    }
+    if(!data.lastName) {
+      setLastNameLine('red')
+      console.log('Name', lastNameLine)
+    }
+    if(!data.city) {
+      setCityLine('red')
+      console.log('City', cityLine)
+    }
+    if(data.state === 'TN') {
+      setStateLine('red')
+      console.log('State', stateLine)
+    }
+    if(!data.email) {
+      setEmailLine('red')
+      console.log('Email', emailLine)
+    }
+    if(!data.confirmEmail) {
+      setConfirmEmailLine('red')
+      console.log('confirmEmail', confirmEmailLine)
+    }
+    if(!data.password) {
+      setPasswordLine('red')
+      console.log('password', passwordLine)
+    }
+    if(!data.confirmPassword) {
+      setConfirmPasswordLine('red')
+      console.log('confirmPassword', confirmPasswordLine)
+    }
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log('--------------------------')
-    console.log('firstName', firstName)
-    console.log('lastName', lastName)
-    console.log('city', city)
-    console.log('state', state)
-    console.log('email', email)
-    console.log('confirmEmail', confirmEmail)
-    console.log('password', password)
-    console.log('confirmPassword', confirmPassword)
-    console.log('--------------------------')
+    if(data && data.firstName && data.lastName && data.city && data.state !== 'ZZ' && data.email && data.confirmEmail && data.password && data.confirmPassword){
+      setRenderFormMessage(false)
+    } else {
+      setRenderFormMessage(true)
+      setFormValidationMessage('Please complete all parts of the form')
+    }
+    if(data) {
+      isUndefined()
+    }
+    // console.log('--------------------------')
+    // console.log('firstName', firstName)
+    // console.log('lastName', lastName)
+    // console.log('city', city)
+    // console.log('state', state)
+    // console.log('email', email)
+    // console.log('confirmEmail', confirmEmail)
+    // console.log('password', password)
+    // console.log('confirmPassword', confirmPassword)
+    // console.log('--------------------------')
   }
 
   return (
@@ -109,11 +165,13 @@ const Signup = () => {
       </Segment>
       <Label>
         <Input
+          color={firstNameLine}
           name='firstName'
           onChange={handleChange}
           type="text"
           placeholder="First Name" />
         <Input
+          color={firstNameLine}
           name='lastName'
           onChange={handleChange}
           type="text"
@@ -121,11 +179,15 @@ const Signup = () => {
       </Label>
       <Label>
         <Input
+          color={firstNameLine}
           name='city'
           onChange={handleChange}
           type="text"
           placeholder="City" />
-        <Select name='state' onChange={handleChange}>
+        <Select
+          color={firstNameLine}
+          name='state'
+          onChange={handleChange}>
           {
             states.map( state => {
               return (
@@ -137,12 +199,14 @@ const Signup = () => {
       </Label>
       <Label>
         <Input
+          color={firstNameLine}
           name='email'
           onChange={handleChange}
           type="email"
           placeholder="Email Address" />
 
         <Input
+          color={firstNameLine}
           name='confirmEmail'
           onChange={handleChange}
           type="email"
@@ -157,11 +221,13 @@ const Signup = () => {
       }
       <Label>
         <Input
+          color={firstNameLine}
           name='password'
           onChange={handleChange}
           type="password"
           placeholder="Password" />
         <Input
+          color={firstNameLine}
           name='confirmPassword'
           onChange={handleChange}
           type="password"
@@ -176,6 +242,12 @@ const Signup = () => {
       <Button className="red" type="submit" value='submit'>
         Submit
       </Button>
+      {
+        renderFormMessage ?
+        <ValidationLabel>
+          <Validation>{formValidationMessage}</Validation>
+        </ValidationLabel> : null
+      }
     </Form>
   );
 };

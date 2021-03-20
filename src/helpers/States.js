@@ -1,7 +1,7 @@
 export const states = [
     {
       "name": "Select State",
-      "abbreviation": "00"
+      "abbreviation": "ZZ"
     },
     {
         "name": "Alabama",
