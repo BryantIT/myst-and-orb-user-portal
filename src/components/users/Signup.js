@@ -24,6 +24,16 @@ const Signup = () => {
   const [emailValidationMessage, setEmailValidationMessage] = useState('')
   const [renderEmailMessage, setRenderEmailMessage] = useState(false)
   const [isEmailValid, setIsEmailValid] = useState(true)
+  // Password State
+  const [password, setPassword] = useState('')
+  const [confirmedPassword, setConfirmedPassword] = useState('')
+  const [passwordValidationMessage, setPasswordValidationMessage] = useState('')
+  const [renderPasswordMessage, setRenderPasswordMessage] = useState(false)
+  const [isPasswordValid, setIsPasswordValid] = useState(true)
+  console.log('password', password)
+  console.log('Confirmed Password', confirmedPassword)
+  console.log('passwordValidationMessage', passwordValidationMessage)
+  console.log('render', renderPasswordMessage)
 
   // Email Functions
   const handleEmailChange = (event) => {
@@ -44,12 +54,41 @@ const Signup = () => {
     if(confirmedEmail === '' || confirmedEmail === email){
       setRenderEmailMessage(false)
     }
-    if(email !== ''){
+    if(email !== '' && confirmedEmail === ''){
       const emailCheck = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)
       setEmailValidationMessage('Not a valid email')
       setRenderEmailMessage(!emailCheck)
     }
   }, [email, confirmedEmail])
+
+  // Password Functions
+  const handlePasswordChange = (event) => {
+    const value = event.target.value
+    setPassword(value)
+  }
+
+  const handlePasswordConfirmChange = (event) => {
+    const value = event.target.value
+    setConfirmedPassword(value)
+  }
+
+  useEffect(() => {
+    if(confirmedPassword !== '' && confirmedPassword !== password){
+      setPasswordValidationMessage('Passwords do not match')
+      setRenderPasswordMessage(true)
+      console.log('am I here')
+    }
+    if(confirmedPassword === '' || confirmedPassword === password){
+      setRenderPasswordMessage(false)
+    }
+    if(password !== '' && confirmedPassword === ''){
+      const passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/.test(password)
+      setPasswordValidationMessage('Minimum six characters, at least one uppercase letter, one lowercase letter and one number')
+      setRenderPasswordMessage(!passwordCheck)
+    }
+  }, [password, confirmedPassword])
+
+  console.log('Password', renderPasswordMessage)
 
 
 
@@ -82,18 +121,31 @@ const Signup = () => {
         <Input
           onChange={handleEmailConfirmChange}
           type="email"
-          placeholder="Confirm Email Address" />
+          placeholder="Confirm Email Address"
+          />
       </Label>
       {
         renderEmailMessage ?
-        <ValidationLabel className='validation-label'>
+        <ValidationLabel>
           <Validation>{emailValidationMessage}</Validation>
         </ValidationLabel> : null
       }
       <Label>
-        <Input type="password" placeholder="Password" />
-        <Input type="password" placeholder="Confirm Password" />
+        <Input
+          onChange={handlePasswordChange}
+          type="password"
+          placeholder="Password" />
+        <Input
+          onChange={handlePasswordConfirmChange}
+          type="password"
+          placeholder="Confirm Password" />
       </Label>
+      {
+        renderPasswordMessage ?
+        <ValidationLabel>
+          <Validation>{passwordValidationMessage}</Validation>
+        </ValidationLabel> : null
+      }
       <Button className="red" type="button">
         Submit
       </Button>
