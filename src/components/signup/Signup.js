@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef, Fragment } from 'react'
+import Reaptcha from 'reaptcha'
 import { states } from '../../helpers/States'
 // Styles
 import {
@@ -9,7 +10,9 @@ import {
   Select,
   Button,
   ProfileImage,
-  AvatarUploader} from './FormStyle'
+  AvatarUploader,
+  ChoiceContainer,
+  CaptchaContainer } from './FormStyle'
   import {
     Info,
     Success,
@@ -39,6 +42,7 @@ const Signup = () => {
   const [isEmailValid, setIsEmailValid] = useState(true)
   const [isPasswordValid, setIsPasswordValid] = useState(true)
   const inputFile = useRef()
+  const captchaRef = useRef()
   const [profileImage, setProfileImage] = useState('images/avatar.png')
   const [firstNameLine, setFirstNameLine] = useState('#a1a1a1')
   const [lastNameLine, setLastNameLine] = useState('#a1a1a1')
@@ -50,6 +54,12 @@ const Signup = () => {
   const [confirmPasswordLine, setConfirmPasswordLine] = useState('#a1a1a1')
   const [avatarLine, setAvatarLine] = useState('#a1a1a1')
   const [submitLine, setSubmitLine] = useState('#a1a1a1')
+  const [captchaLine, setCaptchaLine] = useState('#a1a1a1')
+  const [choice, setChoice] = useState('')
+  const [captchaValue, setCaptchaValue] = useState('')
+  const [isHuman, setIsHuman] = useState(false)
+
+  console.log('Human', isHuman)
 
   const handleChange = (event) => {
     const value = event.target.value
@@ -57,6 +67,10 @@ const Signup = () => {
       ...data,
       [event.target.name]: value
     })
+  }
+
+  const handleCaptchaVerify = () => {
+    setIsHuman(true)
   }
 
   useEffect(() => {
@@ -140,11 +154,15 @@ const Signup = () => {
       setAvatarLine('red')
       setSubmitLine('red')
     }
+    if(!isHuman){
+      setCaptchaLine('red')
+      setSubmitLine('red')
+    }
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if(data && data.firstName && data.lastName && data.city && data.state !== 'ZZ' && data.email && data.confirmEmail && data.password && data.confirmPassword && data.profileImage === 'images/avatar.png'){
+    if(data && data.firstName && data.lastName && data.city && data.state !== 'ZZ' && data.email && data.confirmEmail && data.password && data.confirmPassword && data.profileImage !== 'images/avatar.png' && isHuman === true){
       setRenderFormMessage(false)
     } else {
       setRenderFormMessage(true)
@@ -161,110 +179,121 @@ const Signup = () => {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Segment>
-        <h1>Sign up</h1>
-      </Segment>
-      <Segment>
-          <ProfileImage
-            color={avatarLine}
-            src={profileImage}
-            alt='avatar'
-            onClick={handleImageUpload} />
-          <AvatarUploader
-            ref={inputFile}
-            onChange={handleChange}
-            name='profileImage'
-            type='file'
-            accept='image/*'
-            multiple={false} />
-      </Segment>
-      <Label>
-        <Input
-          color={firstNameLine}
-          name='firstName'
-          onChange={handleChange}
-          type="text"
-          placeholder="First Name" />
-        <Input
-          color={firstNameLine}
-          name='lastName'
-          onChange={handleChange}
-          type="text"
-          placeholder="Last Name" />
-      </Label>
-      <Label>
-        <Input
-          color={firstNameLine}
-          name='city'
-          onChange={handleChange}
-          type="text"
-          placeholder="City" />
-        <Select
-          color={firstNameLine}
-          name='state'
-          onChange={handleChange}>
-          {
-            states.map( state => {
-              return (
-                <option key={state.abbreviation} value={state.abbreviation}>{state.name}</option>
-              )
-            })
-          }
-        </Select>
-      </Label>
-      <Label>
-        <Input
-          color={firstNameLine}
-          name='email'
-          onChange={handleChange}
-          type="email"
-          placeholder="Email Address" />
+    <Fragment>
+        <Form onSubmit={handleSubmit}>
+          <Segment>
+            <h1>User Sign up</h1>
+          </Segment>
+          <Segment>
+              <ProfileImage
+                color={avatarLine}
+                src={profileImage}
+                alt='avatar'
+                onClick={handleImageUpload} />
+              <AvatarUploader
+                ref={inputFile}
+                onChange={handleChange}
+                name='profileImage'
+                type='file'
+                accept='image/*'
+                multiple={false} />
+          </Segment>
+          <Label>
+            <Input
+              color={firstNameLine}
+              name='firstName'
+              onChange={handleChange}
+              type="text"
+              placeholder="First Name" />
+            <Input
+              color={firstNameLine}
+              name='lastName'
+              onChange={handleChange}
+              type="text"
+              placeholder="Last Name" />
+          </Label>
+          <Label>
+            <Input
+              color={firstNameLine}
+              name='city'
+              onChange={handleChange}
+              type="text"
+              placeholder="City" />
+            <Select
+              color={firstNameLine}
+              name='state'
+              onChange={handleChange}>
+              {
+                states.map( state => {
+                  return (
+                    <option key={state.abbreviation} value={state.abbreviation}>{state.name}</option>
+                  )
+                })
+              }
+            </Select>
+          </Label>
+          <Label>
+            <Input
+              color={firstNameLine}
+              name='email'
+              onChange={handleChange}
+              type="email"
+              placeholder="Email Address" />
 
-        <Input
-          color={firstNameLine}
-          name='confirmEmail'
-          onChange={handleChange}
-          type="email"
-          placeholder="Confirm Email Address"
-          />
-      </Label>
-      {
-        renderEmailMessage ?
-        <ValidationLabel>
-          <Validation>{emailValidationMessage}</Validation>
-        </ValidationLabel> : null
-      }
-      <Label>
-        <Input
-          color={firstNameLine}
-          name='password'
-          onChange={handleChange}
-          type="password"
-          placeholder="Password" />
-        <Input
-          color={firstNameLine}
-          name='confirmPassword'
-          onChange={handleChange}
-          type="password"
-          placeholder="Confirm Password" />
-      </Label>
-      {
-        renderPasswordMessage ?
-        <ValidationLabel>
-          <Validation>{passwordValidationMessage}</Validation>
-        </ValidationLabel> : null
-      }
-      <Button className="red" type="submit" value='submit' color={submitLine}>
-        Submit
-      </Button>
-      {
-        renderFormMessage ?
-        <ValidationLabel>
-          <Validation>{formValidationMessage}</Validation>
-        </ValidationLabel> : null
-      }
-    </Form>
+            <Input
+              color={firstNameLine}
+              name='confirmEmail'
+              onChange={handleChange}
+              type="email"
+              placeholder="Confirm Email Address"
+              />
+          </Label>
+          {
+            renderEmailMessage ?
+            <ValidationLabel>
+              <Validation>{emailValidationMessage}</Validation>
+            </ValidationLabel> : null
+          }
+          <Label>
+            <Input
+              color={firstNameLine}
+              name='password'
+              onChange={handleChange}
+              type="password"
+              placeholder="Password" />
+            <Input
+              color={firstNameLine}
+              name='confirmPassword'
+              onChange={handleChange}
+              type="password"
+              placeholder="Confirm Password" />
+          </Label>
+          {
+            renderPasswordMessage ?
+            <ValidationLabel>
+              <Validation>{passwordValidationMessage}</Validation>
+            </ValidationLabel> : null
+          }
+          <Segment>
+            <CaptchaContainer color={captchaLine}>
+              <Reaptcha
+                sitekey={process.env.REACT_APP_CAPTCHA_SITE_KEY}
+                onVerify={handleCaptchaVerify}
+                theme='dark'
+              />
+            </CaptchaContainer>
+          </Segment>
+          <Button type="submit" value='submit' color={submitLine}>
+            Submit
+          </Button>
+          {
+            renderFormMessage ?
+            <ValidationLabel>
+              <Validation>{formValidationMessage}</Validation>
+            </ValidationLabel> : null
+          }
+        </Form>
+    </Fragment>
   );
 };
 

@@ -6,9 +6,20 @@ export const Form = styled.form`
   margin: 0 auto;
 `
 
+export const ChoiceContainer = styled.div`
+  padding: 16px;
+  width: 90%;
+  margin: 0 auto;
+`
+
 export const Segment = styled.div`
   padding-bottom: 30px;
   text-align: center;
+`
+
+export const CaptchaContainer = styled.div`
+  display: inline-block;
+  border: 2px solid ${props => props.color};
 `
 
 export const Label = styled.label`
