@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { states } from '../../helpers/States'
 // Styles
 import {
@@ -7,7 +7,9 @@ import {
   Label,
   Input,
   Select,
-  Button } from './FormStyle'
+  Button,
+  ProfileImage,
+  AvatarUploader} from './FormStyle'
   import {
     Info,
     Success,
@@ -16,7 +18,7 @@ import {
     Validation,
     ValidationLabel,
     ValidationLine,
-    LineWrapper} from './MessagesStyle'
+    LineWrapper } from './MessagesStyle'
 
 const Signup = () => {
   const [data, setData] = useState({})
@@ -36,6 +38,18 @@ const Signup = () => {
   const [renderFormMessage, setRenderFormMessage] = useState(false)
   const [isEmailValid, setIsEmailValid] = useState(true)
   const [isPasswordValid, setIsPasswordValid] = useState(true)
+  const inputFile = useRef()
+  const [profileImage, setProfileImage] = useState('images/avatar.png')
+  const [firstNameLine, setFirstNameLine] = useState('#a1a1a1')
+  const [lastNameLine, setLastNameLine] = useState('#a1a1a1')
+  const [cityLine, setCityLine] = useState('#a1a1a1')
+  const [stateLine, setStateLine] = useState('#a1a1a1')
+  const [emailLine, setEmailLine] = useState('#a1a1a1')
+  const [confirmEmailLine, setConfirmEmailLine] = useState('#a1a1a1')
+  const [passwordLine, setPasswordLine] = useState('#a1a1a1')
+  const [confirmPasswordLine, setConfirmPasswordLine] = useState('#a1a1a1')
+  const [avatarLine, setAvatarLine] = useState('#a1a1a1')
+  const [submitLine, setSubmitLine] = useState('#a1a1a1')
 
   const handleChange = (event) => {
     const value = event.target.value
@@ -57,8 +71,6 @@ const Signup = () => {
       setConfirmPassword(data.confirmPassword)
     }
   }, [data])
-  console.log('First Name', firstName)
-  console.log('Last Name', lastName)
 
   useEffect(() => {
     if(confirmEmail !== undefined && confirmEmail !== email){
@@ -91,53 +103,48 @@ const Signup = () => {
     }
   }, [password, confirmPassword])
 
-  const [firstNameLine, setFirstNameLine] = useState('#a1a1a1')
-  const [lastNameLine, setLastNameLine] = useState('#a1a1a1')
-  const [cityLine, setCityLine] = useState('#a1a1a1')
-  const [stateLine, setStateLine] = useState('#a1a1a1')
-  const [emailLine, setEmailLine] = useState('#a1a1a1')
-  const [confirmEmailLine, setConfirmEmailLine] = useState('#a1a1a1')
-  const [passwordLine, setPasswordLine] = useState('#a1a1a1')
-  const [confirmPasswordLine, setConfirmPasswordLine] = useState('#a1a1a1')
-
   const isUndefined = () => {
     if(!data.firstName) {
       setFirstNameLine('red')
-      console.log('Name', firstNameLine)
+      setSubmitLine('red')
     }
     if(!data.lastName) {
       setLastNameLine('red')
-      console.log('Name', lastNameLine)
+      setSubmitLine('red')
     }
     if(!data.city) {
       setCityLine('red')
-      console.log('City', cityLine)
+      setSubmitLine('red')
     }
-    if(data.state === 'TN') {
+    if(data.state === 'ZZ') {
       setStateLine('red')
-      console.log('State', stateLine)
+      setSubmitLine('red')
     }
     if(!data.email) {
       setEmailLine('red')
-      console.log('Email', emailLine)
+      setSubmitLine('red')
     }
     if(!data.confirmEmail) {
       setConfirmEmailLine('red')
-      console.log('confirmEmail', confirmEmailLine)
+      setSubmitLine('red')
     }
     if(!data.password) {
       setPasswordLine('red')
-      console.log('password', passwordLine)
+      setSubmitLine('red')
     }
     if(!data.confirmPassword) {
       setConfirmPasswordLine('red')
-      console.log('confirmPassword', confirmPasswordLine)
+      setSubmitLine('red')
+    }
+    if(data.profileImage === 'images/avatar.png' || !data.profileImage) {
+      setAvatarLine('red')
+      setSubmitLine('red')
     }
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if(data && data.firstName && data.lastName && data.city && data.state !== 'ZZ' && data.email && data.confirmEmail && data.password && data.confirmPassword){
+    if(data && data.firstName && data.lastName && data.city && data.state !== 'ZZ' && data.email && data.confirmEmail && data.password && data.confirmPassword && data.profileImage === 'images/avatar.png'){
       setRenderFormMessage(false)
     } else {
       setRenderFormMessage(true)
@@ -146,22 +153,31 @@ const Signup = () => {
     if(data) {
       isUndefined()
     }
-    // console.log('--------------------------')
-    // console.log('firstName', firstName)
-    // console.log('lastName', lastName)
-    // console.log('city', city)
-    // console.log('state', state)
-    // console.log('email', email)
-    // console.log('confirmEmail', confirmEmail)
-    // console.log('password', password)
-    // console.log('confirmPassword', confirmPassword)
-    // console.log('--------------------------')
+  }
+
+  const handleImageUpload = () => {
+    console.log('Image upload works')
+    inputFile.current.click()
   }
 
   return (
     <Form onSubmit={handleSubmit}>
       <Segment>
         <h1>Sign up</h1>
+      </Segment>
+      <Segment>
+          <ProfileImage
+            color={avatarLine}
+            src={profileImage}
+            alt='avatar'
+            onClick={handleImageUpload} />
+          <AvatarUploader
+            ref={inputFile}
+            onChange={handleChange}
+            name='profileImage'
+            type='file'
+            accept='image/*'
+            multiple='false' />
       </Segment>
       <Label>
         <Input
@@ -239,7 +255,7 @@ const Signup = () => {
           <Validation>{passwordValidationMessage}</Validation>
         </ValidationLabel> : null
       }
-      <Button className="red" type="submit" value='submit'>
+      <Button className="red" type="submit" value='submit' color={submitLine}>
         Submit
       </Button>
       {

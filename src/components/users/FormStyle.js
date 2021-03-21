@@ -25,6 +25,8 @@ export const Input = styled.input`
   transition: all 0.2s ease-in-out;
   appearance: none;
   -webkit-appearance: none;
+  appearance: none;
+  -webkit-appearance: none;
   color: white;
   border: 0;
   outline: 0;
@@ -37,6 +39,23 @@ export const Input = styled.input`
     opacity: 1; /* Firefox */
   &:focus {
     box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+`
+
+export const ProfileImage = styled.img`
+
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow: -5px -5px 40px ${props => props.color};
+  background-color: #000000;
+  transition: all 0.2s ease-in-out;
+  object-fit: cover;
+  cursor: pointer;
+`
+
+export const AvatarUploader = styled.input`
+display: none;
 `
 
 export const Select = styled.select`
@@ -62,7 +81,7 @@ export const Select = styled.select`
 export const Button = styled.button`
   font-size: 20px;
   font-weight: bold;
-  box-shadow: -5px -5px 20px #a1a1a1;
+  box-shadow: -5px -5px 20px ${props => props.color};
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   font-weight: 600;
