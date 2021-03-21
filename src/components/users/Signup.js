@@ -177,7 +177,7 @@ const Signup = () => {
             name='profileImage'
             type='file'
             accept='image/*'
-            multiple='false' />
+            multiple={false} />
       </Segment>
       <Label>
         <Input

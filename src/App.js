@@ -1,3 +1,4 @@
+
 import React, { Fragment, useEffect } from "react";
 // Components
 import Signup from './components/users/Signup'
@@ -61,6 +62,10 @@ function App() {
 }
 
 console.log(
+"%c-------------------------------------------",
+"color:white;font-family:system-ui;font-size:1rem;-webkit-text-stroke: 1px black;font-weight:bold"
+);
+console.log(
 "%cmade with ❤️ by TheCodeNinja",
 "color:white;font-family:system-ui;font-size:1rem;-webkit-text-stroke: 1px black;font-weight:bold"
 );
@@ -70,6 +75,10 @@ console.log(
 );
 console.log(
 "%cHire Me Please!",
+"color:white;font-family:system-ui;font-size:1rem;-webkit-text-stroke: 1px black;font-weight:bold"
+);
+console.log(
+"%c-------------------------------------------",
 "color:white;font-family:system-ui;font-size:1rem;-webkit-text-stroke: 1px black;font-weight:bold"
 );
 
