@@ -1,7 +1,10 @@
 
 import React, { Fragment, useEffect } from 'react'
 // Components
+import Dashboard from './components/dashboard/Dashboard'
+import { AuthProvider } from './auth/UserAuth'
 import Signup from './components/signup/Signup'
+import Signin from './components/signin/Signin'
 import News from './components/news/News'
 import Crew from './components/general/Crew'
 import UserProfileMini from './components/users/UserProfileMini'
@@ -24,40 +27,48 @@ import { Main,
 function App() {
 
   return (
-    <Fragment>
-    <Route exact path="/" component={Splash} />
-      <div className="App">
-        <Navbar />
-        <Main>
-          <UserInfo>
-            <UserProfileImage />
-          </UserInfo>
-          <AdsContainer>
-            <Ads />
-          </AdsContainer>
-          <UserImage>
-            <UserProfileMini />
-          </UserImage>
-          <NewsContainer>
-            <News />
-          </NewsContainer>
-          <Switch>
-            <Interior>
-              <Route exact path="/about">
-                <About />
-              </Route>
-              <Route exact path="/crew">
-                <Crew />
-              </Route>
-              <Route exact path="/signup">
-                <Signup />
-              </Route>
-            </Interior>
-          </Switch>
-        </Main>
-        <Footer />
-      </div>
-    </Fragment>
+    <AuthProvider>
+      <Fragment>
+      <Route exact path="/" component={Splash} />
+        <div className="App">
+          <Navbar />
+          <Main>
+            <UserInfo>
+              <UserProfileImage />
+            </UserInfo>
+            <AdsContainer>
+              <Ads />
+            </AdsContainer>
+            <UserImage>
+              <UserProfileMini />
+            </UserImage>
+            <NewsContainer>
+              <News />
+            </NewsContainer>
+            <Switch>
+              <Interior>
+                <Route exact path="/about">
+                  <About />
+                </Route>
+                <Route exact path="/dashboard">
+                  <Dashboard />
+                </Route>
+                <Route exact path="/crew">
+                  <Crew />
+                </Route>
+                <Route exact path="/signup">
+                  <Signup />
+                </Route>
+                <Route exact path="/signin">
+                  <Signin />
+                </Route>
+              </Interior>
+            </Switch>
+          </Main>
+          <Footer />
+        </div>
+      </Fragment>
+    </AuthProvider>
   );
 }
 

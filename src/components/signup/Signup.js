@@ -1,84 +1,68 @@
-import React, { useState, useEffect, useRef, Fragment } from 'react'
-import Reaptcha from 'reaptcha'
-import { states } from '../../helpers/States'
+import React, { useState, useEffect, Fragment } from 'react'
+import Loading from '../loading/Loading'
+import SecondStep from './SecondStep'
 // Styles
 import {
   Form,
   Segment,
   Label,
   Input,
-  Select,
   Button,
-  ProfileImage,
-  AvatarUploader,
-  ChoiceContainer,
-  CaptchaContainer } from './FormStyle'
-  import {
-    Info,
-    Success,
-    Warning,
-    Error,
-    Validation,
-    ValidationLabel,
-    ValidationLine,
-    LineWrapper } from './MessagesStyle'
+} from './FormStyle'
+import {
+  Validation,
+  ValidationLabel,
+} from './MessagesStyle'
+// Auth
+import { useAuth } from '../../auth/UserAuth'
 
 const Signup = () => {
+  const { signup, currentUser } = useAuth()
+  const [signupError, setSignupError] = useState()
+  const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState({})
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [city, setCity] = useState('')
-  const [state, setState] = useState('')
-  const [email, setEmail] = useState('')
-  const [confirmEmail, setConfirmEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [emailValidationMessage, setEmailValidationMessage] = useState('')
-  const [passwordValidationMessage, setPasswordValidationMessage] = useState('')
-  const [formValidationMessage, setFormValidationMessage] = useState('')
+  const [email, setEmail] = useState()
+  const [confirmEmail, setConfirmEmail] = useState()
+  const [password, setPassword] = useState()
+  const [confirmPassword, setConfirmPassword] = useState()
+  const [emailValidationMessage, setEmailValidationMessage] = useState()
+  const [passwordValidationMessage, setPasswordValidationMessage] = useState()
+  const [formValidationMessage, setFormValidationMessage] = useState()
   const [renderEmailMessage, setRenderEmailMessage] = useState(false)
   const [renderPasswordMessage, setRenderPasswordMessage] = useState(false)
   const [renderFormMessage, setRenderFormMessage] = useState(false)
-  const [isEmailValid, setIsEmailValid] = useState(true)
-  const [isPasswordValid, setIsPasswordValid] = useState(true)
-  const inputFile = useRef()
-  const captchaRef = useRef()
-  const [profileImage, setProfileImage] = useState('images/avatar.png')
-  const [firstNameLine, setFirstNameLine] = useState('#a1a1a1')
-  const [lastNameLine, setLastNameLine] = useState('#a1a1a1')
-  const [cityLine, setCityLine] = useState('#a1a1a1')
-  const [stateLine, setStateLine] = useState('#a1a1a1')
-  const [emailLine, setEmailLine] = useState('#a1a1a1')
-  const [confirmEmailLine, setConfirmEmailLine] = useState('#a1a1a1')
-  const [passwordLine, setPasswordLine] = useState('#a1a1a1')
-  const [confirmPasswordLine, setConfirmPasswordLine] = useState('#a1a1a1')
-  const [avatarLine, setAvatarLine] = useState('#a1a1a1')
-  const [submitLine, setSubmitLine] = useState('#a1a1a1')
-  const [captchaLine, setCaptchaLine] = useState('#a1a1a1')
-  const [choice, setChoice] = useState('')
-  const [captchaValue, setCaptchaValue] = useState('')
-  const [isHuman, setIsHuman] = useState(false)
-
-  console.log('Human', isHuman)
+  const [emailLine, setEmailLine] = useState('##a1a1a1')
+  const [confirmEmailLine, setConfirmEmailLine] = useState('##a1a1a1')
+  const [passwordLine, setPasswordLine] = useState('##a1a1a1')
+  const [confirmPasswordLine, setConfirmPasswordLine] = useState('##a1a1a1')
+  const [submitLine, setSubmitLine] = useState('##a1a1a1')
+  const [renderSecondStep, setRenderSecondStep] = useState(false)
 
   const handleChange = (event) => {
     const value = event.target.value
     setData({
       ...data,
-      [event.target.name]: value
+      [event.target.name]: value,
     })
   }
 
-  const handleCaptchaVerify = () => {
-    setIsHuman(true)
+  const createFirebaseUser = async () => {
+    setIsLoading(true)
+    try {
+      setSignupError('')
+      setIsLoading(true)
+      await signup(email, password)
+      .then(console.log('Setting User'))
+    } catch(error){
+      const message = error.message
+      setSignupError(message)
+    }
+    setIsLoading(false)
+    setRenderSecondStep(true)
   }
 
   useEffect(() => {
-    if(data){
-      setFirstName(data.firstName)
-      setLastName(data.lastName)
-      setCity(data.city)
-      setState(data.state)
+    if (data) {
       setEmail(data.email)
       setConfirmEmail(data.confirmEmail)
       setPassword(data.password)
@@ -87,214 +71,159 @@ const Signup = () => {
   }, [data])
 
   useEffect(() => {
-    if(confirmEmail !== undefined && confirmEmail !== email){
+    if (confirmEmail !== undefined && confirmEmail !== email) {
       setEmailValidationMessage('Emails do not match')
       setRenderEmailMessage(true)
     }
-    if(confirmEmail === undefined || confirmEmail === email){
+    if (confirmEmail === undefined || confirmEmail === email) {
       setRenderEmailMessage(false)
     }
-    if(email !== undefined && confirmEmail === undefined){
-      const emailCheck = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)
-      setEmailValidationMessage('Not a valid email')
+    if (email !== undefined && confirmEmail === undefined) {
+      const emailCheck = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        email
+      )
+      setEmailValidationMessage('Invalid Email')
       setRenderEmailMessage(!emailCheck)
     }
   }, [email, confirmEmail])
 
   useEffect(() => {
-    if(confirmPassword !== undefined && confirmPassword !== password){
+    if (confirmPassword !== undefined && confirmPassword !== password) {
       setPasswordValidationMessage('Passwords do not match')
       setRenderPasswordMessage(true)
-      console.log('am I here')
     }
-    if(confirmPassword === undefined || confirmPassword === password){
+    if (confirmPassword === undefined || confirmPassword === password) {
       setRenderPasswordMessage(false)
     }
-    if(password !== undefined && confirmPassword === undefined){
-      const passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/.test(password)
-      setPasswordValidationMessage('Minimum six characters, at least one uppercase letter, one lowercase letter and one number')
+    if (password !== undefined && confirmPassword === undefined) {
+      const passwordCheck = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(
+        password
+      )
+      setPasswordValidationMessage(
+        'Minimum six characters, at least one uppercase letter, one lowercase letter, one special character and one number'
+      )
       setRenderPasswordMessage(!passwordCheck)
     }
   }, [password, confirmPassword])
 
   const isUndefined = () => {
-    if(!data.firstName) {
-      setFirstNameLine('red')
-      setSubmitLine('red')
-    }
-    if(!data.lastName) {
-      setLastNameLine('red')
-      setSubmitLine('red')
-    }
-    if(!data.city) {
-      setCityLine('red')
-      setSubmitLine('red')
-    }
-    if(data.state === 'ZZ') {
-      setStateLine('red')
-      setSubmitLine('red')
-    }
-    if(!data.email) {
+    if (!data.email) {
       setEmailLine('red')
       setSubmitLine('red')
     }
-    if(!data.confirmEmail) {
+    if (!data.confirmEmail) {
       setConfirmEmailLine('red')
       setSubmitLine('red')
     }
-    if(!data.password) {
+    if (!data.password) {
       setPasswordLine('red')
       setSubmitLine('red')
     }
-    if(!data.confirmPassword) {
+    if (!data.confirmPassword) {
       setConfirmPasswordLine('red')
-      setSubmitLine('red')
-    }
-    if(data.profileImage === 'images/avatar.png' || !data.profileImage) {
-      setAvatarLine('red')
-      setSubmitLine('red')
-    }
-    if(!isHuman){
-      setCaptchaLine('red')
       setSubmitLine('red')
     }
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if(data && data.firstName && data.lastName && data.city && data.state !== 'ZZ' && data.email && data.confirmEmail && data.password && data.confirmPassword && data.profileImage !== 'images/avatar.png' && isHuman === true){
+    if (
+      data.email &&
+      data.confirmEmail &&
+      data.password &&
+      data.confirmPassword
+    ) {
       setRenderFormMessage(false)
+      createFirebaseUser()
+      setPassword()
+      setConfirmPassword()
+
     } else {
       setRenderFormMessage(true)
       setFormValidationMessage('Please complete all parts of the form')
     }
-    if(data) {
+    if (data) {
       isUndefined()
     }
   }
 
-  const handleImageUpload = () => {
-    console.log('Image upload works')
-    inputFile.current.click()
-  }
-
   return (
+    !renderSecondStep ?
     <Fragment>
+      {
+        isLoading ? (
+        <Loading />
+      ) :
         <Form onSubmit={handleSubmit}>
           <Segment>
             <h1>User Sign up</h1>
           </Segment>
-          <Segment>
-              <ProfileImage
-                color={avatarLine}
-                src={profileImage}
-                alt='avatar'
-                onClick={handleImageUpload} />
-              <AvatarUploader
-                ref={inputFile}
-                onChange={handleChange}
-                name='profileImage'
-                type='file'
-                accept='image/*'
-                multiple={false} />
-          </Segment>
           <Label>
             <Input
-              color={firstNameLine}
-              name='firstName'
-              onChange={handleChange}
-              type="text"
-              placeholder="First Name" />
-            <Input
-              color={firstNameLine}
-              name='lastName'
-              onChange={handleChange}
-              type="text"
-              placeholder="Last Name" />
-          </Label>
-          <Label>
-            <Input
-              color={firstNameLine}
-              name='city'
-              onChange={handleChange}
-              type="text"
-              placeholder="City" />
-            <Select
-              color={firstNameLine}
-              name='state'
-              onChange={handleChange}>
-              {
-                states.map( state => {
-                  return (
-                    <option key={state.abbreviation} value={state.abbreviation}>{state.name}</option>
-                  )
-                })
-              }
-            </Select>
-          </Label>
-          <Label>
-            <Input
-              color={firstNameLine}
+              color={emailLine}
               name='email'
               onChange={handleChange}
-              type="email"
-              placeholder="Email Address" />
+              type='email'
+              placeholder='Email Address'
+            />
 
             <Input
-              color={firstNameLine}
+              color={confirmEmailLine}
               name='confirmEmail'
               onChange={handleChange}
-              type="email"
-              placeholder="Confirm Email Address"
-              />
+              type='email'
+              placeholder='Confirm Email Address'
+            />
           </Label>
-          {
-            renderEmailMessage ?
+          {renderEmailMessage ? (
             <ValidationLabel>
               <Validation>{emailValidationMessage}</Validation>
-            </ValidationLabel> : null
-          }
+            </ValidationLabel>
+          ) : null}
+          {signupError ? (
+            <ValidationLabel>
+              <Validation>{signupError}</Validation>
+            </ValidationLabel>
+          ) : null}
           <Label>
             <Input
-              color={firstNameLine}
+              color={passwordLine}
               name='password'
               onChange={handleChange}
-              type="password"
-              placeholder="Password" />
+              type='password'
+              placeholder='Password'
+            />
             <Input
-              color={firstNameLine}
-              name='confirmPassword'
+              color={confirmPasswordLine}
+              name="confirmPassword"
               onChange={handleChange}
-              type="password"
-              placeholder="Confirm Password" />
+              type='password'
+              placeholder='Confirm Password'
+            />
           </Label>
-          {
-            renderPasswordMessage ?
+          {renderPasswordMessage ? (
             <ValidationLabel>
               <Validation>{passwordValidationMessage}</Validation>
-            </ValidationLabel> : null
-          }
-          <Segment>
-            <CaptchaContainer color={captchaLine}>
-              <Reaptcha
-                sitekey={process.env.REACT_APP_CAPTCHA_SITE_KEY}
-                onVerify={handleCaptchaVerify}
-                theme='dark'
-              />
-            </CaptchaContainer>
-          </Segment>
-          <Button type="submit" value='submit' color={submitLine}>
+            </ValidationLabel>
+          ) : null}
+          <Segment></Segment>
+          <Button
+            disabled={isLoading}
+            type='submit'
+            value='submit'
+            color={submitLine}
+          >
             Submit
           </Button>
-          {
-            renderFormMessage ?
+          {renderFormMessage ? (
             <ValidationLabel>
               <Validation>{formValidationMessage}</Validation>
-            </ValidationLabel> : null
-          }
+            </ValidationLabel>
+          ) : null}
         </Form>
-    </Fragment>
-  );
-};
+      }
+    </Fragment> : <SecondStep userEmail={email} />
+  )
+}
 
-export default Signup;
+export default Signup

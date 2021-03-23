@@ -16,10 +16,33 @@ export const Segment = styled.div`
   padding-bottom: 30px;
   text-align: center;
 `
+export const ModalContainer = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.61);
+`
+
+export const ModalInner = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  box-shadow: -5px -5px 20px #a1a1a1;
+  transform: translate(-50%, -50%);
+`
 
 export const CaptchaContainer = styled.div`
-  display: inline-block;
-  border: 2px solid ${props => props.color};
+position: absolute;
+margin: auto;
+bottom: 50%;
+right: 50%;
+background-color: white;
+transform: translate(-50%, -50%);
 `
 
 export const Label = styled.label`

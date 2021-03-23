@@ -82,3 +82,50 @@ export const ValidationLine = styled.div`
 export const LineWrapper = styled.div`
 
 `
+
+export const AlertBoxContainer = styled.div`
+  width: 40%;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.2);
+  padding: 35px;
+  border: 2px solid #fff;
+  border-radius: 20px/50px;
+  background-clip: padding-box;
+  text-align: center;
+  @media screen and (max-width: 700px){
+    width: 70%;
+  }
+`
+
+export const AlertBoxOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+  &:target {
+  visibility: visible;
+  opacity: 1;
+`
+
+export const AlertBoxModal = styled.div`
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+  h2 {
+    margin-top: 0;
+    color: #333;
+    font-family: Tahoma, Arial, sans-serif;
+  };
+  @media screen and (max-width: 700px){
+    width: 70%;
+  }
+`

@@ -30,6 +30,8 @@ export const NavLink = styled(Link)`
   height: 100%;
   cursor: pointer;
   &:hover {
+    border: 1px solid #ddd;
+    border-radius: 10px;
     transition: all 0.2s ease-in-out;
     background: #fff;
     color: #010606;

@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/functions'
 import 'firebase/firestore'
 import 'firebase/auth'
-import "firebase/storage"
+import 'firebase/storage'
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -19,8 +19,8 @@ const firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig)
 
 const db = firebaseApp.firestore()
-// const auth = firebase.auth()
-const storage = firebase.storage()
+const auth = firebaseApp.auth()
+const storage = firebaseApp.storage()
 // const provider = new firebase.auth.GoogleAuthProvider()
 
-export { db, storage }
+export { db, storage, auth }
