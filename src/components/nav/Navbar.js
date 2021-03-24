@@ -1,8 +1,14 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useAuth } from '../../auth/UserAuth';
+import { useHistory } from 'react-router-dom'
 // Components
 import MobileMenu from './MobileMenu'
 // Style
+import {
+  Success,
+  AlertBoxContainer,
+  AlertBoxOverlay,
+  AlertBoxModal} from '../universal/AlertStyles'
 import {
   Nav,
   NavLink,
@@ -11,12 +17,16 @@ import {
   NavBtn,
   NavBtnLink,
   HomeLogo,
-  MobileMenuWrapper
+  MobileMenuWrapper,
+  NavBtnFauxLink
 } from './Styles';
 
 const Navbar = () => {
+  const history = useHistory()
   const { currentUser, signout } = useAuth()
   const [open, setOpen] = useState(false)
+  const [successAlert, setSuccessAlert] = useState(false)
+  console.log('SUCCESS', successAlert)
 
   const handleMobileMenu = () => {
     return (
@@ -24,16 +34,26 @@ const Navbar = () => {
     )
   }
 
-  const handleSignout = () => {
-    console.log("logout")
+  const handleSignout = async () => {
+
+    try {
+      await signout()
+      setSuccessAlert(true)
+      setTimeout(() => {
+        history.push('/')
+      }, 1000)
+      setSuccessAlert(false)
+    } catch {
+      console.log('Error')
+    }
   }
 
   useEffect(() => {
     setOpen(false)
   }, [])
 
-  return (
-    <Fragment>
+  const Bar = () => {
+    return (
       <Nav>
         <NavLink to='/'>
           <HomeLogo src='images/logo.png' alt='Home' />
@@ -73,13 +93,28 @@ const Navbar = () => {
         {
           currentUser ?
           <NavBtn>
-            <NavBtnLink onClick={handleSignout} >Sign Out</NavBtnLink>
+            <NavBtnFauxLink onClick={handleSignout} >Sign Out</NavBtnFauxLink>
           </NavBtn>:
           <NavBtn>
           <NavBtnLink to='/signin'>Sign In</NavBtnLink>
           </NavBtn>
         }
       </Nav>
+    )
+  }
+
+  const SignoutSuccess = () => {
+    return (
+      <Success>You have been signed out</Success>
+    )
+  }
+
+  return (
+    <Fragment>
+    {
+      successAlert ?
+          <SignoutSuccess /> : <Bar />
+    }
     </Fragment>
   )
 }

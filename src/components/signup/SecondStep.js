@@ -33,7 +33,7 @@ import {
   AlertBoxContainer,
   AlertBoxOverlay,
   AlertBoxModal
-} from './MessagesStyle'
+} from '../universal/AlertStyles'
 // Auth
 import { useAuth } from '../../auth/UserAuth'
 

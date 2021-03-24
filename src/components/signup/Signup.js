@@ -14,7 +14,7 @@ import {
 import {
   Validation,
   ValidationLabel,
-} from './MessagesStyle'
+} from '../universal/AlertStyles'
 // Auth
 import { useAuth } from '../../auth/UserAuth'
 

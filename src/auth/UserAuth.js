@@ -17,14 +17,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const signin = (email, password) => {
-    auth.setPersistence(auth.Auth.Persistence.SESSION)
-    .then(() => {
-      return auth.signInWithEmailAndPassword(email, password);
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-    })
+    return auth.signInWithEmailAndPassword(email, password);
   }
 
   const signout = () => {

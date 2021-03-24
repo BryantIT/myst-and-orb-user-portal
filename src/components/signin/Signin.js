@@ -28,8 +28,7 @@ import {
   LineWrapper,
   AlertBoxContainer,
   AlertBoxOverlay,
-  AlertBoxModal
-} from '../universal/MessagesStyle';
+  AlertBoxModal } from '../universal/AlertStyles'
 // Auth
 import { useAuth } from '../../auth/UserAuth';
 
@@ -43,14 +42,13 @@ const Signin = () => {
   const [password, setPassword] = useState('')
   const [formValidationMessage, setFormValidationMessage] = useState('')
   const [renderFormMessage, setRenderFormMessage] = useState(false)
+  const [isMounted, setIsMouted] = useState(true)
 
   useEffect(() => {
     if(currentUser) {
       history.push('/dashboard')
     }
   }, [currentUser, history])
-
-  console.log('Current User', currentUser)
 
   const handleChange = (event) => {
     const value = event.target.value
@@ -67,20 +65,26 @@ const Signin = () => {
     }
   }, [data])
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
+  const signinData = async () => {
     try {
       setSigninError('')
       setIsLoading(true)
       await signin(email, password)
-      console.log('Am I here?')
-      .then(history.push('/dashboard'))
     } catch {
       setSigninError(
         'There was a problem signing you in. Please use the context form and let use know.'
       )
     }
     setIsLoading(false)
+    setIsMouted(false)
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    if(isMounted) {
+      signinData()
+      history.push('/dashboard')
+    }
   }
 
   return (
