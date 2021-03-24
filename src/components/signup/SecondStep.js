@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react'
 import { useHistory } from 'react-router-dom'
 import { states } from '../../helpers/States'
+// Components
+import AlreadyAUser from '../general/AlreadyAUser'
 import Loading from '../loading/Loading'
 import { db, storage } from '../../firebase'
 import { DateTime } from 'luxon'

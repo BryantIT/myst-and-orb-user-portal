@@ -1,5 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import Loading from '../loading/Loading'
+// Components
+import AlreadyAUser from '../general/AlreadyAUser'
 import SecondStep from './SecondStep'
 // Styles
 import {
@@ -147,82 +149,90 @@ const Signup = () => {
     }
   }
 
-  return (
-    !renderSecondStep ?
-    <Fragment>
-      {
-        isLoading ? (
-        <Loading />
-      ) :
-        <Form onSubmit={handleSubmit}>
-          <Segment>
-            <h1>User Sign up</h1>
-          </Segment>
-          <Label>
-            <Input
-              color={emailLine}
-              name='email'
-              onChange={handleChange}
-              type='email'
-              placeholder='Email Address'
-            />
+  const SignupContainer = () => {
+    return (
+      !renderSecondStep ?
+      <Fragment>
+        {
+          isLoading ? (
+          <Loading />
+        ) :
+          <Form onSubmit={handleSubmit}>
+            <Segment>
+              <h1>User Sign up</h1>
+            </Segment>
+            <Label>
+              <Input
+                color={emailLine}
+                name='email'
+                onChange={handleChange}
+                type='email'
+                placeholder='Email Address'
+              />
 
-            <Input
-              color={confirmEmailLine}
-              name='confirmEmail'
-              onChange={handleChange}
-              type='email'
-              placeholder='Confirm Email Address'
-            />
-          </Label>
-          {renderEmailMessage ? (
-            <ValidationLabel>
-              <Validation>{emailValidationMessage}</Validation>
-            </ValidationLabel>
-          ) : null}
-          {signupError ? (
-            <ValidationLabel>
-              <Validation>{signupError}</Validation>
-            </ValidationLabel>
-          ) : null}
-          <Label>
-            <Input
-              color={passwordLine}
-              name='password'
-              onChange={handleChange}
-              type='password'
-              placeholder='Password'
-            />
-            <Input
-              color={confirmPasswordLine}
-              name="confirmPassword"
-              onChange={handleChange}
-              type='password'
-              placeholder='Confirm Password'
-            />
-          </Label>
-          {renderPasswordMessage ? (
-            <ValidationLabel>
-              <Validation>{passwordValidationMessage}</Validation>
-            </ValidationLabel>
-          ) : null}
-          <Segment></Segment>
-          <Button
-            disabled={isLoading}
-            type='submit'
-            value='submit'
-            color={submitLine}
-          >
-            Submit
-          </Button>
-          {renderFormMessage ? (
-            <ValidationLabel>
-              <Validation>{formValidationMessage}</Validation>
-            </ValidationLabel>
-          ) : null}
-        </Form>
-      }
-    </Fragment> : <SecondStep userEmail={email} />
+              <Input
+                color={confirmEmailLine}
+                name='confirmEmail'
+                onChange={handleChange}
+                type='email'
+                placeholder='Confirm Email Address'
+              />
+            </Label>
+            {renderEmailMessage ? (
+              <ValidationLabel>
+                <Validation>{emailValidationMessage}</Validation>
+              </ValidationLabel>
+            ) : null}
+            {signupError ? (
+              <ValidationLabel>
+                <Validation>{signupError}</Validation>
+              </ValidationLabel>
+            ) : null}
+            <Label>
+              <Input
+                color={passwordLine}
+                name='password'
+                onChange={handleChange}
+                type='password'
+                placeholder='Password'
+              />
+              <Input
+                color={confirmPasswordLine}
+                name="confirmPassword"
+                onChange={handleChange}
+                type='password'
+                placeholder='Confirm Password'
+              />
+            </Label>
+            {renderPasswordMessage ? (
+              <ValidationLabel>
+                <Validation>{passwordValidationMessage}</Validation>
+              </ValidationLabel>
+            ) : null}
+            <Segment></Segment>
+            <Button
+              disabled={isLoading}
+              type='submit'
+              value='submit'
+              color={submitLine}
+            >
+              Submit
+            </Button>
+            {renderFormMessage ? (
+              <ValidationLabel>
+                <Validation>{formValidationMessage}</Validation>
+              </ValidationLabel>
+            ) : null}
+          </Form>
+        }
+      </Fragment> : <SecondStep userEmail={email} />
+    )
+  }
+
+  return (
+    currentUser ? (
+      <AlreadyAUser />
+    ) : <SignupContainer />
   )
 }
 

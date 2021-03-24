@@ -60,7 +60,10 @@ const Navbar = () => {
             !currentUser ?
             <NavLink to='/signup'>
               Sign Up
-            </NavLink> : null
+            </NavLink> :
+            <NavLink to='/dashboard'>
+              Dashboard
+            </NavLink>
           }
         </NavMenu>
         {
@@ -70,7 +73,7 @@ const Navbar = () => {
           </NavBtn>:
           <NavBtn>
           <NavBtnLink to='/signin'>Sign In</NavBtnLink>
-          </NavBtn>          
+          </NavBtn>
         }
       </Nav>
     </Fragment>
