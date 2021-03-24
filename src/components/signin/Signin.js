@@ -35,7 +35,7 @@ import { useAuth } from '../../auth/UserAuth';
 
 const Signup = () => {
   const history = useHistory()
-  const { signin } = useAuth()
+  const { signin, currentUser } = useAuth()
   const [signupError, setSigninError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState({})
@@ -44,11 +44,13 @@ const Signup = () => {
   const [formValidationMessage, setFormValidationMessage] = useState('')
   const [renderFormMessage, setRenderFormMessage] = useState(false)
 
+  useEffect(() => {
+    if(currentUser) {
+      history.push('/dashboard')
+    }
+  }, [currentUser, history])
 
-
-
-
-
+  console.log('Current User', currentUser)
 
   const handleChange = (event) => {
     const value = event.target.value
@@ -71,6 +73,7 @@ const Signup = () => {
       setSigninError('')
       setIsLoading(true)
       await signin(email, password)
+      console.log('Am I here?')
       .then(history.push('/dashboard'))
     } catch {
       setSigninError(

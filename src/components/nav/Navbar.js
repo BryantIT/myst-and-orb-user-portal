@@ -1,4 +1,5 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState, useEffect } from 'react';
+import { useAuth } from '../../auth/UserAuth';
 // Components
 import MobileMenu from './MobileMenu'
 // Style
@@ -11,9 +12,10 @@ import {
   NavBtnLink,
   HomeLogo,
   MobileMenuWrapper
-} from './Styles'
+} from './Styles';
 
 const Navbar = () => {
+  const { currentUser } = useAuth()
   const [open, setOpen] = useState(false)
 
   const handleMobileMenu = () => {
@@ -54,13 +56,22 @@ const Navbar = () => {
           <NavLink to='/contact-us'>
             Contact Us
           </NavLink>
-          <NavLink to='/signup'>
-            Sign Up
-          </NavLink>
+          {
+            !currentUser ?
+            <NavLink to='/signup'>
+              Sign Up
+            </NavLink> : null
+          }
         </NavMenu>
-        <NavBtn>
+        {
+          currentUser ?
+          <NavBtn>
+            <NavBtnLink to='/signout'>Sign Out</NavBtnLink>
+          </NavBtn>:
+          <NavBtn>
           <NavBtnLink to='/signin'>Sign In</NavBtnLink>
-        </NavBtn>
+          </NavBtn>          
+        }
       </Nav>
     </Fragment>
   )
