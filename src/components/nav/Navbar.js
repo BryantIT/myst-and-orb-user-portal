@@ -15,13 +15,17 @@ import {
 } from './Styles';
 
 const Navbar = () => {
-  const { currentUser } = useAuth()
+  const { currentUser, signout } = useAuth()
   const [open, setOpen] = useState(false)
 
   const handleMobileMenu = () => {
     return (
       setOpen(!open)
     )
+  }
+
+  const handleSignout = () => {
+    console.log("logout")
   }
 
   useEffect(() => {
@@ -69,7 +73,7 @@ const Navbar = () => {
         {
           currentUser ?
           <NavBtn>
-            <NavBtnLink to='/signout'>Sign Out</NavBtnLink>
+            <NavBtnLink onClick={handleSignout} >Sign Out</NavBtnLink>
           </NavBtn>:
           <NavBtn>
           <NavBtnLink to='/signin'>Sign In</NavBtnLink>
