@@ -1,4 +1,3 @@
-
 import React, { Fragment, useEffect } from 'react'
 // Components
 import Dashboard from './components/dashboard/Dashboard'
@@ -16,6 +15,9 @@ import Splash from './components/splash/Splash'
 import Navbar from './components/nav/Navbar'
 import './App.css';
 import { Route, Switch } from 'react-router-dom'
+import { useAuth } from './auth/UserAuth'
+//Database
+import { userInfo } from './database/Database'
 // Styles
 import { Main,
   UserInfo,

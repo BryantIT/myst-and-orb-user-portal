@@ -10,7 +10,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
-  const [userInfo, setUserInfo] = useState({})
+  const [userInfo, setUserInfo] = useState()
 
 
   const signup = (email, password) => {
@@ -46,6 +46,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [currentUser])
   console.log(userInfo)
+  console.log('USER USER USER', currentUser ? currentUser.uid : 'what')
 
   const value = {
     currentUser,

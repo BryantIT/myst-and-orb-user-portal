@@ -36,15 +36,6 @@ export const ModalInner = styled.div`
   transform: translate(-50%, -50%);
 `
 
-export const CaptchaContainer = styled.div`
-position: absolute;
-margin: auto;
-bottom: 50%;
-right: 50%;
-background-color: white;
-transform: translate(-50%, -50%);
-`
-
 export const Label = styled.label`
   display: flex;
   margin-bottom: 20px;
