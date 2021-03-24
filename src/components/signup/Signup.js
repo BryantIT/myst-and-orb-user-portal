@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import Loading from '../loading/Loading'
+import { useHistory } from 'react-router-dom'
 // Components
 import AlreadyAUser from '../general/AlreadyAUser'
 import SecondStep from './SecondStep'
@@ -19,7 +20,8 @@ import {
 import { useAuth } from '../../auth/UserAuth'
 
 const Signup = () => {
-  const { signup, currentUser } = useAuth()
+  const history = useHistory()
+  const { signup, currentUser, userInfo } = useAuth()
   const [signupError, setSignupError] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState({})
@@ -39,6 +41,15 @@ const Signup = () => {
   const [confirmPasswordLine, setConfirmPasswordLine] = useState('##a1a1a1')
   const [submitLine, setSubmitLine] = useState('##a1a1a1')
   const [renderSecondStep, setRenderSecondStep] = useState(false)
+
+  useEffect(() => {
+    if(currentUser && userInfo) {
+      history.push('/dashboard')
+    }
+    if(currentUser && !userInfo) {
+      setRenderSecondStep(true)
+    }
+  }, [currentUser, userInfo, history])
 
   const handleChange = (event) => {
     const value = event.target.value
@@ -230,7 +241,7 @@ const Signup = () => {
   }
 
   return (
-    currentUser ? (
+    currentUser && userInfo ? (
       <AlreadyAUser />
     ) : <SignupContainer />
   )

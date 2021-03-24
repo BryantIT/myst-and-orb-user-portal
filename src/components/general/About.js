@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 // Components
-import Loading from '../loading/Loading'
+import Loading from '../loading/Loading';
 // Styles
 import {
   Container,
-  WelcomeContainer,
-  AboutContainer,
-  Divider} from './Styles'
+  HeaderContainer,
+  InnerContainer,
+  Divider } from '../universal/Styles';
 // Firebase
-import { db } from '../../firebase'
+import { db } from '../../firebase';
 
 const About = () => {
   const [about, setAbout]= useState('')
@@ -45,13 +45,13 @@ const About = () => {
   return (
     isLoaded ?
     <Container>
-      <WelcomeContainer>
+      <HeaderContainer>
         {welcome}
-      </WelcomeContainer>
+      </HeaderContainer>
       <Divider />
-      <AboutContainer>
+      <InnerContainer>
         {about}
-      </AboutContainer>
+      </InnerContainer>
     </Container> : <Loading />
   )
 }

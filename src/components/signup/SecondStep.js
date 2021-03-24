@@ -38,7 +38,7 @@ import {
 import { useAuth } from '../../auth/UserAuth'
 
 const SecondStep = ({ userEmail }) => {
-  const { currentUser } = useAuth()
+  const { currentUser, userInfo } = useAuth()
   const history = useHistory()
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState({})
