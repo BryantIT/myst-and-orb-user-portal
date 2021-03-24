@@ -29,11 +29,11 @@ import {
   AlertBoxContainer,
   AlertBoxOverlay,
   AlertBoxModal
-} from '../signup/MessagesStyle';
+} from '../universal/MessagesStyle';
 // Auth
 import { useAuth } from '../../auth/UserAuth';
 
-const Signup = () => {
+const Signin = () => {
   const history = useHistory()
   const { signin, currentUser } = useAuth()
   const [signupError, setSigninError] = useState('')
@@ -128,4 +128,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default Signin
