@@ -6,9 +6,12 @@ export const Segment = styled.div`
 `
 
 export const SegmentMini = styled.div`
-/* border-bottom: 1px solid #a1a1a1; */
   padding-bottom: 15px;
   text-align: center;
+`
+
+export const LinkWrapper = styled.div`
+  display: inline-block;
 `
 
 export const ProfileImage = styled.img`
