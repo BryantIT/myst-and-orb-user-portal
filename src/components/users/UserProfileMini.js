@@ -5,10 +5,12 @@ import { auth, db, storage } from '../../firebase'
 // Styles
 import {
   SegmentMini,
-  ProfileImage } from './Styles'
+  ProfileImage} from './Styles'
 import {
   Divider,
-  InnerContainer} from '../universal/Styles'
+  InnerContainer,
+  MiniDivider,
+  Break} from '../universal/Styles'
 
 const UserProfileMini = () =>{
   const { currentUser, userInfo } = useAuth()
@@ -59,28 +61,33 @@ const UserProfileMini = () =>{
         </SegmentMini>
         <SegmentMini>
           Member For:
-          <br />
-          {
-            `Years: ${memberSince.years}`
-          }
-          <br />
-          {
-            `Months: ${memberSince.months}`
-          }
-          <br />
-          {
-            `Days: ${memberSince.days}`
-          }
+          <Break />
+          <Break />
+            {
+              `Years: ${memberSince.years}`
+            }
+            <Break />
+            {
+              `Months: ${memberSince.months}`
+            }
+            <Break />
+            {
+              `Days: ${memberSince.days}`
+            }
         </SegmentMini>
+        <MiniDivider />
         <SegmentMini>
           Investigations:
         </SegmentMini>
+        <MiniDivider />
         <SegmentMini>
           Team Member Of:
         </SegmentMini>
+        <MiniDivider />
         <SegmentMini>
           Badges:
         </SegmentMini>
+        <MiniDivider />
         <SegmentMini>
           Edit Profile
         </SegmentMini>

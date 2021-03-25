@@ -32,3 +32,25 @@ export const Divider = styled.div`
 	  background-image: linear-gradient(to right, transparent, #a1a1a1, transparent);
   }
 `
+
+export const MiniDivider = styled.div`
+  position: relative;
+  margin-top: 2px;
+  height: 1px;
+  padding: 3px;
+  &:before {
+    content: "";
+	  position: absolute;
+	  top: 0;
+	  left: 5%;
+	  right: 5%;
+	  width: 90%;
+	  height: 2px;
+	  background-image: linear-gradient(to right, transparent, #a1a1a1, transparent);
+  }
+`
+
+export const Break = styled.hr`
+  clear: both;
+  visibility: hidden;
+`
