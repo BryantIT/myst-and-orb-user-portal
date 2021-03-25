@@ -5,6 +5,11 @@ export const Segment = styled.div`
   text-align: center;
 `
 
+export const SegmentMini = styled.div`
+  padding-bottom: 15px;
+  text-align: center;
+`
+
 export const ProfileImage = styled.img`
 
   display: inline-block;

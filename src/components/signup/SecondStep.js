@@ -103,7 +103,7 @@ const SecondStep = ({ userEmail }) => {
 
   const userInfoFirebase = () => {
       db.collection('users').doc(`${currentUser.uid}`).set({
-        createOn: createdOn,
+        createdOn: createdOn,
         firstName: firstName,
         lastName : lastName,
         city: city,
@@ -173,15 +173,7 @@ const SecondStep = ({ userEmail }) => {
 
   const getDate = () => {
     const date = DateTime.now()
-    const dateAsObject = {
-      year: date.year,
-      month: date.month,
-      day: date.day,
-      hour: date.hour,
-      minute: date.minute
-    }
-    const converted = DateTime.fromObject(dateAsObject)
-    const result = (converted)/1000
+    const result = date.ts
     setCreatedOn(result)
   }
 

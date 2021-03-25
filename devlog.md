@@ -1,5 +1,6 @@
 TODO:
 
+Mini Profile Section
 Profile section
 Ad section (amazon?, affilatie?)
 turn lower profile section into tools (mobile?)
@@ -19,6 +20,11 @@ edit profile section
 upgrade options
 caching with firebase
 expire login
+mobile menu
+warning about being better on desktop/chrome
+verify user?
+badges? Like achievments?
+Finish mini profile
 graphql?
 edit/delete:
   account

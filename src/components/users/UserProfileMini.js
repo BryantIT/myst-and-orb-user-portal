@@ -1,27 +1,35 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { useAuth } from '../../auth/UserAuth'
-// Database
-import { userProfileImage } from '../../database/Database'
+import { DateTime, Interval } from 'luxon'
 import { auth, db, storage } from '../../firebase'
 // Styles
 import {
-  Segment,
+  SegmentMini,
   ProfileImage } from './Styles'
+import {
+  Divider,
+  InnerContainer} from '../universal/Styles'
 
 const UserProfileMini = () =>{
   const { currentUser, userInfo } = useAuth()
   const [imageURL, setImageURL] = useState()
   const [gettingUrl, setGettingUrl] = useState(false)
+  const [memberSince, setMemberSince] = useState({})
 
-  console.log('USER INFO', userInfo)
-  console.log(currentUser)
-  console.log('IMAGE', imageURL)
-
-  console.log('>>>>>>>>>>>>>><<<<<<<<<<<<<<<', gettingUrl)
-
+  console.log(memberSince)
 
   useEffect(() => {
     if(userInfo) {
+      const start = userInfo.createdOn
+      const startConverted = DateTime.fromMillis(start)
+      const now = DateTime.now()
+      const calculate = now.diff(startConverted, ['years', 'months', 'days'])
+      const result = {
+        years: calculate.years.toFixed(),
+        months: calculate.months.toFixed(),
+        days: calculate.days.toFixed()
+      }
+      setMemberSince(result)
       const pathInfo = userInfo.profileImageInfo
       const bucket = pathInfo.bucket
       const fileName = pathInfo.fileName
@@ -39,13 +47,63 @@ const UserProfileMini = () =>{
     return
   }, [userInfo])
 
+  const ProfileMini = () => {
+    return (
+      <Fragment>
+        <SegmentMini>
+          <ProfileImage
+            src={imageURL}
+            alt='avatar'
+          />
+          <Divider />
+        </SegmentMini>
+        <SegmentMini>
+          Member For:
+          <br />
+          {
+            `Years: ${memberSince.years}`
+          }
+          <br />
+          {
+            `Months: ${memberSince.months}`
+          }
+          <br />
+          {
+            `Days: ${memberSince.days}`
+          }
+        </SegmentMini>
+        <SegmentMini>
+          Investigations:
+        </SegmentMini>
+        <SegmentMini>
+          Team Member Of:
+        </SegmentMini>
+        <SegmentMini>
+          Badges:
+        </SegmentMini>
+        <SegmentMini>
+          Edit Profile
+        </SegmentMini>
+      </Fragment>
+    )
+  }
+
+  const NoUserProfileMini = () => {
+    return (
+      <SegmentMini>
+        <ProfileImage
+          src='images/logo.png'
+          alt='avatar'
+        />
+      </SegmentMini>
+    )
+  }
+
   return (
-    <Segment>
-      <ProfileImage
-        src={imageURL}
-        alt='avatar'
-      />
-    </Segment>
+    currentUser && userInfo ? (
+      <ProfileMini />
+    ) :
+    <NoUserProfileMini />
   )
 }
 
