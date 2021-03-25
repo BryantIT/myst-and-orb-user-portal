@@ -11,15 +11,16 @@ import {
   AlertBoxModal} from '../universal/AlertStyles'
 import {
   Nav,
-  NavLink,
   Bars,
   NavMenu,
   NavBtn,
-  NavBtnLink,
   HomeLogo,
   MobileMenuWrapper,
   NavBtnFauxLink
 } from './Styles';
+import {
+  NavLink,
+  NavBtnLink} from '../universal/Styles'
 
 const Navbar = () => {
   const history = useHistory()
