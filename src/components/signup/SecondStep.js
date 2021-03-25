@@ -20,7 +20,7 @@ import {
   CaptchaContainer,
   ModalContainer,
   ModalInner,
-} from './FormStyle'
+} from '../universal/FormStyles'
 import {
   Info,
   Success,
