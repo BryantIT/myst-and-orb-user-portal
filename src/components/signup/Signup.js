@@ -11,7 +11,7 @@ import {
   Label,
   Input,
   Button,
-} from './FormStyle'
+} from '../universal/FormStyles'
 import {
   Validation,
   ValidationLabel,
