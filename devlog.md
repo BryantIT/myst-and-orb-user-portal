@@ -1,6 +1,8 @@
+Completed:
+Mini Profile Section - 03-25-2021
+
 TODO:
 
-Mini Profile Section
 Profile section
 Ad section (amazon?, affilatie?)
 turn lower profile section into tools (mobile?)
