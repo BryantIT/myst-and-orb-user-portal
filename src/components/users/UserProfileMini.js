@@ -5,12 +5,14 @@ import { auth, db, storage } from '../../firebase'
 // Styles
 import {
   SegmentMini,
-  ProfileImage} from './Styles'
+  ProfileImage,
+  LinkWrapper} from './Styles'
 import {
   Divider,
   InnerContainer,
   MiniDivider,
-  Break} from '../universal/Styles'
+  Break,
+  NavLink} from '../universal/Styles'
 
 const UserProfileMini = () =>{
   const { currentUser, userInfo } = useAuth()
@@ -89,7 +91,9 @@ const UserProfileMini = () =>{
         </SegmentMini>
         <MiniDivider />
         <SegmentMini>
-          Edit Profile
+          <LinkWrapper>
+            <NavLink to='/profile'>Edit Profile</NavLink>
+          </LinkWrapper>
         </SegmentMini>
       </Fragment>
     )
