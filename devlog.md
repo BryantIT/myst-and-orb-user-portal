@@ -42,3 +42,12 @@ store?
 fix warnings in console
 Anylytics?
 SEO
+admin section
+  view all users
+  ban a user
+  view all reports
+  delete:
+    files
+  add flag/warning to user
+donation section?
+remove console logs/ unsused files
