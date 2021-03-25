@@ -2,9 +2,9 @@ import React, { Fragment, useState, useEffect } from 'react'
 // Components
 import Navbar from './Navbar'
 import {
-  MobileMenuStyle,
-  NavLink,
-} from './Styles'
+  MobileMenuStyle
+} from './Styles';
+import { NavLink } from '../universal/Styles'
 
 const MobileMenu = () => {
 
