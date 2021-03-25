@@ -16,7 +16,7 @@ import {
   CaptchaContainer,
   ModalContainer,
   ModalInner,
-} from '../signup/FormStyle';
+} from '../universal/FormStyles';
 import {
   Info,
   Success,
