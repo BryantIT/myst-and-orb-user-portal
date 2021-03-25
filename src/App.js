@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 // Components
+import Profile from './components/users/Profile'
 import Dashboard from './components/dashboard/Dashboard'
 import { AuthProvider } from './auth/UserAuth'
 import Signup from './components/signup/Signup'
@@ -63,6 +64,9 @@ function App() {
                 </Route>
                 <Route exact path="/signin">
                   <Signin />
+                </Route>
+                <Route exact path="/profile">
+                  <Profile />
                 </Route>
               </Interior>
             </Switch>
