@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { NavLink as Link } from 'react-router-dom'
 
 export const Container = styled.div`
   margin: auto;
@@ -53,4 +54,43 @@ export const MiniDivider = styled.div`
 export const Break = styled.hr`
   clear: both;
   visibility: hidden;
+`
+
+export const NavLink = styled(Link)`
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  cursor: pointer;
+  &:hover {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  };
+  &.active {
+    color: #15cdfc;
+  }
+`
+
+export const NavBtnLink = styled(Link)`
+  border-radius: 4px;
+  background: #256ce1;
+  padding: 10px 22px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  /* Second Nav */
+  margin-left: 24px;
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
 `
