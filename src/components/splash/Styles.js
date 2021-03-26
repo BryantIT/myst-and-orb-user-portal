@@ -25,14 +25,11 @@ const grainAnimation = keyframes`
 export const Main = styled.main`
   overflow:hidden;
   position: relative;
-
   display: flex;
   align-items: center;
   justify-content: center;
   flex-flow: column;
-
   height: 100vh;
-
   background: linear-gradient(to right, rgba(36,31,31,1) 0%, rgba(36,31,31,1) 32%, rgba(74,71,70,1) 100%);
   color: #fff;
   text-align: center;
@@ -73,6 +70,7 @@ export const Grain = styled.div`
 
 export const TitleContent = styled.div`
   position:relative;
+  z-index: 100;
 `
 
 export const MainTitle = styled.h1`
@@ -83,9 +81,11 @@ export const MainTitle = styled.h1`
   font-family: 'Times New Roman', serif;
   position:relative;
   line-height:1.3;
+  z-index: 100;
 `
 
 export const StyledLink = styled(NavLink)`
+  z-index: 100;
   padding: .3em 1em .25em;
   font-weight: 400;
   font-size: 40px;

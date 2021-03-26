@@ -32,9 +32,8 @@ function App() {
   return (
     <AuthProvider>
       <Fragment>
-      <Route exact path="/" component={Splash} />
-        <div className="App">
-          <Navbar />
+      <div className="App">
+        <Navbar />
           <Main>
             <UserInfo>
               <UserProfileImage />
@@ -50,6 +49,7 @@ function App() {
             </NewsContainer>
             <Switch>
               <Interior>
+              <Route exact path="/" component={Splash} />
                 <Route exact path="/about">
                   <About />
                 </Route>
