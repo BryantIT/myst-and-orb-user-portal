@@ -7,25 +7,24 @@ import {
   Vignette,
   TitleContent,
   MainTitle,
-  StyledLink } from './Styles'
+  StyledLink,
+  Container,
+  WelcomeContainer} from './Styles'
 
 const Splash = () => {
   return(
     <Fragment>
-      <Main role='main' id='main-content'>
-        <TopDivider src='images/divider.svg' alt='Home' />
-        <MainTitle>Manes daemones spirituum, O mi.</MainTitle>
-      <TitleContent>
-          <MainTitle id="main-title">
+      <Container>
+      <TopDivider src='images/divider.svg' alt='Home' />
+        <WelcomeContainer>Manes daemones spirituum, O mi.</WelcomeContainer>
+          <WelcomeContainer id="main-title">
               "Through the dark,<br /><span style={{ paddingLeft: 100 }}>the most haunted,</span><br /><span style={{ paddingRight:110 }}>where all fear to tread,</span><br /><span style={{ paddingLeft: 120 }}>the Myst & Orb Society."</span>
-          </MainTitle>
-      </TitleContent>
-    <Vignette />
+          </WelcomeContainer>
     <BottomDivider src='images/divider.svg' alt='Home' />
-    <MainTitle>
+    <WelcomeContainer>
       <StyledLink to='/about' id="main-title">Enter</StyledLink>
-    </MainTitle>
-      </Main>
+    </WelcomeContainer>
+      </Container>
     </Fragment>
   )
 }

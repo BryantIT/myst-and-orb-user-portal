@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 // Components
+import Landing from './components/landing/Landing'
 import Profile from './components/users/Profile'
 import Dashboard from './components/dashboard/Dashboard'
 import { AuthProvider } from './auth/UserAuth'
@@ -12,7 +13,6 @@ import UserProfileImage from './components/users/UserProfileImage'
 import Ads from './components/ads/Ads'
 import About from './components/general/About'
 import Footer from './components/footer/Footer'
-import Splash from './components/splash/Splash'
 import Navbar from './components/nav/Navbar'
 import './App.css';
 import { Route, Switch } from 'react-router-dom'
@@ -49,7 +49,9 @@ function App() {
             </NewsContainer>
             <Switch>
               <Interior>
-              <Route exact path="/" component={Splash} />
+              <Route exact path="/">
+                <Landing />
+              </Route>
                 <Route exact path="/about">
                   <About />
                 </Route>
