@@ -72,7 +72,7 @@ const SecondStep = ({ userEmail }) => {
 
   useEffect(() => {
     if(currentUser && userInfo) {
-      const teamData = db.collection('teams').doc(userInfo.team.uid).onSnapshot((snapshot) => {
+      const teamData = db.collection('teams').doc(userInfo.team).onSnapshot((snapshot) => {
         setCurrentTeam(snapshot.data((info) => {
           return {
             id: info.id
@@ -174,7 +174,7 @@ const SecondStep = ({ userEmail }) => {
   }
 
   const userInfoFirebase = () => {
-      db.collection('users').doc(`${currentUser.uid}`).set({
+      db.collection('users').doc(`${currentUser.uid}`).update({
         updatedOn: updatedOn,
         firstName: firstName,
         lastName : lastName,
@@ -217,6 +217,17 @@ const SecondStep = ({ userEmail }) => {
       setState(data.state)
     }
   }, [data, userInfo])
+
+  useEffect(() => {
+    if(userInfo) {
+      setData({
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        city: userInfo.city,
+        state: userInfo.state
+      })
+    }
+  }, [userInfo])
 
   const isUndefined = () => {
     if (!data.firstName) {
@@ -302,8 +313,12 @@ const SecondStep = ({ userEmail }) => {
     setDisplayTeamWarning(!displayTeamWarning)
   }
 
-  const TheForm = () => {
-    return(
+  return (
+    <Fragment>
+      {
+        isLoading ? (
+        <Loading />
+      ) :
       isMounted ?
       <Form onSubmit={handleSubmit}>
         <Segment>
@@ -358,14 +373,14 @@ const SecondStep = ({ userEmail }) => {
             name='firstName'
             onChange={handleChange}
             type='text'
-            placeholder='First Name'
+            placeholder={firstName}
           />
           <Input
             color={lastNameLine}
             name="lastName"
             onChange={handleChange}
             type='text'
-            placeholder='Last Name'
+            placeholder={lastName}
           />
         </Label>
         <Label>
@@ -374,7 +389,7 @@ const SecondStep = ({ userEmail }) => {
             name='city'
             onChange={handleChange}
             type='text'
-            placeholder='City'
+            placeholder={city}
           />
           <Select color={stateLine} name='state' onChange={handleChange} defaultValue={state ? state : userInfo.state}>
             <option disabled>{
@@ -403,16 +418,6 @@ const SecondStep = ({ userEmail }) => {
           </ValidationLabel>
         ) : null}
       </Form> : null
-    )
-  }
-
-  return (
-    <Fragment>
-      {
-        isLoading ? (
-        <Loading />
-      ) :
-        <TheForm />
       }
     </Fragment>
   )
