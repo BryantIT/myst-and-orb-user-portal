@@ -60,7 +60,8 @@ const SecondStep = ({ userEmail }) => {
   const [submitLine, setSubmitLine] = useState('##a1a1a1')
   const [imageAsFile, setImageAsFile] = useState()
   const [imageFileName, setImageFileName] = useState()
-  const [createdOn, setCreatedOn] = useState({})
+  const [createdOn, setCreatedOn] = useState()
+  const [updatedOn, setUpdatedOn] = useState()
   const [hasProfileImage, setHasProfileImage] = useState(false)
 
   useEffect(() => {
@@ -104,6 +105,7 @@ const SecondStep = ({ userEmail }) => {
   const userInfoFirebase = () => {
       db.collection('users').doc(`${currentUser.uid}`).set({
         createdOn: createdOn,
+        updatedOn: createdOn,
         firstName: firstName,
         lastName : lastName,
         city: city,
@@ -135,7 +137,8 @@ const SecondStep = ({ userEmail }) => {
     setState()
     setEmail()
     setProfileImage('images/avatar.png')
-    setCreatedOn({})
+    setCreatedOn()
+    setUpdatedOn()
   }
 
   useEffect(() => {
@@ -191,7 +194,8 @@ const SecondStep = ({ userEmail }) => {
       data.state !== 'ZZ' &&
       email &&
       hasProfileImage &&
-      createdOn
+      createdOn &&
+      updatedOn
     ) {
       submitFinalData()
     } else {

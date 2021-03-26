@@ -60,7 +60,7 @@ const SecondStep = ({ userEmail }) => {
   const [submitLine, setSubmitLine] = useState('##a1a1a1')
   const [imageAsFile, setImageAsFile] = useState()
   const [imageFileName, setImageFileName] = useState()
-  const [createdOn, setCreatedOn] = useState({})
+  const [updatedOn, setupdatedOn] = useState({})
   const [hasProfileImage, setHasProfileImage] = useState(false)
   const [oldBucket, setOldBucket] = useState()
   const [oldFileName, setOldFileName] = useState()
@@ -147,42 +147,40 @@ const SecondStep = ({ userEmail }) => {
   }
 
   const userImageFirebase = () => {
-    const metadata = {
-      contentType: 'image',
-      customMetadata: {
-        uploadedBy: currentUser.uid,
-        usedFor: 'Profile'
+    if(imageFileName !== oldFileName) {
+      const metadata = {
+        contentType: 'image',
+        customMetadata: {
+          uploadedBy: currentUser.uid,
+          usedFor: 'Profile'
+        }
       }
+      const bucketName = 'profileImages'
+      const file = imageAsFile
+      const storageRef = storage.ref()
+      setProfileImageInfo({
+        bucket: bucketName,
+        fileName: imageFileName,
+      })
+      const uploadTask = storageRef.child(`${bucketName}/${imageFileName}`).put(file, metadata)
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          let progress = snapshot.bytesTransferred / snapshot.totalBytes * 100
+          console.log('Upload is ' + progress + '% done')
+        }
+      )
     }
-    const bucketName = 'profileImages'
-    const file = imageAsFile
-    const storageRef = storage.ref()
-    console.log('StorageRef', storageRef)
-    setProfileImageInfo({
-      bucket: bucketName,
-      fileName: imageFileName,
-    })
-    const uploadTask = storageRef.child(`${bucketName}/${imageFileName}`).put(file, metadata)
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        let progress = snapshot.bytesTransferred / snapshot.totalBytes * 100
-        console.log('Upload is ' + progress + '% done')
-      }
-    )
   }
 
   const userInfoFirebase = () => {
       db.collection('users').doc(`${currentUser.uid}`).set({
-        createdOn: createdOn,
+        updatedOn: updatedOn,
         firstName: firstName,
         lastName : lastName,
         city: city,
         state: state,
-        email: email,
-        profileImageInfo: profileImageInfo,
-        isPaid: 'no',
-        inGoodStanding: 'yes'
+        profileImageInfo: profileImageInfo
       })
   }
 
@@ -191,6 +189,7 @@ const SecondStep = ({ userEmail }) => {
     if (currentUser) {
       setIsLoading(true)
       userInfoFirebase()
+      deleteOldFile()
       resetForm()
       history.push('/dashboard')
     } else {
@@ -205,19 +204,19 @@ const SecondStep = ({ userEmail }) => {
     setCity()
     setState()
     setEmail()
-    setCreatedOn({})
+    setupdatedOn({})
     setOldBucket()
     setOldFileName()
   }
 
   useEffect(() => {
-    if (data) {
+    if (data, userInfo) {
       setFirstName(data.firstName)
       setLastName(data.lastName)
       setCity(data.city)
       setState(data.state)
     }
-  }, [data])
+  }, [data, userInfo])
 
   const isUndefined = () => {
     if (!data.firstName) {
@@ -246,7 +245,7 @@ const SecondStep = ({ userEmail }) => {
   const getDate = () => {
     const date = DateTime.now()
     const result = date.ts
-    setCreatedOn(result)
+    setupdatedOn(result)
   }
 
   useEffect(() => {
@@ -261,9 +260,7 @@ const SecondStep = ({ userEmail }) => {
       data.lastName &&
       data.city &&
       data.state !== 'ZZ' &&
-      email &&
-      hasProfileImage &&
-      createdOn
+      updatedOn
     ) {
       submitFinalData()
     } else {
@@ -274,6 +271,8 @@ const SecondStep = ({ userEmail }) => {
       isUndefined()
     }
   }
+
+  console.log('DATA DATA DATA', data)
 
   const handleImageUpload = () => {
     inputFile.current.click()
@@ -302,8 +301,6 @@ const SecondStep = ({ userEmail }) => {
   const handleTeamClick = () => {
     setDisplayTeamWarning(!displayTeamWarning)
   }
-
-  console.log('Display', displayTeamWarning)
 
   const TheForm = () => {
     return(
@@ -361,14 +358,14 @@ const SecondStep = ({ userEmail }) => {
             name='firstName'
             onChange={handleChange}
             type='text'
-            placeholder={userInfo.firstName}
+            placeholder='First Name'
           />
           <Input
             color={lastNameLine}
             name="lastName"
             onChange={handleChange}
             type='text'
-            placeholder={userInfo.lastName}
+            placeholder='Last Name'
           />
         </Label>
         <Label>
@@ -377,7 +374,7 @@ const SecondStep = ({ userEmail }) => {
             name='city'
             onChange={handleChange}
             type='text'
-            placeholder={userInfo.city}
+            placeholder='City'
           />
           <Select color={stateLine} name='state' onChange={handleChange} defaultValue={state ? state : userInfo.state}>
             <option disabled>{
