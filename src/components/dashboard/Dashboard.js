@@ -30,24 +30,26 @@ const Dashboard = () => {
 
   const ProfileIncomplete = () => {
     return (
-      <Container>
-        <HeaderContainer>
-          You haven't completed your profile
-        </HeaderContainer>
-        <Divider />
-        <HeaderContainer>
-          <DashboardLink to='/signup'>{'> Complete Profile'}</DashboardLink>
-        </HeaderContainer>
-        <Divider />
-      </Container>
+      !userInfo ? (
+        <Container>
+          <HeaderContainer>
+            You haven't completed your profile
+          </HeaderContainer>
+          <Divider />
+          <HeaderContainer>
+            <DashboardLink to='/signup'>{'> Complete Profile'}</DashboardLink>
+          </HeaderContainer>
+          <Divider />
+        </Container>
+      ) : null
     )
   }
 
   return (
-    !userInfo ? (
-      <ProfileIncomplete />
+    !currentUser ? (
+      <ProfileComplete />
     ) :
-    <ProfileComplete />
+    <ProfileIncomplete />
   )
 }
 

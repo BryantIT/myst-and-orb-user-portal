@@ -63,6 +63,24 @@ const SecondStep = ({ userEmail }) => {
   const [createdOn, setCreatedOn] = useState()
   const [updatedOn, setUpdatedOn] = useState()
   const [hasProfileImage, setHasProfileImage] = useState(false)
+  const [teams, setTeams] = useState([])
+
+  useEffect(() => {
+    const teamData = db.collection('teams').get()
+    .then((snapshot) => {
+      let teamsArray = []
+      snapshot.forEach((doc) => {
+        const data = doc.data()
+        teamsArray.push({
+          id: data.id,
+          name: data.name
+        })
+        console.log(teamsArray)
+      })
+    })
+  }, [])
+
+  console.log('TEAMS', teams)
 
   useEffect(() => {
     setEmail(userEmail)
