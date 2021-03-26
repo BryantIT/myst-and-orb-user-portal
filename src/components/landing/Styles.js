@@ -10,8 +10,6 @@ export const TopDivider = styled.img`
 `
 
 export const StyledLink = styled(NavLink)`
-  z-index: 100;
-  padding: .3em 1em .25em;
   font-weight: 400;
   font-size: 40px;
   color: white;

@@ -65,22 +65,45 @@ const SecondStep = ({ userEmail }) => {
   const [oldBucket, setOldBucket] = useState()
   const [oldFileName, setOldFileName] = useState()
   const [oldInfoSet, setOldInfoSet] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+  const [currentTeam, setCurrentTeam] = useState()
+  const [teamPositions, setTeamPositions] = useState()
+  const [displayTeamWarning, setDisplayTeamWarning] = useState(false)
 
   useEffect(() => {
-    if(userInfo) {
+    if(currentUser && userInfo) {
+      const teamData = db.collection('teams').doc(userInfo.team.uid).onSnapshot((snapshot) => {
+        setCurrentTeam(snapshot.data((info) => {
+          return {
+            id: info.id
+          }
+        }))
+      })
+      return teamData
+    }
+  }, [currentUser, userInfo])
+
+  useEffect(() => {
+    if(currentTeam && currentUser) {
+      const x = currentTeam.positions
+      const filtered = x.filter((i) => {
+        return  i.members.includes(currentUser.uid)
+      }).map(x => x.name)
+      setTeamPositions(filtered)
+    }
+  }, [currentTeam, currentUser])
+
+  useEffect(() => {
+    setIsMounted(false)
+    if(currentUser && userInfo) {
       const pathInfo = userInfo.profileImageInfo
       setOldBucket(pathInfo.bucket)
       setOldFileName(pathInfo.fileName)
-      setFirstName(userInfo.firstName)
-      setLastName(userInfo.lastName)
-      setCity(userInfo.city)
-      setState(userInfo.state)
+      setIsMounted(true)
     }
     setOldInfoSet(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInfo])
-
-  console.log('First Name', firstName)
+  }, [userInfo, currentUser])
 
   useEffect(() => {
     if(userInfo && oldInfoSet) {
@@ -276,9 +299,15 @@ const SecondStep = ({ userEmail }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasProfileImage])
 
+  const handleTeamClick = () => {
+    setDisplayTeamWarning(!displayTeamWarning)
+  }
+
+  console.log('Display', displayTeamWarning)
+
   const TheForm = () => {
     return(
-      userInfo && oldInfoSet ?
+      isMounted ?
       <Form onSubmit={handleSubmit}>
         <Segment>
           <h1>Your Profile</h1>
@@ -299,20 +328,47 @@ const SecondStep = ({ userEmail }) => {
               multiple={false}
             />
           </Segment>
+          {
+            currentTeam ?
+
+            <Label onClick ={handleTeamClick}>
+                <Input
+                  disabled
+                  color={lastNameLine}
+                  name='team'
+                  type='text'
+                  placeholder={currentTeam.name}
+                />
+              <Input
+                onClick={handleTeamClick}
+                disabled
+                color={lastNameLine}
+                name="postion"
+                type='text'
+                placeholder={teamPositions}
+              />
+            </Label> : null
+          }
+          {
+            displayTeamWarning ?
+              <ValidationLabel>
+                <Warning>Please contact team adim to change</Warning>
+              </ValidationLabel> : null
+          }
         <Label>
           <Input
             color={firstNameLine}
             name='firstName'
             onChange={handleChange}
             type='text'
-            placeholder={firstName}
+            placeholder={userInfo.firstName}
           />
           <Input
             color={lastNameLine}
             name="lastName"
             onChange={handleChange}
             type='text'
-            placeholder={lastName}
+            placeholder={userInfo.lastName}
           />
         </Label>
         <Label>
@@ -321,9 +377,12 @@ const SecondStep = ({ userEmail }) => {
             name='city'
             onChange={handleChange}
             type='text'
-            placeholder='City'
+            placeholder={userInfo.city}
           />
-          <Select color={stateLine} name='state' onChange={handleChange}>
+          <Select color={stateLine} name='state' onChange={handleChange} defaultValue={state ? state : userInfo.state}>
+            <option disabled>{
+              state ? state : userInfo.state
+            }</option>
             {states.map((state) => {
               return (
                 <option key={state.abbreviation} value={state.abbreviation}>

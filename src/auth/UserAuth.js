@@ -45,8 +45,6 @@ export const AuthProvider = ({ children }) => {
       return userData
     }
   }, [currentUser])
-  console.log(userInfo)
-  console.log('USER USER USER', currentUser ? currentUser.uid : 'what')
 
   const value = {
     currentUser,

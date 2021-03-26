@@ -9,7 +9,7 @@ turn lower profile section into tools (mobile?)
 news section (twitter? blog?)
 footer
 emails sent?
-debug loading issues
+debug loading issues(grey box loading holder?)
 terms of services
 fix warnings in console
 Finish tools:
@@ -60,3 +60,5 @@ admin section
 donation section?
 remove console logs/ unsused files
 order of exorcists?
+react proptypes
+joi?
