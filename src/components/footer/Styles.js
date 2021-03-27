@@ -11,12 +11,11 @@ export const HomeLogo = styled.img`
 export const Main = styled.div`
   background: #000;
   height: 80px;
+  width: 100vw;
   font-size: 16px;
   justify-items: center;
-  padding: 0.5rem calc((100vw - 1000px) / 2);
+  padding: 10px;
   z-index: 10;
-  position: sticky;
-  bottom: 0;
   border-top: 3px solid #a1a1a1;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -32,6 +31,7 @@ export const Main = styled.div`
 export const CopyWrite = styled.div`
   grid-area: CopyWrite;
   padding-top: 20px;
+  padding-left: 10px;
 `
 
 export const FooterInfo = styled.div`
