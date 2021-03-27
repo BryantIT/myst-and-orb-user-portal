@@ -68,9 +68,11 @@ const SecondStep = ({ userEmail }) => {
   const [hasProfileImage, setHasProfileImage] = useState(false)
   const [teamsArray, setTeamsArray] = useState([])
   const [teams, setTeams] = useState([])
+  const [displayTeams, setDisplayTeams] = useState(false)
+  const [test, setTest] = useState()
 
-  useEffect(() => {
-    const teamData = db.collection('teams').get()
+  const getTeams = async () => {
+    const teamData = await db.collection('teams').get()
     .then((snapshot) => {
       let array = []
       snapshot.forEach((doc) => {
@@ -80,16 +82,10 @@ const SecondStep = ({ userEmail }) => {
           id: id,
           name: data.name
         })
-        setTeamsArray(array)
       })
+      setTeamsArray(array)
     })
-  }, [])
-
-  useEffect(() => {
-    if(teamsArray) {
-      setTeams(teamsArray)
-    }
-  }, [teamsArray])
+  }
 
   useEffect(() => {
     setEmail(userEmail)
@@ -258,6 +254,11 @@ const SecondStep = ({ userEmail }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasProfileImage])
 
+  const handleTeamClick = () => {
+    getTeams()
+    setDisplayTeams(!displayTeams)
+  }
+
   return (
     <Fragment>
       {
@@ -287,18 +288,22 @@ const SecondStep = ({ userEmail }) => {
             <Segment>
               <ButtonsContainer>
                 <MultiButton
+                  onClick={handleTeamClick}
+                  type='button'
                   value='join'
                   color={submitLine}
                 >
                   Join a team
                 </MultiButton>
                 <MultiButton
+                  type='button'
                   value='solo'
                   color={submitLine}
                 >
                   Go it solo
                 </MultiButton>
                 <MultiButton
+                  type='button'
                   value='create'
                   color={submitLine}
                 >
@@ -307,22 +312,26 @@ const SecondStep = ({ userEmail }) => {
               </ButtonsContainer>
               <TeamsLabel>
                 {console.log('TEAMS', teams)}
-                <Select
-                  color={stateLine}
-                  name='team'
-                  onChange={handleChange}
-                  defaultValue='Select your team'>
-                  <option disabled>{
-                    'Select your team'
-                  }</option>
-                  {teams.map((team) => {
-                    return (
+                {
+                  displayTeams ?
+                  <Select
+                    color={stateLine}
+                    name='team'
+                    onChange={handleChange}
+                    defaultValue='Select your team'>
+                    <option disabled>{
+                      'Select your team'
+                    }</option>
+                    {
+                      teamsArray.sort((a, b) =>
+                    a.name.localeCompare(b.name)).map(team => (
                       <option key={team.id} value={team.name}>
                         {team.name}
                       </option>
-                    )
-                  })}
-                </Select>
+                    ))
+                    }
+                  </Select> : null
+                }
               </TeamsLabel>
             </Segment>
           <Label>
