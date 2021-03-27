@@ -256,6 +256,7 @@ const SecondStep = ({ userEmail }) => {
   }, [hasProfileImage])
 
   const handleTeamClick = () => {
+    setSolo(false)
     if(!displayTeams) {
       getTeams()
     }
@@ -263,6 +264,7 @@ const SecondStep = ({ userEmail }) => {
   }
 
   const handleSoloClick = () => {
+    setDisplayTeams(false)
     setSolo(!solo)
   }
 
@@ -309,13 +311,6 @@ const SecondStep = ({ userEmail }) => {
                   color={submitLine}
                 >
                   Go it solo
-                </MultiButton>
-                <MultiButton
-                  type='button'
-                  value='create'
-                  color={submitLine}
-                >
-                  Create new team
                 </MultiButton>
               </ButtonsContainer>
               <TeamsLabel>
