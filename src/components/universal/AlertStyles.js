@@ -13,6 +13,7 @@ export const Info = styled.div`
 
 export const Success = styled.div`
   border: 1px solid;
+  border-radius: 20px;
   margin: 10px 0px;
   padding: 15px 10px 15px 50px;
   background-repeat: no-repeat;

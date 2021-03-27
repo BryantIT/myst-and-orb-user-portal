@@ -70,6 +70,7 @@ const SecondStep = ({ userEmail }) => {
   const [teams, setTeams] = useState([])
   const [displayTeams, setDisplayTeams] = useState(false)
   const [test, setTest] = useState()
+  const [solo, setSolo] = useState(false)
 
   const getTeams = async () => {
     const teamData = await db.collection('teams').get()
@@ -255,8 +256,14 @@ const SecondStep = ({ userEmail }) => {
   }, [hasProfileImage])
 
   const handleTeamClick = () => {
-    getTeams()
+    if(!displayTeams) {
+      getTeams()
+    }
     setDisplayTeams(!displayTeams)
+  }
+
+  const handleSoloClick = () => {
+    setSolo(!solo)
   }
 
   return (
@@ -296,6 +303,7 @@ const SecondStep = ({ userEmail }) => {
                   Join a team
                 </MultiButton>
                 <MultiButton
+                  onClick={handleSoloClick}
                   type='button'
                   value='solo'
                   color={submitLine}
@@ -311,7 +319,11 @@ const SecondStep = ({ userEmail }) => {
                 </MultiButton>
               </ButtonsContainer>
               <TeamsLabel>
-                {console.log('TEAMS', teams)}
+                {solo ? (
+                  <ValidationLabel>
+                    <Success>{`Going Solo! Don't worry you can always join or create a team later`}</Success>
+                  </ValidationLabel>
+                ) : null}
                 {
                   displayTeams ?
                   <Select
