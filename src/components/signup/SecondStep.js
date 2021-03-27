@@ -16,6 +16,9 @@ import {
   Button,
   ProfileImage,
   AvatarUploader,
+  ButtonsContainer,
+  MultiButton,
+  TeamsLabel,
   ChoiceContainer,
   CaptchaContainer,
   ModalContainer,
@@ -63,24 +66,30 @@ const SecondStep = ({ userEmail }) => {
   const [createdOn, setCreatedOn] = useState()
   const [updatedOn, setUpdatedOn] = useState()
   const [hasProfileImage, setHasProfileImage] = useState(false)
+  const [teamsArray, setTeamsArray] = useState([])
   const [teams, setTeams] = useState([])
 
   useEffect(() => {
     const teamData = db.collection('teams').get()
     .then((snapshot) => {
-      let teamsArray = []
+      let array = []
       snapshot.forEach((doc) => {
         const data = doc.data()
-        teamsArray.push({
-          id: data.id,
+        const id = doc.id
+        array.push({
+          id: id,
           name: data.name
         })
-        console.log(teamsArray)
+        setTeamsArray(array)
       })
     })
   }, [])
 
-  console.log('TEAMS', teams)
+  useEffect(() => {
+    if(teamsArray) {
+      setTeams(teamsArray)
+    }
+  }, [teamsArray])
 
   useEffect(() => {
     setEmail(userEmail)
@@ -274,6 +283,47 @@ const SecondStep = ({ userEmail }) => {
                 accept='image/*'
                 multiple={false}
               />
+            </Segment>
+            <Segment>
+              <ButtonsContainer>
+                <MultiButton
+                  value='join'
+                  color={submitLine}
+                >
+                  Join a team
+                </MultiButton>
+                <MultiButton
+                  value='solo'
+                  color={submitLine}
+                >
+                  Go it solo
+                </MultiButton>
+                <MultiButton
+                  value='create'
+                  color={submitLine}
+                >
+                  Create new team
+                </MultiButton>
+              </ButtonsContainer>
+              <TeamsLabel>
+                {console.log('TEAMS', teams)}
+                <Select
+                  color={stateLine}
+                  name='team'
+                  onChange={handleChange}
+                  defaultValue='Select your team'>
+                  <option disabled>{
+                    'Select your team'
+                  }</option>
+                  {teams.map((team) => {
+                    return (
+                      <option key={team.id} value={team.name}>
+                        {team.name}
+                      </option>
+                    )
+                  })}
+                </Select>
+              </TeamsLabel>
             </Segment>
           <Label>
             <Input

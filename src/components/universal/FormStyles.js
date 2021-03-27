@@ -42,6 +42,18 @@ export const Label = styled.label`
   width: 100%;
 `
 
+export const TeamsLabel = styled.label`
+  display: block;
+  text-align: center;
+  width: 100%;
+`
+
+export const ButtonsContainer = styled.div`
+display: flex;
+margin-bottom: 10px;
+width: 100%;
+`
+
 export const Input = styled.input`
   margin-right: 8px;
   box-shadow: -5px -5px 20px ${props => props.color};
@@ -122,4 +134,27 @@ export const Button = styled.button`
     box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
   &:active {
     box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+`
+
+export const MultiButton = styled.button`
+font-size: 20px;
+font-weight: bold;
+box-shadow: -5px -5px 20px ${props => props.color};
+transition: all 0.2s ease-in-out;
+cursor: pointer;
+font-weight: 600;
+display: block;
+width: 100%;
+color: white;
+border: 0;
+outline: 0;
+border-radius: 320px;
+padding: 16px;
+margin-left: 3px;
+margin-right: 3px;
+background-color: #000000;
+&:hover {
+  box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+&:active {
+  box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
 `
