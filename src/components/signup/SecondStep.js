@@ -4,7 +4,7 @@ import { states } from '../../helpers/States'
 // Components
 import AlreadyAUser from '../general/AlreadyAUser'
 import Loading from '../loading/Loading'
-import { db, storage } from '../../firebase'
+import { db, storage, fieldValue, firebase } from '../../firebase'
 import { DateTime } from 'luxon'
 // Styles
 import {
@@ -71,6 +71,10 @@ const SecondStep = ({ userEmail }) => {
   const [displayTeams, setDisplayTeams] = useState(false)
   const [test, setTest] = useState()
   const [solo, setSolo] = useState(false)
+  const [selectedTeam, setSelectedTeam] = useState()
+  const [team, setTeam] = useState()
+  const [hasSecret, setHasSecret] = useState(false)
+  const [secretPassed, setSecretPassed] = useState(false)
 
   const getTeams = async () => {
     const teamData = await db.collection('teams').get()
@@ -89,8 +93,10 @@ const SecondStep = ({ userEmail }) => {
   }
 
   useEffect(() => {
-    setEmail(userEmail)
-  }, [userEmail])
+    setEmail(currentUser.email)
+  }, [currentUser])
+
+  console.log('EMAIL', currentUser.email)
 
   const handleChange = (event) => {
     const value = event.target.value
@@ -99,6 +105,49 @@ const SecondStep = ({ userEmail }) => {
       [event.target.name]: value,
     })
   }
+
+  const handleTeamChange = (event) => {
+    const value = event.target.value
+    const team = teamsArray.find(t => t.id === value)
+    setSelectedTeam(team)
+  }
+
+  const handleSecretChange = (event) => {
+    const value = event.target.value
+    if(value === team.secret) {
+      setSecretPassed(true)
+    }
+  }
+
+  useEffect(() => {
+    const getTeam = async () => {
+      await db.collection('teams').doc(selectedTeam.id).get()
+      .then((snapshot) => {
+        const data = snapshot.data()
+        const id = snapshot.id
+        setTeam({
+          id: id,
+          name: data.name,
+          description: data.description,
+          location: {
+            city: data.city,
+            state: data.state,
+          },
+          requiresSecret: data.requiresSecret,
+          secret: data.secret
+        })
+      })
+    }
+    if(selectedTeam) {
+      getTeam()
+    }
+  }, [selectedTeam])
+
+  useEffect(() => {
+    if(team) {
+      setHasSecret(team.requiresSecret)
+    }
+  }, [team])
 
   const userImageFirebase = () => {
     const metadata = {
@@ -111,7 +160,6 @@ const SecondStep = ({ userEmail }) => {
     const bucketName = 'profileImages'
     const file = imageAsFile
     const storageRef = storage.ref()
-    console.log('StorageRef', storageRef)
     setProfileImageInfo({
       bucket: bucketName,
       fileName: imageFileName,
@@ -127,6 +175,14 @@ const SecondStep = ({ userEmail }) => {
   }
 
   const userInfoFirebase = () => {
+    if(teams && currentUser) {
+      const userId = currentUser.uid
+      console.log('USER IF', userId)
+      console.log(typeof userId)
+      db.collection('teams').doc(team.id).update({
+        teamMembers: firebase.firestore.FieldValue.arrayUnion(userId)
+      })
+    }
       db.collection('users').doc(`${currentUser.uid}`).set({
         createdOn: createdOn,
         updatedOn: createdOn,
@@ -136,6 +192,7 @@ const SecondStep = ({ userEmail }) => {
         state: state,
         email: email,
         profileImageInfo: profileImageInfo,
+        team: team.id,
         isPaid: 'no',
         inGoodStanding: 'yes'
       })
@@ -163,6 +220,7 @@ const SecondStep = ({ userEmail }) => {
     setProfileImage('images/avatar.png')
     setCreatedOn()
     setUpdatedOn()
+    setTeam()
   }
 
   useEffect(() => {
@@ -210,6 +268,11 @@ const SecondStep = ({ userEmail }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    console.log('DATA', data)
+    console.log('DATA EMAIL', email)
+    console.log('DATA Image', hasProfileImage)
+    console.log('DATA Created', createdOn)
+    console.log('DATA Updated', updatedOn)
     if (
       data &&
       data.firstName &&
@@ -218,8 +281,7 @@ const SecondStep = ({ userEmail }) => {
       data.state !== 'ZZ' &&
       email &&
       hasProfileImage &&
-      createdOn &&
-      updatedOn
+      createdOn
     ) {
       submitFinalData()
     } else {
@@ -261,6 +323,9 @@ const SecondStep = ({ userEmail }) => {
       getTeams()
     }
     setDisplayTeams(!displayTeams)
+    if(displayTeams) {
+      setSelectedTeam()
+    }
   }
 
   const handleSoloClick = () => {
@@ -318,13 +383,14 @@ const SecondStep = ({ userEmail }) => {
                   <ValidationLabel>
                     <Success>{`Going Solo! Don't worry you can always join or create a team later`}</Success>
                   </ValidationLabel>
-                ) : null}
+                ) : null
+                }
                 {
                   displayTeams ?
                   <Select
                     color={stateLine}
                     name='team'
-                    onChange={handleChange}
+                    onChange={handleTeamChange}
                     defaultValue='Select your team'>
                     <option disabled>{
                       'Select your team'
@@ -332,7 +398,7 @@ const SecondStep = ({ userEmail }) => {
                     {
                       teamsArray.sort((a, b) =>
                     a.name.localeCompare(b.name)).map(team => (
-                      <option key={team.id} value={team.name}>
+                      <option key={team.id} value={team.id}>
                         {team.name}
                       </option>
                     ))
@@ -340,6 +406,34 @@ const SecondStep = ({ userEmail }) => {
                   </Select> : null
                 }
               </TeamsLabel>
+            </Segment>
+            <Segment>
+              {
+                hasSecret ?
+                <TeamsLabel>
+                  <Input
+                    color={firstNameLine}
+                    name='secret'
+                    onChange={handleSecretChange}
+                    type='password'
+                    placeholder='Team Secret'
+                  />
+                </TeamsLabel> : null
+              }
+              {
+                secretPassed ? (
+                <ValidationLabel>
+                  <Success>{`Correct`}</Success>
+                </ValidationLabel>
+              ) : null
+            }
+            {
+              !secretPassed && hasSecret ? (
+              <ValidationLabel>
+                <Warning>{`This team requires a code to join`}</Warning>
+              </ValidationLabel>
+            ) : null
+          }
             </Segment>
           <Label>
             <Input

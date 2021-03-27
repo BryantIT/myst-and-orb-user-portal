@@ -62,3 +62,5 @@ remove console logs/ unsused files
 order of exorcists?
 react proptypes
 joi?
+log user out if they are deleted?
+cascade delete
