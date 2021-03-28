@@ -81,3 +81,4 @@ check all functions for need to log errors
 event based analytics
 bigdata?
 store?
+Versioning(Kraken)?
