@@ -64,3 +64,9 @@ react proptypes
 joi?
 log user out if they are deleted?
 cascade delete
+general forum
+comments for uploads
+leader/founder forum
+livestream
+Q&A
+make sure each page has a loading components

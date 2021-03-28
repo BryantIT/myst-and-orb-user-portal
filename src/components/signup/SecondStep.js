@@ -180,6 +180,7 @@ const SecondStep = ({ userEmail }) => {
       console.log('USER IF', userId)
       console.log(typeof userId)
       db.collection('teams').doc(team.id).update({
+        // Try shorting this
         teamMembers: firebase.firestore.FieldValue.arrayUnion(userId)
       })
     }
