@@ -3,6 +3,12 @@ Completed:
 03-25-2021:
 Mini Profile Section
 
+03-27-2021:
+continued work on profile
+
+03-28-2021:
+continued work on profile
+
 TODO:
 
 Profile section
