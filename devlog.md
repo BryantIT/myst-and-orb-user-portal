@@ -1,5 +1,7 @@
 Completed:
-Mini Profile Section - 03-25-2021
+
+03-25-2021:
+Mini Profile Section
 
 TODO:
 
@@ -70,3 +72,12 @@ leader/founder forum
 livestream
 Q&A
 make sure each page has a loading components
+users control how others can contact them
+cascade delete
+log a user out when deleted
+log all users out when major update
+log errors?
+check all functions for need to log errors
+event based analytics
+bigdata?
+store?

@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef, Fragment } from 'react'
 import { useHistory } from 'react-router-dom'
 import { states } from '../../helpers/States'
 // Components
+import CredChange from './CredChange'
 import AlreadyAUser from '../general/AlreadyAUser'
 import Loading from '../loading/Loading'
-import { db, storage } from '../../firebase'
+import { db, storage, auth } from '../../firebase'
 import { DateTime } from 'luxon'
 // Styles
 import {
@@ -14,6 +15,8 @@ import {
   Input,
   Select,
   Button,
+  ButtonsContainer,
+  MultiButton,
   ProfileImage,
   AvatarUploader,
   ChoiceContainer,
@@ -25,6 +28,7 @@ import {
   Info,
   Success,
   Warning,
+  WarningWithAction,
   Error,
   Validation,
   ValidationLabel,
@@ -69,6 +73,10 @@ const SecondStep = ({ userEmail }) => {
   const [currentTeam, setCurrentTeam] = useState()
   const [teamPositions, setTeamPositions] = useState()
   const [displayTeamWarning, setDisplayTeamWarning] = useState(false)
+  const [verificationSent, setVerificationSent] = useState(false)
+  const [verificationError, setVerificationError] = useState()
+  const [displayEmailChange, setDisplayEmailChange] = useState(false)
+  const [displayPasswordChange, setDisplayPasswordChange] = useState(false)
 
   useEffect(() => {
     if(currentUser && userInfo) {
@@ -283,8 +291,6 @@ const SecondStep = ({ userEmail }) => {
     }
   }
 
-  console.log('DATA DATA DATA', data)
-
   const handleImageUpload = () => {
     inputFile.current.click()
   }
@@ -313,6 +319,35 @@ const SecondStep = ({ userEmail }) => {
     setDisplayTeamWarning(!displayTeamWarning)
   }
 
+  useEffect(() => {
+    if(!currentUser.emailVerified) {
+      setVerificationSent(false)
+    }
+  }, [currentUser])
+
+  const handleEmailVerification = () => {
+    if(currentUser && !currentUser.emailVerified) {
+      auth.currentUser.sendEmailVerification()
+      .then(() => {
+        setVerificationSent(true)
+        setVerificationError()
+        console.log('Verification Email Sent')
+      })
+      .catch((error) => {
+        setVerificationError('There was a problem with verification. Please try again later or contact site admin')
+        console.log('Email not sent', error)
+      })
+    }
+  }
+
+  const handleChangeEmailClick = () => {
+    setDisplayEmailChange(!displayEmailChange)
+  }
+
+  const handleChangePasswordClick = () => {
+    setDisplayPasswordChange(!displayPasswordChange)
+  }
+
   return (
     <Fragment>
       {
@@ -339,6 +374,25 @@ const SecondStep = ({ userEmail }) => {
               accept='image/*'
               multiple={false}
             />
+            {
+              !currentUser.emailVerified && !verificationSent ?
+                <ValidationLabel>
+                  <WarningWithAction onClick={handleEmailVerification}>
+                    {
+                      verificationError ?
+                      verificationError : 'Email not verified. Click to resend verification'
+                    }
+                  </WarningWithAction>
+                </ValidationLabel> : null
+            }
+            {
+              !currentUser.emailVerified && verificationSent ?
+                <ValidationLabel>
+                  <Success>
+                    Email sent
+                  </Success>
+                </ValidationLabel> : null
+            }
           </Segment>
           {
             currentTeam ?
@@ -418,6 +472,30 @@ const SecondStep = ({ userEmail }) => {
           </ValidationLabel>
         ) : null}
       </Form> : null
+      }
+      <ButtonsContainer>
+        <MultiButton
+          onClick={handleChangeEmailClick}
+          type='button'
+          value='changeEmail'
+          color={submitLine}
+        >
+          Change Email
+        </MultiButton>
+        <MultiButton
+          onClick={handleChangePasswordClick}
+          type='button'
+          value='changePassword'
+          color={submitLine}
+        >
+          Change Password
+        </MultiButton>
+      </ButtonsContainer>
+      {
+        displayEmailChange || displayPasswordChange ?
+        <Segment>
+          <CredChange />
+        </Segment> : null
       }
     </Fragment>
   )

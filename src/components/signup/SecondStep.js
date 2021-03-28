@@ -4,7 +4,7 @@ import { states } from '../../helpers/States'
 // Components
 import AlreadyAUser from '../general/AlreadyAUser'
 import Loading from '../loading/Loading'
-import { db, storage, fieldValue, firebase } from '../../firebase'
+import { db, storage, fieldValue, firebase, auth } from '../../firebase'
 import { DateTime } from 'luxon'
 // Styles
 import {
@@ -173,6 +173,19 @@ const SecondStep = ({ userEmail }) => {
       }
     )
   }
+
+  useEffect(() => {
+    if(currentUser && !currentUser.emailVerified) {
+      auth.currentUser.sendEmailVerification()
+      .then(() => {
+        console.log('Verification Email Sent')
+      })
+      .catch((error) => {
+        console.log('Email not sent', error)
+      })
+    }
+  }, [currentUser])
+
 
   const userInfoFirebase = () => {
     if(teams && currentUser) {
