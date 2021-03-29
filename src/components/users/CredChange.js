@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import Loading from '../loading/Loading'
+import { firebase } from '../../firebase'
 import { useHistory } from 'react-router-dom'
 // Components
 import AlreadyAUser from '../general/AlreadyAUser'
@@ -18,15 +19,18 @@ import {
 // Auth
 import { useAuth } from '../../auth/UserAuth'
 
-const CredChange = () => {
+const CredChange = ({ displayPasswordForm, displayEmailForm }) => {
+  const auth = useAuth()
   const history = useHistory()
   const { signup, currentUser, userInfo } = useAuth()
   const [signupError, setSignupError] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState({})
-  const [email, setEmail] = useState()
+  const [oldEmail, setOldEmail] = useState()
+  const [newEmail, setNewEmail] = useState()
   const [confirmEmail, setConfirmEmail] = useState()
-  const [password, setPassword] = useState()
+  const [oldPassword, setOldPassword] = useState()
+  const [newPassword, setNewPassword] = useState()
   const [confirmPassword, setConfirmPassword] = useState()
   const [emailValidationMessage, setEmailValidationMessage] = useState()
   const [passwordValidationMessage, setPasswordValidationMessage] = useState()
@@ -39,6 +43,14 @@ const CredChange = () => {
   const [passwordLine, setPasswordLine] = useState('##a1a1a1')
   const [confirmPasswordLine, setConfirmPasswordLine] = useState('##a1a1a1')
   const [submitLine, setSubmitLine] = useState('##a1a1a1')
+  const [shouldDisplayEmail, setShouldDisplayEmail] = useState()
+  const [shouldDisplayPassword, setShouldDisplayPassword] = useState()
+  const [currentPassword, setCurrentPassword] = useState()
+
+  useEffect(() => {
+    setShouldDisplayEmail(displayEmailForm)
+    setShouldDisplayPassword(displayPasswordForm)
+  }, [displayEmailForm, displayPasswordForm])
 
   const handleChange = (event) => {
     const value = event.target.value
@@ -48,67 +60,54 @@ const CredChange = () => {
     })
   }
 
-  const createFirebaseUser = async () => {
-    setIsLoading(true)
-    try {
-      setSignupError('')
-      setIsLoading(true)
-      await signup(email, password)
-      .then(console.log('Setting User'))
-    } catch(error){
-      const message = error.message
-      setSignupError(message)
-    }
-    setIsLoading(false)
-  }
-
   useEffect(() => {
     if (data) {
-      setEmail(data.email)
+      setNewEmail(data.newEmail)
       setConfirmEmail(data.confirmEmail)
-      setPassword(data.password)
+      setOldPassword(data.oldPassword)
+      setNewPassword(data.newPassword)
       setConfirmPassword(data.confirmPassword)
     }
   }, [data])
 
   useEffect(() => {
-    if (confirmEmail !== undefined && confirmEmail !== email) {
+    if (confirmEmail !== undefined && confirmEmail !== newEmail) {
       setEmailValidationMessage('Emails do not match')
       setRenderEmailMessage(true)
     }
-    if (confirmEmail === undefined || confirmEmail === email) {
+    if (confirmEmail === undefined || confirmEmail === newEmail) {
       setRenderEmailMessage(false)
     }
-    if (email !== undefined && confirmEmail === undefined) {
-      const emailCheck = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        email
+    if (newEmail !== undefined && confirmEmail === undefined) {
+      const newEmailCheck = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        newEmail
       )
       setEmailValidationMessage('Invalid Email')
-      setRenderEmailMessage(!emailCheck)
+      setRenderEmailMessage(!newEmailCheck)
     }
-  }, [email, confirmEmail])
+  }, [newEmail, confirmEmail])
 
   useEffect(() => {
-    if (confirmPassword !== undefined && confirmPassword !== password) {
+    if (confirmPassword !== undefined && confirmPassword !== newPassword) {
       setPasswordValidationMessage('Passwords do not match')
       setRenderPasswordMessage(true)
     }
-    if (confirmPassword === undefined || confirmPassword === password) {
+    if (confirmPassword === undefined || confirmPassword === newPassword) {
       setRenderPasswordMessage(false)
     }
-    if (password !== undefined && confirmPassword === undefined) {
-      const passwordCheck = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(
-        password
+    if (newPassword !== undefined && confirmPassword === undefined) {
+      const newPasswordCheck = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(
+        newPassword
       )
       setPasswordValidationMessage(
         'Minimum six characters, at least one uppercase letter, one lowercase letter, one special character and one number'
       )
-      setRenderPasswordMessage(!passwordCheck)
+      setRenderPasswordMessage(!newPasswordCheck)
     }
-  }, [password, confirmPassword])
+  }, [newPassword, confirmPassword])
 
   const isUndefined = () => {
-    if (!data.email) {
+    if (!data.newEmail) {
       setEmailLine('red')
       setSubmitLine('red')
     }
@@ -116,7 +115,7 @@ const CredChange = () => {
       setConfirmEmailLine('red')
       setSubmitLine('red')
     }
-    if (!data.password) {
+    if (!data.newPassword) {
       setPasswordLine('red')
       setSubmitLine('red')
     }
@@ -126,22 +125,63 @@ const CredChange = () => {
     }
   }
 
+  const reAuthEmail = () => {
+    if(currentUser && newEmail) {
+      const credential = firebase.auth.EmailAuthProvider.credential(
+        currentUser.email,
+        oldPassword
+      )
+      const user = auth.currentUser
+      user.reauthenticateWithCredential(credential)
+      .then(
+        user.updateEmail(newEmail)
+        .then(() => {
+          console.log('New Email Updated')
+        }).catch((error) => {
+          console.log('Error', error)
+        }).catch((error) => {
+          console.log('Error', error)
+        })
+      )
+    }
+  }
+
+  const reAuthPassword = async () => {
+    if(currentUser) {
+      const credential = firebase.auth.EmailAuthProvider.credential(
+        currentUser.email,
+        oldPassword
+      )
+      const user = auth.currentUser
+      user.reauthenticateWithCredential(credential)
+      .then(
+        user.updatePassword(newPassword)
+        .then(() => {
+          console.log('New Password Updated')
+        }).catch((error) => {
+          console.log('Error', error)
+      }).catch((error) => {
+        console.log('Error', error)
+        })
+      )
+    }
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (
-      data.email &&
-      data.confirmEmail &&
-      data.password &&
-      data.confirmPassword
-    ) {
+    if (newEmail && confirmEmail) {
       setRenderFormMessage(false)
-      createFirebaseUser()
-      setPassword()
+      reAuthEmail()
+      setOldEmail()
+      setNewEmail()
+      setConfirmEmail()
+    }
+    if (newPassword && confirmPassword) {
+      setRenderFormMessage(false)
+      reAuthPassword()
+      setOldPassword()
+      setNewPassword()
       setConfirmPassword()
-
-    } else {
-      setRenderFormMessage(true)
-      setFormValidationMessage('Please complete all parts of the form')
     }
     if (data) {
       isUndefined()
@@ -155,26 +195,41 @@ const CredChange = () => {
         <Loading />
       ) :
         <Form onSubmit={handleSubmit}>
-          <Segment>
-            <h1>User Sign up</h1>
-          </Segment>
-          <Label>
-            <Input
-              color={emailLine}
-              name='email'
-              onChange={handleChange}
-              type='email'
-              placeholder='Email Address'
-            />
+          {
+            shouldDisplayEmail ? (
+              <Segment>
+                <h1>Update Email</h1>
+              </Segment>
+            ) : null
+          }
+          {
+            shouldDisplayPassword ? (
+              <Segment>
+                <h1>Update Password</h1>
+              </Segment>
+            ) : null
+          }
+          {
+            shouldDisplayEmail ? (
+              <Label>
+                <Input
+                  color={emailLine}
+                  name='email'
+                  onChange={handleChange}
+                  type='email'
+                  placeholder='Email Address'
+                />
 
-            <Input
-              color={confirmEmailLine}
-              name='confirmEmail'
-              onChange={handleChange}
-              type='email'
-              placeholder='Confirm Email Address'
-            />
-          </Label>
+                <Input
+                  color={confirmEmailLine}
+                  name='confirmEmail'
+                  onChange={handleChange}
+                  type='email'
+                  placeholder='Confirm Email Address'
+                />
+              </Label>
+            ) : null
+          }
           {renderEmailMessage ? (
             <ValidationLabel>
               <Validation>{emailValidationMessage}</Validation>
@@ -185,36 +240,55 @@ const CredChange = () => {
               <Validation>{signupError}</Validation>
             </ValidationLabel>
           ) : null}
-          <Label>
-            <Input
-              color={passwordLine}
-              name='password'
-              onChange={handleChange}
-              type='password'
-              placeholder='Password'
-            />
-            <Input
-              color={confirmPasswordLine}
-              name="confirmPassword"
-              onChange={handleChange}
-              type='password'
-              placeholder='Confirm Password'
-            />
-          </Label>
+          {
+            shouldDisplayPassword ? (
+              <Fragment>
+                <Label>
+                  <Input
+                    color={passwordLine}
+                    name='oldPassword'
+                    onChange={handleChange}
+                    type='password'
+                    placeholder='Old Password'
+                  />
+                </Label>
+                <Label>
+                  <Input
+                    color={passwordLine}
+                    name='newPassword'
+                    onChange={handleChange}
+                    type='password'
+                    placeholder='New Password'
+                  />
+                  <Input
+                    color={confirmPasswordLine}
+                    name="confirmPassword"
+                    onChange={handleChange}
+                    type='password'
+                    placeholder='Confirm New Password'
+                  />
+                </Label>
+              </Fragment>
+              ) : null
+          }
           {renderPasswordMessage ? (
             <ValidationLabel>
               <Validation>{passwordValidationMessage}</Validation>
             </ValidationLabel>
           ) : null}
           <Segment></Segment>
-          <Button
-            disabled={isLoading}
-            type='submit'
-            value='submit'
-            color={submitLine}
-          >
-            Submit
-          </Button>
+          {
+            shouldDisplayEmail || shouldDisplayPassword ? (
+              <Button
+                disabled={isLoading}
+                type='submit'
+                value='submit'
+                color={submitLine}
+              >
+                Submit
+              </Button>
+            ) : null
+          }
           {renderFormMessage ? (
             <ValidationLabel>
               <Validation>{formValidationMessage}</Validation>

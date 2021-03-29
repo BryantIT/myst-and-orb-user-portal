@@ -3,9 +3,7 @@ import Loading from '../loading/Loading'
 // Styles
 import {
   Container,
-  WelcomeContainer,
-  AboutContainer,
-  Divider} from './Styles'
+  AboutContainer} from './Styles'
 
 const AlreadyAUser = () => {
   return (

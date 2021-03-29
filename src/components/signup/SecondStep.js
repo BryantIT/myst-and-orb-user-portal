@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, Fragment } from 'react'
 import { useHistory } from 'react-router-dom'
 import { states } from '../../helpers/States'
 // Components
-import AlreadyAUser from '../general/AlreadyAUser'
 import Loading from '../loading/Loading'
 import { db, storage, fieldValue, firebase, auth } from '../../firebase'
 import { DateTime } from 'luxon'
@@ -18,30 +17,17 @@ import {
   AvatarUploader,
   ButtonsContainer,
   MultiButton,
-  TeamsLabel,
-  ChoiceContainer,
-  CaptchaContainer,
-  ModalContainer,
-  ModalInner,
-} from '../universal/FormStyles'
+  TeamsLabel } from '../universal/FormStyles'
 import {
-  Info,
   Success,
   Warning,
-  Error,
   Validation,
-  ValidationLabel,
-  ValidationLine,
-  LineWrapper,
-  AlertBoxContainer,
-  AlertBoxOverlay,
-  AlertBoxModal
-} from '../universal/AlertStyles'
+  ValidationLabel } from '../universal/AlertStyles'
 // Auth
 import { useAuth } from '../../auth/UserAuth'
 
 const SecondStep = ({ userEmail }) => {
-  const { currentUser, userInfo } = useAuth()
+  const { currentUser } = useAuth()
   const history = useHistory()
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState({})
@@ -69,7 +55,6 @@ const SecondStep = ({ userEmail }) => {
   const [teamsArray, setTeamsArray] = useState([])
   const [teams, setTeams] = useState([])
   const [displayTeams, setDisplayTeams] = useState(false)
-  const [test, setTest] = useState()
   const [solo, setSolo] = useState(false)
   const [selectedTeam, setSelectedTeam] = useState()
   const [team, setTeam] = useState()

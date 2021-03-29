@@ -4,11 +4,7 @@ import { useHistory } from 'react-router-dom'
 // Components
 import MobileMenu from './MobileMenu'
 // Style
-import {
-  Success,
-  AlertBoxContainer,
-  AlertBoxOverlay,
-  AlertBoxModal} from '../universal/AlertStyles'
+import { Success } from '../universal/AlertStyles'
 import {
   Nav,
   Bars,
@@ -36,7 +32,6 @@ const Navbar = () => {
   }
 
   const handleSignout = async () => {
-
     try {
       await signout()
       setSuccessAlert(true)

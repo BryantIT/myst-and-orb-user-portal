@@ -88,3 +88,5 @@ event based analytics
 bigdata?
 store?
 Versioning(Kraken)?
+Things that auto check and test app, maybe through git hub or circleCl...pipeline stuff
+error handling in signin

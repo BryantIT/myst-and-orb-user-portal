@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment } from 'react'
 // Components
 import Landing from './components/landing/Landing'
 import Profile from './components/users/Profile'
@@ -16,9 +16,6 @@ import Footer from './components/footer/Footer'
 import Navbar from './components/nav/Navbar'
 import './App.css';
 import { Route, Switch } from 'react-router-dom'
-import { useAuth } from './auth/UserAuth'
-//Database
-import { userInfo } from './database/Database'
 // Styles
 import { Main,
   UserInfo,

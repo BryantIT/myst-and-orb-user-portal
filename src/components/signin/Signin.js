@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
-import { states } from '../../helpers/States';
 import Loading from '../loading/Loading';
 import { useHistory } from 'react-router-dom';
 // Styles
@@ -8,34 +7,17 @@ import {
   Segment,
   Label,
   Input,
-  Select,
-  Button,
-  ProfileImage,
-  AvatarUploader,
-  ChoiceContainer,
-  CaptchaContainer,
-  ModalContainer,
-  ModalInner,
-} from '../universal/FormStyles';
+  Button } from '../universal/FormStyles';
 import {
-  Info,
-  Success,
-  Warning,
-  Error,
   Validation,
-  ValidationLabel,
-  ValidationLine,
-  LineWrapper,
-  AlertBoxContainer,
-  AlertBoxOverlay,
-  AlertBoxModal } from '../universal/AlertStyles'
+  ValidationLabel } from '../universal/AlertStyles'
 // Auth
 import { useAuth } from '../../auth/UserAuth';
 
 const Signin = () => {
   const history = useHistory()
   const { signin, currentUser } = useAuth()
-  const [signupError, setSigninError] = useState('')
+  const [signinError, setSigninError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState({})
   const [email, setEmail] = useState('')
@@ -72,7 +54,7 @@ const Signin = () => {
       await signin(email, password)
     } catch {
       setSigninError(
-        'There was a problem signing you in. Please use the context form and let use know.'
+        'There was a problem signing you in. Please use the contact form and let use know.'
       )
     }
     setIsLoading(false)

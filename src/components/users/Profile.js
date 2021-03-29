@@ -342,10 +342,12 @@ const SecondStep = ({ userEmail }) => {
 
   const handleChangeEmailClick = () => {
     setDisplayEmailChange(!displayEmailChange)
+    setDisplayPasswordChange(false)
   }
 
   const handleChangePasswordClick = () => {
     setDisplayPasswordChange(!displayPasswordChange)
+    setDisplayEmailChange(false)
   }
 
   return (
@@ -375,7 +377,7 @@ const SecondStep = ({ userEmail }) => {
               multiple={false}
             />
             {
-              !currentUser.emailVerified && !verificationSent ?
+              currentUser && !currentUser.emailVerified && !verificationSent ?
                 <ValidationLabel>
                   <WarningWithAction onClick={handleEmailVerification}>
                     {
@@ -492,10 +494,13 @@ const SecondStep = ({ userEmail }) => {
         </MultiButton>
       </ButtonsContainer>
       {
-        displayEmailChange || displayPasswordChange ?
-        <Segment>
-          <CredChange />
-        </Segment> : null
+        displayEmailChange || displayPasswordChange ? (
+          <Segment>
+            <CredChange
+              displayEmailForm={displayEmailChange}
+              displayPasswordForm={displayPasswordChange}/>
+          </Segment>
+        ) : null
       }
     </Fragment>
   )
