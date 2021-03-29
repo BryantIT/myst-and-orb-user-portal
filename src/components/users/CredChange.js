@@ -13,6 +13,7 @@ import {
   Button,
 } from '../universal/FormStyles'
 import {
+  Success,
   Validation,
   ValidationLabel,
 } from '../universal/AlertStyles'
@@ -46,6 +47,9 @@ const CredChange = ({ displayPasswordForm, displayEmailForm }) => {
   const [shouldDisplayEmail, setShouldDisplayEmail] = useState()
   const [shouldDisplayPassword, setShouldDisplayPassword] = useState()
   const [currentPassword, setCurrentPassword] = useState()
+  const [updateEmailSuccess, setUpdateEmailSuccess] = useState(false)
+  const [updatePasswordSuccess, setUpdatePasswordSuccess] = useState(false)
+
 
   useEffect(() => {
     setShouldDisplayEmail(displayEmailForm)
@@ -136,6 +140,8 @@ const CredChange = ({ displayPasswordForm, displayEmailForm }) => {
       .then(
         user.updateEmail(newEmail)
         .then(() => {
+          setUpdateEmailSuccess(true)
+          setShouldDisplayEmail(false)
           console.log('New Email Updated')
         }).catch((error) => {
           console.log('Error', error)
@@ -157,6 +163,8 @@ const CredChange = ({ displayPasswordForm, displayEmailForm }) => {
       .then(
         user.updatePassword(newPassword)
         .then(() => {
+          setUpdatePasswordSuccess(true)
+          setShouldDisplayPassword(false)
           console.log('New Password Updated')
         }).catch((error) => {
           console.log('Error', error)
@@ -195,6 +203,20 @@ const CredChange = ({ displayPasswordForm, displayEmailForm }) => {
         <Loading />
       ) :
         <Form onSubmit={handleSubmit}>
+        {
+          updateEmailSuccess ? (
+            <ValidationLabel>
+              <Success>Email updated successfully. Please signout and sign back in for the change to take affect.</Success>
+            </ValidationLabel>
+          ) : null
+        }
+        {
+          updatePasswordSuccess ? (
+            <ValidationLabel>
+              <Success>Password updated successfully. Please signout and sign back in for the change to take affect.</Success>
+            </ValidationLabel>
+          ) : null
+        }
           {
             shouldDisplayEmail ? (
               <Segment>

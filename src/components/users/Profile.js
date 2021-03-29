@@ -351,158 +351,160 @@ const SecondStep = ({ userEmail }) => {
   }
 
   return (
-    <Fragment>
-      {
-        isLoading ? (
-        <Loading />
-      ) :
-      isMounted ?
-      <Form onSubmit={handleSubmit}>
-        <Segment>
-          <h1>Your Profile</h1>
-        </Segment>
+    currentUser ? (
+      <Fragment>
+        {
+          isLoading ? (
+          <Loading />
+        ) :
+        isMounted ?
+        <Form onSubmit={handleSubmit}>
           <Segment>
-            <ProfileImage
-              color={avatarLine}
-              src={profileImage}
-              alt='avatar'
-              onClick={handleImageUpload}
-            />
-            <AvatarUploader
-              ref={inputFile}
-              onChange={handleImageChange}
-              name='profileImage'
-              type='file'
-              accept='image/*'
-              multiple={false}
-            />
-            {
-              currentUser && !currentUser.emailVerified && !verificationSent ?
-                <ValidationLabel>
-                  <WarningWithAction onClick={handleEmailVerification}>
-                    {
-                      verificationError ?
-                      verificationError : 'Email not verified. Click to resend verification'
-                    }
-                  </WarningWithAction>
-                </ValidationLabel> : null
-            }
-            {
-              !currentUser.emailVerified && verificationSent ?
-                <ValidationLabel>
-                  <Success>
-                    Email sent
-                  </Success>
-                </ValidationLabel> : null
-            }
+            <h1>Your Profile</h1>
           </Segment>
-          {
-            currentTeam ?
+            <Segment>
+              <ProfileImage
+                color={avatarLine}
+                src={profileImage}
+                alt='avatar'
+                onClick={handleImageUpload}
+              />
+              <AvatarUploader
+                ref={inputFile}
+                onChange={handleImageChange}
+                name='profileImage'
+                type='file'
+                accept='image/*'
+                multiple={false}
+              />
+              {
+                currentUser && !currentUser.emailVerified && !verificationSent ?
+                  <ValidationLabel>
+                    <WarningWithAction onClick={handleEmailVerification}>
+                      {
+                        verificationError ?
+                        verificationError : 'Email not verified. Click to resend verification'
+                      }
+                    </WarningWithAction>
+                  </ValidationLabel> : null
+              }
+              {
+                !currentUser.emailVerified && verificationSent ?
+                  <ValidationLabel>
+                    <Success>
+                      Email sent
+                    </Success>
+                  </ValidationLabel> : null
+              }
+            </Segment>
+            {
+              currentTeam ?
 
-            <Label onClick ={handleTeamClick}>
+              <Label onClick ={handleTeamClick}>
+                  <Input
+                    disabled
+                    color={lastNameLine}
+                    name='team'
+                    type='text'
+                    placeholder={currentTeam.name}
+                  />
                 <Input
+                  onClick={handleTeamClick}
                   disabled
                   color={lastNameLine}
-                  name='team'
+                  name="postion"
                   type='text'
-                  placeholder={currentTeam.name}
+                  placeholder={teamPositions}
                 />
-              <Input
-                onClick={handleTeamClick}
-                disabled
-                color={lastNameLine}
-                name="postion"
-                type='text'
-                placeholder={teamPositions}
-              />
-            </Label> : null
-          }
-          {
-            displayTeamWarning ?
-              <ValidationLabel>
-                <Warning>Please contact team adim to change</Warning>
-              </ValidationLabel> : null
-          }
-        <Label>
-          <Input
-            color={firstNameLine}
-            name='firstName'
-            onChange={handleChange}
-            type='text'
-            placeholder={firstName}
-          />
-          <Input
-            color={lastNameLine}
-            name="lastName"
-            onChange={handleChange}
-            type='text'
-            placeholder={lastName}
-          />
-        </Label>
-        <Label>
-          <Input
-            color={cityLine}
-            name='city'
-            onChange={handleChange}
-            type='text'
-            placeholder={city}
-          />
-          <Select color={stateLine} name='state' onChange={handleChange} defaultValue={state ? state : userInfo.state}>
-            <option disabled>{
-              state ? state : userInfo.state
-            }</option>
-            {states.map((state) => {
-              return (
-                <option key={state.abbreviation} value={state.abbreviation}>
-                  {state.name}
-                </option>
-              )
-            })}
-          </Select>
-        </Label>
-        <Button
-          disabled={isLoading}
-          type='submit'
-          value='submit'
-          color={submitLine}
-        >
-          Submit
-        </Button>
-        {renderFormMessage ? (
-          <ValidationLabel>
-            <Validation>{formValidationMessage}</Validation>
-          </ValidationLabel>
-        ) : null}
-      </Form> : null
-      }
-      <ButtonsContainer>
-        <MultiButton
-          onClick={handleChangeEmailClick}
-          type='button'
-          value='changeEmail'
-          color={submitLine}
-        >
-          Change Email
-        </MultiButton>
-        <MultiButton
-          onClick={handleChangePasswordClick}
-          type='button'
-          value='changePassword'
-          color={submitLine}
-        >
-          Change Password
-        </MultiButton>
-      </ButtonsContainer>
-      {
-        displayEmailChange || displayPasswordChange ? (
-          <Segment>
-            <CredChange
-              displayEmailForm={displayEmailChange}
-              displayPasswordForm={displayPasswordChange}/>
-          </Segment>
-        ) : null
-      }
-    </Fragment>
+              </Label> : null
+            }
+            {
+              displayTeamWarning ?
+                <ValidationLabel>
+                  <Warning>Please contact team adim to change</Warning>
+                </ValidationLabel> : null
+            }
+          <Label>
+            <Input
+              color={firstNameLine}
+              name='firstName'
+              onChange={handleChange}
+              type='text'
+              placeholder={firstName}
+            />
+            <Input
+              color={lastNameLine}
+              name="lastName"
+              onChange={handleChange}
+              type='text'
+              placeholder={lastName}
+            />
+          </Label>
+          <Label>
+            <Input
+              color={cityLine}
+              name='city'
+              onChange={handleChange}
+              type='text'
+              placeholder={city}
+            />
+            <Select color={stateLine} name='state' onChange={handleChange} defaultValue={state ? state : userInfo.state}>
+              <option disabled>{
+                state ? state : userInfo.state
+              }</option>
+              {states.map((state) => {
+                return (
+                  <option key={state.abbreviation} value={state.abbreviation}>
+                    {state.name}
+                  </option>
+                )
+              })}
+            </Select>
+          </Label>
+          <Button
+            disabled={isLoading}
+            type='submit'
+            value='submit'
+            color={submitLine}
+          >
+            Submit
+          </Button>
+          {renderFormMessage ? (
+            <ValidationLabel>
+              <Validation>{formValidationMessage}</Validation>
+            </ValidationLabel>
+          ) : null}
+        </Form> : null
+        }
+        <ButtonsContainer>
+          <MultiButton
+            onClick={handleChangeEmailClick}
+            type='button'
+            value='changeEmail'
+            color={submitLine}
+          >
+            Change Email
+          </MultiButton>
+          <MultiButton
+            onClick={handleChangePasswordClick}
+            type='button'
+            value='changePassword'
+            color={submitLine}
+          >
+            Change Password
+          </MultiButton>
+        </ButtonsContainer>
+        {
+          displayEmailChange || displayPasswordChange ? (
+            <Segment>
+              <CredChange
+                displayEmailForm={displayEmailChange}
+                displayPasswordForm={displayPasswordChange}/>
+            </Segment>
+          ) : null
+        }
+      </Fragment>
+    ) : null
   )
 }
 
