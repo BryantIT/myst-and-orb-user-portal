@@ -9,9 +9,11 @@ continued work on profile
 03-28-2021:
 continued work on profile
 
-TODO:
-
+03-29-2021:
 Profile section
+
+
+TODO:
 Ad section (amazon?, affilatie?)
 turn lower profile section into tools (mobile?)
 news section (twitter? blog?)
