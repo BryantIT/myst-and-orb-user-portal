@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import Loading from '../loading/Loading';
 import { useHistory } from 'react-router-dom';
 // Styles

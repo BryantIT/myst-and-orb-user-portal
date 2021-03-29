@@ -38,6 +38,7 @@ const About = () => {
         setAbout(i.about)
         setWelcome(i.welcome)
         setIsLoaded(true)
+        return i
       })
     }
   }, [info])

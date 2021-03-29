@@ -1,5 +1,4 @@
 import React from 'react'
-import Loading from '../loading/Loading'
 // Styles
 import {
   Container,

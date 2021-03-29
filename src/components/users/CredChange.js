@@ -2,8 +2,6 @@ import React, { useState, useEffect, Fragment } from 'react'
 import Loading from '../loading/Loading'
 import { firebase } from '../../firebase'
 import { useHistory } from 'react-router-dom'
-// Components
-import AlreadyAUser from '../general/AlreadyAUser'
 // Styles
 import {
   Form,
@@ -22,8 +20,7 @@ import { useAuth } from '../../auth/UserAuth'
 
 const CredChange = ({ displayPasswordForm, displayEmailForm }) => {
   const auth = useAuth()
-  const history = useHistory()
-  const { signup, currentUser, userInfo } = useAuth()
+  const { currentUser } = useAuth()
   const [signupError, setSignupError] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState({})
@@ -46,7 +43,6 @@ const CredChange = ({ displayPasswordForm, displayEmailForm }) => {
   const [submitLine, setSubmitLine] = useState('##a1a1a1')
   const [shouldDisplayEmail, setShouldDisplayEmail] = useState()
   const [shouldDisplayPassword, setShouldDisplayPassword] = useState()
-  const [currentPassword, setCurrentPassword] = useState()
   const [updateEmailSuccess, setUpdateEmailSuccess] = useState(false)
   const [updatePasswordSuccess, setUpdatePasswordSuccess] = useState(false)
 

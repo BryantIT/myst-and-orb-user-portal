@@ -18,26 +18,13 @@ import {
   ButtonsContainer,
   MultiButton,
   ProfileImage,
-  AvatarUploader,
-  ChoiceContainer,
-  CaptchaContainer,
-  ModalContainer,
-  ModalInner,
-} from '../universal/FormStyles'
+  AvatarUploader } from '../universal/FormStyles'
 import {
-  Info,
   Success,
   Warning,
   WarningWithAction,
-  Error,
   Validation,
-  ValidationLabel,
-  ValidationLine,
-  LineWrapper,
-  AlertBoxContainer,
-  AlertBoxOverlay,
-  AlertBoxModal
-} from '../universal/AlertStyles'
+  ValidationLabel } from '../universal/AlertStyles'
 // Auth
 import { useAuth } from '../../auth/UserAuth'
 
