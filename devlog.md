@@ -92,3 +92,13 @@ store?
 Versioning(Kraken)?
 Things that auto check and test app, maybe through git hub or circleCl...pipeline stuff
 error handling in signin
+https://www.cloudflare.com/plans/
+https://relevant.software/blog/react-js-security-guide/
+https://www.simform.com/react-security-vulnerabilities-solutions/
+https://dev.to/vaibhavkhulbe/7-security-tips-for-your-react-application-4e78
+https://firebase.google.com/support/guides/security-checklist
+AI chat?
+Our own shop?
+paid teir?
+mobile app for tools?
+recreate things like sls, hack shack, etc
