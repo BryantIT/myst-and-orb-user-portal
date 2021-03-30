@@ -10,5 +10,8 @@ export const AdImage = styled.img`
   transition: all 0.2s ease-in-out;
   object-fit: cover;
   cursor: pointer;
-  padding-right: 4px;
+`
+
+export const Container = styled.div`
+
 `
