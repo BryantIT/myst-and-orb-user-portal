@@ -1,6 +1,5 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment } from 'react'
 // Components
-import Navbar from './Navbar'
 import {
   MobileMenuStyle
 } from './Styles';

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Main = styled.div`
+  posistion: auto;
   display: grid;
   grid-template-columns: 0.9fr 1.1fr 1.1fr 0.9fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -9,9 +10,8 @@ export const Main = styled.div`
     "UserImage Interior Interior AdsContainer"
     "UserInfo Interior Interior NewsContainer"
     "UserInfo Interior Interior NewsContainer";
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  height: 100%;
+  overflow: auto;
   background: radial-gradient(circle, rgba(55, 53, 53, 1) 0%, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%);
   padding: 6px;
   @media screen and (max-width: 768px) {
