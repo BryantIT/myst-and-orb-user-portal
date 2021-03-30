@@ -17,6 +17,7 @@ Ad section (amazon?, affilatie?)
 
 
 TODO:
+fix mobile view
 turn lower profile section into tools (mobile?)
 news section (twitter? blog?)
 footer
@@ -107,3 +108,7 @@ recreate things like sls, hack shack, etc
 cookies?
 https://thedrinklabs.com/ (custom drink)
 School clubs
+https://www.nutracapusa.com/about-us#why-choose-us
+https://join.rocktomic.com/plds-opportunity
+business cards
+https://primebusinesscards.com/
