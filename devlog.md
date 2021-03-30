@@ -12,9 +12,11 @@ continued work on profile
 03-29-2021:
 Profile section
 
+03-30-2021:
+Ad section (amazon?, affilatie?)
+
 
 TODO:
-Ad section (amazon?, affilatie?)
 turn lower profile section into tools (mobile?)
 news section (twitter? blog?)
 footer
