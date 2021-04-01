@@ -101,12 +101,19 @@ const UserProfileMini = () =>{
 
   const NoUserProfileMini = () => {
     return (
-      <SegmentMini>
-        <ProfileImage
-          src='images/logo.png'
-          alt='avatar'
-        />
-      </SegmentMini>
+      <Fragment>
+        <SegmentMini>
+          <ProfileImage
+            src='images/logo.png'
+            alt='avatar'
+          />
+        </SegmentMini>
+        <SegmentMini>
+          <LinkWrapper>
+            <NavLink to='/signup'>Join us Here!</NavLink>
+          </LinkWrapper>
+        </SegmentMini>
+      </Fragment>
     )
   }
 
