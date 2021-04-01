@@ -1,13 +1,15 @@
 import React, { Fragment, useEffect } from 'react'
 import { useAuth } from '../../auth/UserAuth'
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
+import { isMobile } from 'react-device-detect'
 // Styles
 import {
   BottomDivider,
   TopDivider,
   StyledLink,
   Container,
-  WelcomeContainer} from './Styles'
+  WelcomeContainer,
+  SegmentMini} from './Styles'
 
 const Splash = () => {
   const { currentUser } = useAuth()
@@ -21,6 +23,13 @@ const Splash = () => {
   return(
     <Fragment>
       <Container>
+      <SegmentMini>
+        {
+          isMobile ? (
+            '*Site better viewed on desktop*'
+          ) : null
+        }
+      </SegmentMini>
         <WelcomeContainer>Manes daemones spirituum, O mi.</WelcomeContainer>
         <TopDivider src='images/divider.svg' alt='Home' />
           <WelcomeContainer id="main-title">

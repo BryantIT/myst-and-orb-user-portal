@@ -27,3 +27,8 @@ export const WelcomeContainer = styled.div`
   text-align: center;
   font-size: 30px;
 `
+
+export const SegmentMini = styled.div`
+  padding-bottom: 15px;
+  text-align: center;
+`

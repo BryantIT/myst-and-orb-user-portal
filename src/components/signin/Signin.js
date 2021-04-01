@@ -52,6 +52,7 @@ const Signin = () => {
     }
     setIsLoading(false)
     setIsMouted(false)
+    return
   }
 
   const handleSubmit = (event) => {
