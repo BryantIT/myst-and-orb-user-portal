@@ -12,6 +12,8 @@ export const SegmentMini = styled.div`
 
 export const LinkWrapper = styled.div`
   display: inline-block;
+  font-size: x-large;
+  text-decoration: underline;
 `
 
 export const ProfileImage = styled.img`

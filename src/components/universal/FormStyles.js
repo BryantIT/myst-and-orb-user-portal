@@ -118,7 +118,7 @@ export const Select = styled.select`
 export const Button = styled.button`
   font-size: 20px;
   font-weight: bold;
-  box-shadow: -5px -5px 20px ${props => props.color};
+  box-shadow: -1px -1px 5px ${props => props.color};
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   font-weight: 600;
