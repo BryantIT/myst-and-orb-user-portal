@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { useAuth } from '../../auth/UserAuth'
 // Styles
 import { DashboardLink } from './Styles'
@@ -17,13 +17,19 @@ const Dashboard = () => {
         <div>Not a Current User, please sign up</div>
       ) :
       <Container>
-        <HeaderContainer>
-          Hello {userInfo.firstName}
-        </HeaderContainer>
-        <Divider />
-        <InnerContainer>
-          Hello Inner Container
-        </InnerContainer>
+        {
+          userInfo ? (
+            <Fragment>
+              <HeaderContainer>
+                Hello {userInfo.firstName}
+              </HeaderContainer>
+              <Divider />
+              <InnerContainer>
+                Hello Inner Container
+              </InnerContainer>
+            </Fragment>
+          ) : null
+        }
       </Container>
     )
   }
@@ -46,7 +52,7 @@ const Dashboard = () => {
   }
 
   return (
-    !currentUser ? (
+    currentUser ? (
       <ProfileComplete />
     ) :
     <ProfileIncomplete />

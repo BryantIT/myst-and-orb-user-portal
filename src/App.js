@@ -8,8 +8,8 @@ import Signup from './components/signup/Signup'
 import Signin from './components/signin/Signin'
 import News from './components/news/News'
 import Crew from './components/general/Crew'
+import Tools from './components/users/Tools'
 import UserProfileMini from './components/users/UserProfileMini'
-import UserProfileImage from './components/users/UserProfileImage'
 import Ads from './components/ads/Ads'
 import About from './components/general/About'
 import Footer from './components/footer/Footer'
@@ -22,7 +22,8 @@ import { Main,
   UserImage,
   AdsContainer,
   NewsContainer,
-  Interior } from './Styles';
+  Interior,
+  UserTools } from './Styles';
 
 function App() {
 
@@ -33,14 +34,14 @@ function App() {
         <Navbar />
           <Main>
             <UserInfo>
-              <UserProfileImage />
+              <UserProfileMini />
             </UserInfo>
             <AdsContainer>
               <Ads />
             </AdsContainer>
-            <UserImage>
-              <UserProfileMini />
-            </UserImage>
+            <UserTools>
+              <Tools />
+            </UserTools>
             <NewsContainer>
               <News />
             </NewsContainer>
