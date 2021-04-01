@@ -1,8 +1,31 @@
 import React from 'react'
+import { Timeline } from 'react-twitter-widgets'
+import { isMobile } from 'react-device-detect'
 
 const News = () => {
   return (
-    <div>Hello News</div>
+    isMobile ? (
+      <Timeline
+        dataSource={{
+          sourceType: 'profile',
+          screenName: 'OrbMyst'
+        }}
+        options={{
+          height: '400',
+          theme: 'dark'
+        }}
+      />
+    ) :
+    <Timeline
+      dataSource={{
+        sourceType: 'profile',
+        screenName: 'OrbMyst'
+      }}
+      options={{
+        height: '800',
+        theme: 'dark'
+      }}
+    />
   )
 }
 
