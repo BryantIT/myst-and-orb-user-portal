@@ -18,10 +18,10 @@ Ad section (amazon?, affilatie?)
 04-01-2021:
 fix mobile view
 turn lower profile section into tools (mobile?)
+news section (twitter? blog?)
 
 
 TODO:
-news section (twitter? blog?)
 footer
 emails sent?
 debug loading issues(grey box loading holder?)
