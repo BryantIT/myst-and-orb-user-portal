@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { useAuth } from '../../auth/UserAuth'
+import { db } from '../../firebase'
 import { DateTime } from 'luxon'
 import { storage } from '../../firebase'
 // Styles
@@ -17,11 +18,12 @@ const UserProfileMini = () =>{
   const { currentUser, userInfo } = useAuth()
   const [imageURL, setImageURL] = useState()
   const [memberSince, setMemberSince] = useState({})
-
-  console.log(memberSince)
+  const [userTeamID, setUserTeamID] = useState()
+  const [teamName, setTeamName] = useState()
 
   useEffect(() => {
     if(userInfo) {
+      setUserTeamID(userInfo.team)
       const start = userInfo.createdOn
       const startConverted = DateTime.fromMillis(start)
       const now = DateTime.now()
@@ -48,6 +50,19 @@ const UserProfileMini = () =>{
     }
     return
   }, [userInfo])
+
+  useEffect(() => {
+    if(userTeamID){
+      const getTeam = async () => {
+        await db.collection('teams').doc(userTeamID).get()
+        .then((snapshot) => {
+          const data = snapshot.data()
+          setTeamName(data.name)
+        })
+      }
+      return getTeam()
+    }
+  }, [userTeamID])
 
   const ProfileMini = () => {
     return (
@@ -82,6 +97,11 @@ const UserProfileMini = () =>{
         <MiniDivider />
         <SegmentMini>
           Team Member Of:
+          <Break />
+          <Break />
+          {
+            teamName
+          }
         </SegmentMini>
         <MiniDivider />
         <SegmentMini>
