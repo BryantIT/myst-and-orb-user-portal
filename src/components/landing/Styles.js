@@ -25,6 +25,5 @@ export const Container = styled.div`
 
 export const WelcomeContainer = styled.div`
   text-align: center;
-  padding-bottom: 10px;
-  font-size: 50px;
+  font-size: 30px;
 `
