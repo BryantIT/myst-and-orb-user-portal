@@ -19,11 +19,11 @@ Ad section (amazon?, affilatie?)
 fix mobile view
 turn lower profile section into tools (mobile?)
 news section (twitter? blog?)
+fix warnings in console
 
 
 TODO:
 footer
-emails sent?
 debug loading issues(grey box loading holder?)
 terms of services
 fix warnings in console
