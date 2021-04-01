@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom'
 import { states } from '../../helpers/States'
 // Components
 import CredChange from './CredChange'
-import AlreadyAUser from '../general/AlreadyAUser'
 import Loading from '../loading/Loading'
 import { db, storage, auth } from '../../firebase'
 import { DateTime } from 'luxon'
@@ -37,7 +36,6 @@ const SecondStep = ({ userEmail }) => {
   const [lastName, setLastName] = useState()
   const [city, setCity] = useState()
   const [state, setState] = useState()
-  const [email, setEmail] = useState()
   const [profileImageInfo, setProfileImageInfo] = useState({})
   const [formValidationMessage, setFormValidationMessage] = useState()
   const [renderFormMessage, setRenderFormMessage] = useState(false)
@@ -129,10 +127,6 @@ const SecondStep = ({ userEmail }) => {
     })
   }
 
-  useEffect(() => {
-    setEmail(userEmail)
-  }, [userEmail])
-
   const handleChange = (event) => {
     const value = event.target.value
     setData({
@@ -198,14 +192,13 @@ const SecondStep = ({ userEmail }) => {
     setLastName()
     setCity()
     setState()
-    setEmail()
     setupdatedOn({})
     setOldBucket()
     setOldFileName()
   }
 
   useEffect(() => {
-    if (data, userInfo) {
+    if (data && userInfo) {
       setFirstName(data.firstName)
       setLastName(data.lastName)
       setCity(data.city)

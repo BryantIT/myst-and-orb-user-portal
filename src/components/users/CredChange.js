@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import Loading from '../loading/Loading'
 import { firebase } from '../../firebase'
-import { useHistory } from 'react-router-dom'
 // Styles
 import {
   Form,
@@ -21,10 +20,8 @@ import { useAuth } from '../../auth/UserAuth'
 const CredChange = ({ displayPasswordForm, displayEmailForm }) => {
   const auth = useAuth()
   const { currentUser } = useAuth()
-  const [signupError, setSignupError] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState({})
-  const [oldEmail, setOldEmail] = useState()
   const [newEmail, setNewEmail] = useState()
   const [confirmEmail, setConfirmEmail] = useState()
   const [oldPassword, setOldPassword] = useState()
@@ -32,10 +29,8 @@ const CredChange = ({ displayPasswordForm, displayEmailForm }) => {
   const [confirmPassword, setConfirmPassword] = useState()
   const [emailValidationMessage, setEmailValidationMessage] = useState()
   const [passwordValidationMessage, setPasswordValidationMessage] = useState()
-  const [formValidationMessage, setFormValidationMessage] = useState()
   const [renderEmailMessage, setRenderEmailMessage] = useState(false)
   const [renderPasswordMessage, setRenderPasswordMessage] = useState(false)
-  const [renderFormMessage, setRenderFormMessage] = useState(false)
   const [emailLine, setEmailLine] = useState('##a1a1a1')
   const [confirmEmailLine, setConfirmEmailLine] = useState('##a1a1a1')
   const [passwordLine, setPasswordLine] = useState('##a1a1a1')
@@ -173,19 +168,19 @@ const CredChange = ({ displayPasswordForm, displayEmailForm }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    setIsLoading(true)
     if (newEmail && confirmEmail) {
-      setRenderFormMessage(false)
       reAuthEmail()
-      setOldEmail()
       setNewEmail()
       setConfirmEmail()
+      setIsLoading(false)
     }
     if (newPassword && confirmPassword) {
-      setRenderFormMessage(false)
       reAuthPassword()
       setOldPassword()
       setNewPassword()
       setConfirmPassword()
+      setIsLoading(false)
     }
     if (data) {
       isUndefined()
@@ -253,11 +248,6 @@ const CredChange = ({ displayPasswordForm, displayEmailForm }) => {
               <Validation>{emailValidationMessage}</Validation>
             </ValidationLabel>
           ) : null}
-          {signupError ? (
-            <ValidationLabel>
-              <Validation>{signupError}</Validation>
-            </ValidationLabel>
-          ) : null}
           {
             shouldDisplayPassword ? (
               <Fragment>
@@ -307,11 +297,6 @@ const CredChange = ({ displayPasswordForm, displayEmailForm }) => {
               </Button>
             ) : null
           }
-          {renderFormMessage ? (
-            <ValidationLabel>
-              <Validation>{formValidationMessage}</Validation>
-            </ValidationLabel>
-          ) : null}
         </Form>
       }
     </Fragment>

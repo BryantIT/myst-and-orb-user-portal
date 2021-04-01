@@ -19,7 +19,6 @@ import { Route, Switch } from 'react-router-dom'
 // Styles
 import { Main,
   UserInfo,
-  UserImage,
   AdsContainer,
   NewsContainer,
   Interior,

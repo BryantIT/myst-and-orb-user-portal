@@ -8,22 +8,16 @@ import {
   Label,
   Input,
   Button } from '../universal/FormStyles';
-import {
-  Validation,
-  ValidationLabel } from '../universal/AlertStyles'
 // Auth
 import { useAuth } from '../../auth/UserAuth';
 
 const Signin = () => {
   const history = useHistory()
   const { signin, currentUser } = useAuth()
-  const [signinError, setSigninError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState({})
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [formValidationMessage, setFormValidationMessage] = useState('')
-  const [renderFormMessage, setRenderFormMessage] = useState(false)
   const [isMounted, setIsMouted] = useState(true)
 
   useEffect(() => {
@@ -49,11 +43,10 @@ const Signin = () => {
 
   const signinData = async () => {
     try {
-      setSigninError('')
       setIsLoading(true)
       await signin(email, password)
     } catch {
-      setSigninError(
+      console.log(
         'There was a problem signing you in. Please use the contact form and let use know.'
       )
     }
@@ -103,11 +96,6 @@ const Signin = () => {
           >
             Submit
           </Button>
-          {renderFormMessage ? (
-            <ValidationLabel>
-              <Validation>{formValidationMessage}</Validation>
-            </ValidationLabel>
-          ) : null}
         </Form>
       )}
     </Fragment>

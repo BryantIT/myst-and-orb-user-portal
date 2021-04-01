@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { states } from '../../helpers/States'
 // Components
 import Loading from '../loading/Loading'
-import { db, storage, fieldValue, firebase, auth } from '../../firebase'
+import { db, storage, firebase, auth } from '../../firebase'
 import { DateTime } from 'luxon'
 // Styles
 import {
@@ -53,7 +53,6 @@ const SecondStep = ({ userEmail }) => {
   const [updatedOn, setUpdatedOn] = useState()
   const [hasProfileImage, setHasProfileImage] = useState(false)
   const [teamsArray, setTeamsArray] = useState([])
-  const [teams, setTeams] = useState([])
   const [displayTeams, setDisplayTeams] = useState(false)
   const [solo, setSolo] = useState(false)
   const [selectedTeam, setSelectedTeam] = useState()
@@ -62,7 +61,7 @@ const SecondStep = ({ userEmail }) => {
   const [secretPassed, setSecretPassed] = useState(false)
 
   const getTeams = async () => {
-    const teamData = await db.collection('teams').get()
+    await db.collection('teams').get()
     .then((snapshot) => {
       let array = []
       snapshot.forEach((doc) => {
@@ -173,10 +172,8 @@ const SecondStep = ({ userEmail }) => {
 
 
   const userInfoFirebase = () => {
-    if(teams && currentUser) {
+    if(team && currentUser) {
       const userId = currentUser.uid
-      console.log('USER IF', userId)
-      console.log(typeof userId)
       db.collection('teams').doc(team.id).update({
         // Try shorting this
         teamMembers: firebase.firestore.FieldValue.arrayUnion(userId)

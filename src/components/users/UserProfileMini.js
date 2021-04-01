@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { useAuth } from '../../auth/UserAuth'
-import { DateTime, Interval } from 'luxon'
-import { auth, db, storage } from '../../firebase'
+import { DateTime } from 'luxon'
+import { storage } from '../../firebase'
 // Styles
 import {
   SegmentMini,
@@ -9,7 +9,6 @@ import {
   LinkWrapper} from './Styles'
 import {
   Divider,
-  InnerContainer,
   MiniDivider,
   Break,
   NavLink} from '../universal/Styles'
@@ -17,7 +16,6 @@ import {
 const UserProfileMini = () =>{
   const { currentUser, userInfo } = useAuth()
   const [imageURL, setImageURL] = useState()
-  const [gettingUrl, setGettingUrl] = useState(false)
   const [memberSince, setMemberSince] = useState({})
 
   console.log(memberSince)
