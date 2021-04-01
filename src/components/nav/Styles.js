@@ -8,6 +8,10 @@ export const HomeLogo = styled.img`
   width: 50px;
 `
 
+export const Main = styled.div`
+  width: 100vw;
+`
+
 export const Nav = styled.nav`
   background: #000;
   height: 80px;
@@ -18,6 +22,9 @@ export const Nav = styled.nav`
   position: sticky;
   top: 0;
   border-bottom: 3px solid #a1a1a1;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 export const MobileMenuWrapper = styled.div`

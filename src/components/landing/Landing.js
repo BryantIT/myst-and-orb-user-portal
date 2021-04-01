@@ -20,6 +20,7 @@ const Splash = () => {
   })
   return(
     <Fragment>
+      <Container>
         <WelcomeContainer>Manes daemones spirituum, O mi.</WelcomeContainer>
         <TopDivider src='images/divider.svg' alt='Home' />
           <WelcomeContainer id="main-title">
@@ -29,6 +30,7 @@ const Splash = () => {
     <WelcomeContainer>
       <StyledLink to='/about' id="main-title">Enter</StyledLink>
     </WelcomeContainer>
+      </Container>
     </Fragment>
   )
 }

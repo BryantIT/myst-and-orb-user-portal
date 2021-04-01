@@ -12,7 +12,8 @@ import {
   NavBtn,
   HomeLogo,
   MobileMenuWrapper,
-  NavBtnFauxLink
+  NavBtnFauxLink,
+  Main
 } from './Styles';
 import {
   NavLink,

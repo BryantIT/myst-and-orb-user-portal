@@ -14,8 +14,8 @@ export const StyledLink = styled(NavLink)`
   font-size: 40px;
   color: white;
   font-family: 'Times New Roman', serif;
-  position:relative;
-  line-height:1.3;
+  position: relative;
+  line-height: 1.3;
 `
 
 export const Container = styled.div`
