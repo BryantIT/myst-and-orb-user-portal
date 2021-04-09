@@ -23,6 +23,7 @@ const Benedict = () => {
         history.push('/')
       }, 10040)
     }
+    setIsMounted(false)
   }, [isMounted, history])
 
 

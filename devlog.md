@@ -21,9 +21,13 @@ turn lower profile section into tools (mobile?)
 news section (twitter? blog?)
 fix warnings in console
 
+04-09-2021:
+Social Media tags
+Footer special display
+
 
 TODO:
-footer
+Add more effect to symbol
 debug loading issues(grey box loading holder?)
 terms of services
 fix warnings in console
