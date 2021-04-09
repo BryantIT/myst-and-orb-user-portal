@@ -51,8 +51,6 @@ const Signup = () => {
     }
   }, [currentUser, userInfo, history])
 
-  console.log('USER', userInfo)
-
   const handleChange = (event) => {
     const value = event.target.value
     setData({

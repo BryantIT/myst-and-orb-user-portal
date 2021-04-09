@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { DateTime } from 'luxon'
+import { FaFacebook } from 'react-icons/fa'
 // Styles
 import {
   Main,
   CopyWrite,
   FooterInfo,
-  Social} from './Styles'
+  Social,
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  LinkWrapper,
+  SocialWrapper } from './Styles'
 
 const Footer = () => {
   const [currentYear, setCurrentYear] = useState('')
@@ -27,7 +34,20 @@ const Footer = () => {
         Hello FooterInfo
       </FooterInfo>
       <Social>
-        Hello Social
+        <SocialWrapper>
+          <LinkWrapper>
+            <Facebook />
+          </LinkWrapper>
+          <LinkWrapper>
+            <Twitter />
+          </LinkWrapper>
+          <LinkWrapper>
+            <Instagram />
+          </LinkWrapper>
+          <LinkWrapper>
+            <Youtube />
+          </LinkWrapper>
+        </SocialWrapper>
       </Social>
     </Main>
   )

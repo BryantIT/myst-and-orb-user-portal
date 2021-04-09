@@ -49,9 +49,9 @@ export const TeamsLabel = styled.label`
 `
 
 export const ButtonsContainer = styled.div`
-display: flex;
-margin-bottom: 10px;
-width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+  width: 100%;
 `
 
 export const Input = styled.input`
