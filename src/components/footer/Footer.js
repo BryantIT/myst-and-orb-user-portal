@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { DateTime } from 'luxon'
-import { FaFacebook } from 'react-icons/fa'
+import { useHistory } from 'react-router-dom'
 // Styles
 import {
   Main,
@@ -12,9 +12,11 @@ import {
   Instagram,
   Youtube,
   LinkWrapper,
-  SocialWrapper } from './Styles'
+  SocialWrapper,
+  Symbol} from './Styles'
 
 const Footer = () => {
+  const history = useHistory()
   const [currentYear, setCurrentYear] = useState('')
 
   useEffect(() => {
@@ -23,6 +25,10 @@ const Footer = () => {
     setCurrentYear(year)
   }, [])
 
+  const handleSpecialClick = () => {
+    history.push('/saved')
+  }
+
   return (
     <Main>
       <CopyWrite>
@@ -30,23 +36,24 @@ const Footer = () => {
           currentYear + ' © TheCodeNinja'
         }
       </CopyWrite>
-      <FooterInfo>
-        Hello FooterInfo
+      <FooterInfo onClick={handleSpecialClick}>
+        Manes daemones spirituum, O mi.
       </FooterInfo>
       <Social>
         <SocialWrapper>
-          <LinkWrapper>
+          <LinkWrapper href='https://www.facebook.com/Myst-and-Orb-Society-100944138757824' target='blank'>
             <Facebook />
           </LinkWrapper>
-          <LinkWrapper>
+          <LinkWrapper href='https://twitter.com/OrbMyst' target='blank'>
             <Twitter />
           </LinkWrapper>
-          <LinkWrapper>
+          <LinkWrapper href='https://www.instagram.com/mystandorb/' target='blank'>
             <Instagram />
           </LinkWrapper>
-          <LinkWrapper>
+          {/* Setup Youtube Account */}
+          {/* <LinkWrapper href='' target='blank'>
             <Youtube />
-          </LinkWrapper>
+          </LinkWrapper> */}
         </SocialWrapper>
       </Social>
     </Main>

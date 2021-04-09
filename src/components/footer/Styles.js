@@ -114,6 +114,7 @@ export const CopyWrite = styled.div`
 `
 
 export const FooterInfo = styled.div`
+  cursor: pointer;
   grid-area: FooterInfo;
   padding-top: 20px;
 `
@@ -167,4 +168,8 @@ export const NavBtnLink = styled(Link)`
     background: #fff;
     color: #010606;
   }
+`
+
+export const Symbol =  styled.div`
+  overflow: visible;
 `

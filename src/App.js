@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 // Components
+import Benedict from './components/footer/Benedict'
 import Landing from './components/landing/Landing'
 import Profile from './components/users/Profile'
 import Dashboard from './components/dashboard/Dashboard'
@@ -24,7 +25,7 @@ import { Main,
   Interior,
   UserTools } from './Styles';
 
-function App() {
+const App = () => {
 
   return (
     <AuthProvider>
@@ -48,6 +49,9 @@ function App() {
               <Interior>
               <Route exact path="/">
                 <Landing />
+              </Route>
+              <Route exact path="/saved">
+                <Benedict />
               </Route>
                 <Route exact path="/about">
                   <About />
