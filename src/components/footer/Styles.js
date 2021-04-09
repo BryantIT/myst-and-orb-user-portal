@@ -10,12 +10,13 @@ export const HomeLogo = styled.img`
 
 export const Main = styled.div`
   background: #000;
+  posistion: relative;
   height: 80px;
   width: 100vw;
   font-size: 16px;
   justify-items: center;
   padding: 10px;
-  z-index: 10;
+  /* z-index: 10; */
   border-top: 3px solid #a1a1a1;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

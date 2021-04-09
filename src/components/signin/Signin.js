@@ -21,6 +21,10 @@ const Signin = () => {
   const [isMounted, setIsMouted] = useState(true)
 
   useEffect(() => {
+    setIsMouted(true)
+  }, [])
+
+  useEffect(() => {
     if(currentUser) {
       history.push('/dashboard')
     }
@@ -49,10 +53,9 @@ const Signin = () => {
       console.log(
         'There was a problem signing you in. Please use the contact form and let use know.'
       )
+      return
     }
     setIsLoading(false)
-    setIsMouted(false)
-    return
   }
 
   const handleSubmit = (event) => {
